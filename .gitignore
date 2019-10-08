@@ -59,3 +59,11 @@ typings/
 
 # next.js build output
 .next
+
+# Idea file if any
+/.idea
+
+# For mac computers if any used
+/.vendor
+
+/.DS_Store

@@ -3,8 +3,13 @@
 }
 
 
+<<<<<<< HEAD
 .App-body {
   background-color: #282c34;
+=======
+.App-header {
+  background-color: turquoise;
+>>>>>>> 9e703075303f364723bf1e7aad97f03bd63da2e1
   min-height: 100vh;
   display: flex;
   flex-direction: column;

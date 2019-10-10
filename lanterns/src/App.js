@@ -5,15 +5,11 @@ function RotateTileRight(props) {
   console.log("Right");
   let item = "";
   let list = props;
-  item = list[3];
+  item = list[list.length -1];
   list.pop();
   list.unshift(item);
   console.log(list);
-  return (
-    <div>
-    {tile01.colorList}
-  </div>
-  );
+  return list;
 }
 
 function RotateTileLeft(props) {

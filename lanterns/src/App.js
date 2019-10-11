@@ -24,9 +24,6 @@ let tile30 = {
   colorList: ["yellow", "green", "white", "green"]
 }
 
-const boardSize = new Array(9);
-console.log(boardSize);
-
 class BoardTile extends React.Component {
   constructor(props) {
     super(props);
@@ -37,49 +34,72 @@ class BoardTile extends React.Component {
       <button className="square" onClick={this.getAdjacentTiles}>
         {this.props.value}
       </button>
-    );
-  }
-  getAdjacentTiles() {
-    alert("Grabbing adjacent lake tile orientations.");
-  }
-}
-
-class Board extends React.Component {
-  renderBoardTile(i) {
-    return (
-      [0, 1, 2, 3].map((j) => {
-        return (<BoardTile 
-          value={i} 
-          boardTileId = {j}/>
-        );
-      }
-      )
     )
   }
+  getAdjacentTiles() {
+    alert("Grabbing adjacent lake tile orientations. It's index is " + this.props.boardTileId);
+    //top
+    if (this.props.boardTileId<=2) {
+      alert("There are no boardTiles above to compare.")
+    } else {
+      let topAdjacentTileId = this.props.boardTileId-3;
+      console.log("The boardTile index above this one is " + topAdjacentTileId)
+      if (lakeTileArray[topAdjacentTileId]) {
+        console.log("The lakeTile at board index " + topAdjacentTileId + " is " + lakeTileArray[topAdjacentTileId])
+      } else {
+        console.log("There is no lake tile at board tile index " + topAdjacentTileId)
+      }
+    }
+    //left
+    if (this.props.boardTileId == 0 || this.props.boardTileId == 3 || this.props.boardTileId == 6) {
+      alert("There are no boardTiles to the left to compare.")
+    } else {
+      let leftAdjacentTileId = this.props.boardTileId-1;
+      console.log("The boardTile index to the left of this one is " + leftAdjacentTileId)
+      if (lakeTileArray[leftAdjacentTileId]) {
+        console.log("The lakeTile at board index " + leftAdjacentTileId + " is " + leftAdjacentTileId)
+      } else {
+        console.log("There is no lake tile at board tile index " + leftAdjacentTileId)
+      }
 
-render() {
 
-  return (
-    <div>
-      <div className="status"></div>
-      <div className="board-row">
-        {this.renderBoardTile()}
-        {this.renderBoardTile(tile11.TileId)}
-        {this.renderBoardTile()}
-      </div>
-      <div className="board-row">
-        {this.renderBoardTile(tile22.TileId)}
-        {this.renderBoardTile(tile30.TileId)}
-        {this.renderBoardTile(tile10.TileId)}
-      </div>
-      <div className="board-row">
-        {this.renderBoardTile()}
-        {this.renderBoardTile(tile07.TileId)}
-        {this.renderBoardTile()}
-      </div>
-    </div>
-  );
+    }
+  }
 }
+// Set -1 so first square gets index of 0.
+let j=-1;
+let lakeTileArray = [];
+class Board extends React.Component {
+  renderBoardTile(i) {
+    j++;
+    lakeTileArray.push(i);
+    console.log(lakeTileArray);
+    return <BoardTile value={i} boardTileId={j}/>
+  }
+
+
+  render() {
+    return (
+      <div>
+        <div className="status"></div>
+        <div className="board-row">
+          {this.renderBoardTile()}
+          {this.renderBoardTile(tile11.TileId)}
+          {this.renderBoardTile()}
+        </div>
+        <div className="board-row">
+          {this.renderBoardTile(tile22.TileId)}
+          {this.renderBoardTile(tile30.TileId)}
+          {this.renderBoardTile(tile10.TileId)}
+        </div>
+        <div className="board-row">
+          {this.renderBoardTile()}
+          {this.renderBoardTile(tile07.TileId)}
+          {this.renderBoardTile()}
+        </div>
+      </div>
+    );
+  }
 }
 
 class App extends React.Component {
@@ -92,6 +112,7 @@ class App extends React.Component {
         <div className="game-info">
           <div>{/* status */}</div>
           <ol>{/* TODO */}</ol>
+          {/* <ForLoopPract /> */}
         </div>
       </div>
     );

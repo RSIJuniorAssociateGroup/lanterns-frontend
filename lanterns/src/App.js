@@ -5,25 +5,27 @@ import './App.css';
 //Mock tiles based on actual GameData lake_tiles_list.csv
 let tile07 = {
   TileId: 7,
-  colorList: ["yellow","white","green","red"]
+  colorList: ["yellow", "white", "green", "red"]
 }
 let tile10 = {
   TileId: 10,
-  colorList: ["purple","blue","blue","black"]
+  colorList: ["purple", "blue", "blue", "black"]
 }
 let tile11 = {
   TileId: 11,
-  colorList: ["red","blue","white","yellow"]
+  colorList: ["red", "blue", "white", "yellow"]
 }
 let tile22 = {
   TileId: 22,
-  colorList: ["white","black","yellow","black"]
+  colorList: ["white", "black", "yellow", "black"]
 }
 let tile30 = {
   TileId: 30,
-  colorList: ["yellow","green","white","green"]
+  colorList: ["yellow", "green", "white", "green"]
 }
 
+const boardSize = new Array(9);
+console.log(boardSize);
 
 class BoardTile extends React.Component {
   constructor(props) {
@@ -37,39 +39,47 @@ class BoardTile extends React.Component {
       </button>
     );
   }
-  getAdjacentTiles () {
+  getAdjacentTiles() {
     alert("Grabbing adjacent lake tile orientations.");
   }
 }
 
 class Board extends React.Component {
   renderBoardTile(i) {
-    return <BoardTile value={i} />;
-  }
-
-  render() {
-
     return (
-      <div>
-        <div className="status"></div>
-        <div className="board-row">
-          {this.renderBoardTile()}
-          {this.renderBoardTile(tile11.TileId)}
-          {this.renderBoardTile()}
-        </div>
-        <div className="board-row">
-          {this.renderBoardTile(tile22.TileId)}
-          {this.renderBoardTile(tile30.TileId)}
-          {this.renderBoardTile(tile10.TileId)}
-        </div>
-        <div className="board-row">
-          {this.renderBoardTile()}
-          {this.renderBoardTile(tile07.TileId)}
-          {this.renderBoardTile()}
-        </div>
-      </div>
-    );
+      [0, 1, 2, 3].map((j) => {
+        return (<BoardTile 
+          value={i} 
+          boardTileId = {j}/>
+        );
+      }
+      )
+    )
   }
+
+render() {
+
+  return (
+    <div>
+      <div className="status"></div>
+      <div className="board-row">
+        {this.renderBoardTile()}
+        {this.renderBoardTile(tile11.TileId)}
+        {this.renderBoardTile()}
+      </div>
+      <div className="board-row">
+        {this.renderBoardTile(tile22.TileId)}
+        {this.renderBoardTile(tile30.TileId)}
+        {this.renderBoardTile(tile10.TileId)}
+      </div>
+      <div className="board-row">
+        {this.renderBoardTile()}
+        {this.renderBoardTile(tile07.TileId)}
+        {this.renderBoardTile()}
+      </div>
+    </div>
+  );
+}
 }
 
 class App extends React.Component {

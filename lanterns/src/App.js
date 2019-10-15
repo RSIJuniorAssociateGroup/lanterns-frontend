@@ -13,7 +13,8 @@ class Player extends React.Component {
     }
   }
   render() {
-    console.log(this.state.playerId);
+    console.log(this.state.lakeTileHand);
+    console.log(this.state.playerActive);
     return (
       <div>
         <h1>Player properties: </h1>

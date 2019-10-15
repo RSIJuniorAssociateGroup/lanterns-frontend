@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-const playerSeats = []
+const playerSeats = [];
 
 class Player extends React.Component {
   constructor(props) {

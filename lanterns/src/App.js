@@ -1,8 +1,73 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-//Mock tiles based on actual GameData lake_tiles_list.csv
+// ROTATING TILE
+function RotateTileRight(props) {
+  console.log("Right");
+  let item = "";
+  let list = props;
+  item = list[3];
+  list.pop();
+  list.unshift(item);
+  console.log(list);
+  return (
+    <div>
+    {tile01.colorList}
+  </div>
+  );
+}
+
+function RotateTileLeft(props) {
+  console.log("Left");
+  let item = "";
+  let list = props;
+  item = list[0];
+  list.shift();
+  list.push(item);
+  console.log(list);
+  return list;
+}
+
+//Test data to be passed for Rotating the Tile
+let tile01 = {
+  id: 1,
+  colorList: ["yellow ", "gold ", "indigo ", "turqouise "],
+}
+
+// PLAYER 
+const playerSeats = [];
+
+class Player extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      playerId: this.props.playerId,
+      playerName: this.props.playerName,
+      lakeTileHand: this.props.lakeTileHand,
+      playerHonorScore: this.props.playerHonorScore,
+      playerActive: false
+    }
+  }
+  render() {
+    console.log("This player's id is " + this.state.playerId);
+    console.log("This player's lake tile hand by LakeTile id is " + this.state.lakeTileHand);
+    console.log("This Player's honor score total is" + this.state.playerHonorScore);
+    console.log("This player's active status is " + this.state.playerActive);
+
+    playerSeats.push(this.state.playerId);
+    console.log("Players are seated top to bottom by id as follows: " + playerSeats);
+    return (
+      <div>
+        <h1>Player properties: </h1>
+        <p>{this.state.playerId}</p>
+        <p>{this.state.playerName}</p>
+      </div>
+    );
+  }
+}
+
+// BOARD
+// Mock tiles based on actual GameData lake_tiles_list.csv
 let tile07 = {
   TileId: 7,
   colorList: [" yellow", " white", " green", " red"]
@@ -32,8 +97,8 @@ class BoardTile extends React.Component {
   render() {
     return (
       <button className="square" onClick={this.getAdjacentTiles}
-       value={this.props.value}
-       >
+        value={this.props.value}
+      >
         {this.props.value}
       </button>
     )
@@ -134,15 +199,45 @@ class Board extends React.Component {
 class App extends React.Component {
   render() {
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board />
+      <div className="App">
+        {/* PLAYER INFO */}
+        <header className="App-header">
+          {[0, 1, 2, 3].map((i) => {
+            return (
+              <Player
+                playerId={i}
+                playerName="Brandon"
+                lakeTileHand={[4, 7, 36]}
+                playerHonorScore={0}
+                playerActive="false"
+              />
+            );
+          }
+          )
+          }
+        </header>
+        {/* Game board */}
+        <div className="game">
+          <div className="game-board">
+            <Board />
+          </div>
+          <div className="game-info">
+          </div>
         </div>
-        <div className="game-info">
-        </div>
+          {/* Rotate Lake Tile */}
+          <button onClick = {() => RotateTileRight(tile01.colorList)}>
+            Rotate Sample Tile Right
+          </button>
+          <div>
+            {/* {tile01.colorList} */}
+          </div>
+          <button onClick = {() => RotateTileLeft(tile01.colorList)}>
+            Rotate Sample Tile Left
+          </button>
       </div>
     );
   }
 }
 
 export default App;
+

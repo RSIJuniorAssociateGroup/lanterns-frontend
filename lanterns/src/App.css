@@ -32,6 +32,12 @@ ol, ul {
   width: 140px;
 }
 
+
+.App-header {
+  background-color: turquoise;
+  min-height: 100vh;
+}
+
 .square:focus {
   outline: none;
 }

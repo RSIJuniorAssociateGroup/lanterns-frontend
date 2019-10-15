@@ -1,6 +1,40 @@
 import React from 'react';
 import './App.css';
 
+// ROTATING TILE
+function RotateTileRight(props) {
+  console.log("Right");
+  let item = "";
+  let list = props;
+  item = list[3];
+  list.pop();
+  list.unshift(item);
+  console.log(list);
+  return (
+    <div>
+    {tile01.colorList}
+  </div>
+  );
+}
+
+function RotateTileLeft(props) {
+  console.log("Left");
+  let item = "";
+  let list = props;
+  item = list[0];
+  list.shift();
+  list.push(item);
+  console.log(list);
+  return list;
+}
+
+//Test data to be passed for Rotating the Tile
+let tile01 = {
+  id: 1,
+  colorList: ["yellow ", "gold ", "indigo ", "turqouise "],
+}
+
+// PLAYER 
 const playerSeats = [];
 
 class Player extends React.Component {
@@ -32,7 +66,8 @@ class Player extends React.Component {
   }
 }
 
-//Mock tiles based on actual GameData lake_tiles_list.csv
+// BOARD
+// Mock tiles based on actual GameData lake_tiles_list.csv
 let tile07 = {
   TileId: 7,
   colorList: [" yellow", " white", " green", " red"]
@@ -165,6 +200,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        {/* PLAYER INFO */}
         <header className="App-header">
           {[0, 1, 2, 3].map((i) => {
             return (
@@ -180,15 +216,24 @@ class App extends React.Component {
           )
           }
         </header>
-
+        {/* Game board */}
         <div className="game">
           <div className="game-board">
             <Board />
           </div>
           <div className="game-info">
           </div>
-
         </div>
+          {/* Rotate Lake Tile */}
+          <button onClick = {() => RotateTileRight(tile01.colorList)}>
+            Rotate Sample Tile Right
+          </button>
+          <div>
+            {/* {tile01.colorList} */}
+          </div>
+          <button onClick = {() => RotateTileLeft(tile01.colorList)}>
+            Rotate Sample Tile Left
+          </button>
       </div>
     );
   }

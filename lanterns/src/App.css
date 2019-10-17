@@ -78,12 +78,3 @@ h1 span:nth-child(4){
 .player {
   color: red;
 }
-
-/* Lantern Hand */
-.whiteCircle {
-  height: 25px;
-  width: 25px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-}

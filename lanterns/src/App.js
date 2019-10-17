@@ -12,8 +12,8 @@ function RotateTileRight(props) {
   console.log(list);
   return (
     <div>
-    {tile01.colorList}
-  </div>
+      {tile01.colorList}
+    </div>
   );
 }
 
@@ -224,15 +224,15 @@ class App extends React.Component {
           <div className="game-info">
           </div>
         </div>
-          {/* Rotate Lake Tile */}
-          <button onClick = {() => RotateTileRight(tile01.colorList)}>
-            Rotate Sample Tile Right
+        {/* Rotate Lake Tile */}
+        <button onClick={() => RotateTileRight(tile01.colorList)}>
+          Rotate Sample Tile Right
           </button>
-          <div>
-            {/* {tile01.colorList} */}
-          </div>
-          <button onClick = {() => RotateTileLeft(tile01.colorList)}>
-            Rotate Sample Tile Left
+        <div>
+          {/* {tile01.colorList} */}
+        </div>
+        <button onClick={() => RotateTileLeft(tile01.colorList)}>
+          Rotate Sample Tile Left
           </button>
       </div>
     );

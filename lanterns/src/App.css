@@ -1,57 +1,89 @@
+/* General styles */
+body, html {
+  height: 100%;
+}
+
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
+  background: url(./pictures/water-background.jpg);
+  /* Set to 98 vs 100 to prevent white strip on bottom of board */
+  height: 98%;
+  background-repeat: no-repeat;
+  /* background-position: center; */
+  /* background-size: cover; */
+  background-size: 100% 100%;
+}
+  
+/* Board specific styles */
+.box {
+  display: inline-block;       
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  margin-bottom: -1px;
+  }
+
+.off {
+  background-color: lightgray;
 }
 
-ol, ul {
-  padding-left: 30px;
+.on {
+  background-color: green;
+}
+  
+.box:hover { 
+  background: #00CCFF;
 }
 
-.board-row:after {
-  clear: both;
-  content: "";
+.center {
+  margin: auto;
   display: table;
+  margin-top: 10px;
 }
 
-.status {
-  margin-bottom: 10px;
+.grid {
+  width: 150px;
+  line-height: 0;
+  margin: auto;
+  box-shadow: 0px 0px 20px white;
+  margin-top: 10%;
+  margin-bottom: auto;
 }
-
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 140px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
+  
+ h1 {
+  margin: auto;
   text-align: center;
-  width: 140px;
+  width: 50%;
+  margin-top: 10px;
+  background-color: blue;
+  border-radius: 10px;
 }
 
-
-.App-header {
-  background-color: turquoise;
-  min-height: 100vh;
+h1 span:nth-child(1){
+  color: blueviolet;
 }
 
-.square:focus {
-  outline: none;
+h1 span:nth-child(2){
+  color: lightgreen;
 }
 
-.kbd-navigation .square:focus {
-  background: #ddd;
+h1 span:nth-child(3){
+  color: yellow;
 }
 
-.game {
-  display: flex;
-  flex-direction: row;
+h1 span:nth-child(4){
+  color: hotpink;
 }
 
-.game-info {
-  margin-left: 20px;
+/* player component */
+.player {
+  color: red;
 }
 
+/* Lantern Hand */
+.whiteCircle {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Player from './components/players';
 import RotateTileRight, { tile01 } from './components/rotateTile';
+import lakeTileImage from './pictures/tile01-0.png';
 // importsfor testing
 
 class Box extends React.Component {
@@ -137,9 +138,10 @@ class App extends React.Component {
         </div>
         {/* Rotate Lake Tile */}
         <button onClick={() => RotateTileRight(tile01.colorList)}>
-          Rotate Sample Tile Right
+          Rotate Tile
           </button>
           <Board />
+          <img src={lakeTileImage} alt="picutre of lakeTile"></img>
       </div>
     );
   }

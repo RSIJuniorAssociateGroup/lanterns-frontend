@@ -6,11 +6,8 @@ body, html {
 body {
   background: url(./pictures/water-background.jpg);
   /* Set to 98 vs 100 to prevent white strip on bottom of board */
-  height: 98%;
+  height: 100%;
   background-repeat: no-repeat;
-  /* background-position: center; */
-  /* background-size: cover; */
-  background-size: 100% 100%;
 }
   
 /* Board specific styles */
@@ -48,33 +45,89 @@ body {
   margin-top: 10%;
   margin-bottom: auto;
 }
-  
- h1 {
-  margin: auto;
-  text-align: center;
-  width: 50%;
-  margin-top: 10px;
-  background-color: blue;
-  border-radius: 10px;
-}
-
-h1 span:nth-child(1){
-  color: blueviolet;
-}
-
-h1 span:nth-child(2){
-  color: lightgreen;
-}
-
-h1 span:nth-child(3){
-  color: yellow;
-}
-
-h1 span:nth-child(4){
-  color: hotpink;
-}
 
 /* player component */
 .player {
   color: red;
+}
+
+/* Lantern hand */
+.lanternCircles {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: flex-end;
+  margin-top: 6rem;
+  margin-bottom: 1rem;
+}
+
+.whiteCircle {
+  height: 5rem;
+  width: 5rem;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  border: 5px solid gray;
+  line-height: 5rem;
+}
+
+.blueCircle {
+  height: 5rem;
+  width: 5rem;
+  background-color: navy;
+  border-radius: 50%;
+  display: inline-block;
+  border: 5px solid blue;
+  line-height: 5rem;
+}
+
+.redCircle {
+  height: 5rem;
+  width: 5rem;
+  background-color: darkred;
+  border-radius: 50%;
+  display: inline-block;
+  border: 5px solid red;
+  line-height: 5rem;
+}
+
+.greenCircle {
+  height: 5rem;
+  width: 5rem;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  border: 5px solid lime;
+  line-height: 5rem;
+}
+
+.blackCircle {
+  height: 5rem;
+  width: 5rem;
+  background-color: grey;
+  border-radius: 50%;
+  display: inline-block;
+  border: 5px solid black;
+  line-height: 5rem;
+}
+
+.yellowCircle {
+  height: 5rem;
+  width: 5rem;
+  background-color:	#FFD700;
+  border-radius: 50%;
+  display: inline-block;
+  border: 5px solid #DAA520;
+  line-height: 5rem;
+}
+
+.purpleCircle {
+  height: 5rem;
+  width: 5rem;
+  background-color: #9932CC;
+  border-radius: 50%;
+  display: inline-block;
+  border: 5px solid #4B0082;
+  line-height: 5rem;
 }

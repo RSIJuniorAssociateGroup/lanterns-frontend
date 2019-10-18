@@ -12,6 +12,7 @@ body {
   
 /* Board specific styles */
 .box {
+  /* background-image: url(./pictures/tile01-0.png); */
   display: inline-block;       
   border: 1px solid black;
   width: 100px;

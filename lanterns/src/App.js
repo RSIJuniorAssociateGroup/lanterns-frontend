@@ -4,9 +4,6 @@ import Player from './components/players';
 import RotateTileRight, { tile01 } from './components/rotateTile';
 import lakeTileImage from './pictures/tile01-0.png';
 import LanternHand from './components/lanternHand';
-const Container = styled.div`
-	height: 50px;
-	`;
 // importsfor testing
 
 class Box extends React.Component {
@@ -20,13 +17,7 @@ class Box extends React.Component {
 				className={this.props.boxClass}
 				id={this.props.id}
 				onClick={this.selectBox}
-				src={lakeTileImage}
 			/>
-			<Container>
-				<Sprite>
-
-				</Sprite>
-			</container>
 		);
 	}
 }
@@ -122,41 +113,41 @@ function arrayClone(arr) {
 }
 
 class App extends React.Component {
-  render() {
-    return (
-      <div>
-        {/* PLAYER INFO */}
-        <header>
-          {[0, 1, 2, 3].map((i) => {
-            return (
-              <Player
-                // each child in a list should contain a key
-                key={i}
-                playerId={i}
-                playerName="Brandon"
-                lakeTileHand={[4, 7, 36]}
-                playerHonorScore={0}
-                playerActive="false"
-              />
-            );
-          }
-          )
-          }
-        </header>
-        {/* Game board */}
-        <div>
-          {/* <Board /> */}
-        </div>
-        {/* Rotate Lake Tile */}
-        <button onClick={() => RotateTileRight(tile01.colorList)}>
-          Rotate Tile
+	render() {
+		return (
+			<div>
+				{/* PLAYER INFO */}
+				<header>
+					{[0, 1, 2, 3].map((i) => {
+						return (
+							<Player
+								// each child in a list should contain a key
+								key={i}
+								playerId={i}
+								playerName="Brandon"
+								lakeTileHand={[4, 7, 36]}
+								playerHonorScore={0}
+								playerActive="false"
+							/>
+						);
+					}
+					)
+					}
+				</header>
+				{/* Game board */}
+				<div>
+					{/* <Board /> */}
+				</div>
+				{/* Rotate Lake Tile */}
+				<button onClick={() => RotateTileRight(tile01.colorList)}>
+					Rotate Tile
           </button>
-          <Board />
-		  <LanternHand/>
-          {/* <img src={lakeTileImage} alt="picutre of lakeTile"></img> */}
-      </div>
-    );
-  }
+				<Board />
+				<LanternHand />
+				{/* <img src={lakeTileImage} alt="picutre of lakeTile"></img> */}
+			</div>
+		);
+	}
 }
 
 export default App;

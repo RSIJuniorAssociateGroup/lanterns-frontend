@@ -4,6 +4,9 @@ import Player from './components/players';
 import RotateTileRight, { tile01 } from './components/rotateTile';
 import lakeTileImage from './pictures/tile01-0.png';
 import LanternHand from './components/lanternHand';
+const Container = styled.div`
+	height: 50px;
+	`;
 // importsfor testing
 
 class Box extends React.Component {
@@ -17,7 +20,13 @@ class Box extends React.Component {
 				className={this.props.boxClass}
 				id={this.props.id}
 				onClick={this.selectBox}
+				src={lakeTileImage}
 			/>
+			<Container>
+				<Sprite>
+
+				</Sprite>
+			</container>
 		);
 	}
 }
@@ -41,6 +50,7 @@ class Grid extends React.Component {
 						row={i}
 						col={j}
 						selectBox={this.props.selectBox}
+
 					/>
 				);
 			}
@@ -90,6 +100,12 @@ class Board extends React.Component {
 	render() {
 		return (
 			<div>
+				<h1>
+					<span>Lanterns: </span>
+					<span>The </span>
+					<span>Harvest </span>
+					<span>Festival</span>
+				</h1>
 				<Grid
 					gridFull={this.state.gridFull}
 					rows={this.rows}
@@ -136,7 +152,7 @@ class App extends React.Component {
           Rotate Tile
           </button>
           <Board />
-		  <LanternHand />
+		  <LanternHand/>
           {/* <img src={lakeTileImage} alt="picutre of lakeTile"></img> */}
       </div>
     );

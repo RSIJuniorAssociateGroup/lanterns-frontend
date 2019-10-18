@@ -57,7 +57,6 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-content: flex-end;
   margin-top: 6rem;
   margin-bottom: 1rem;
 }

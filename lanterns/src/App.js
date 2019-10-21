@@ -91,12 +91,6 @@ class Board extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>
-					<span>Lanterns: </span>
-					<span>The </span>
-					<span>Harvest </span>
-					<span>Festival</span>
-				</h1>
 				<Grid
 					gridFull={this.state.gridFull}
 					rows={this.rows}
@@ -115,7 +109,7 @@ function arrayClone(arr) {
 class App extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="gameView">
 				{/* PLAYER INFO */}
 				<header>
 					{[0, 1, 2, 3].map((i) => {

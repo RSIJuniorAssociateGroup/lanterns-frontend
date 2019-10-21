@@ -59,7 +59,7 @@ class LanternHand extends React.Component {
     render() {
         return (
             <div>
-                <div className="lanternCircles">
+                {/* <div className="lanternCircles">
                     <button onClick={this.whiteLantern.bind(this)}>Add Lantern</button>
                     <button onClick={this.blueLantern.bind(this)}>Add Lantern</button>
                     <button onClick={this.redLantern.bind(this)}>Add Lantern</button>
@@ -67,7 +67,7 @@ class LanternHand extends React.Component {
                     <button onClick={this.blackLantern.bind(this)}>Add Lantern</button>
                     <button onClick={this.yellowLantern.bind(this)}>Add Lantern</button>
                     <button onClick={this.purpleLantern.bind(this)}>Add Lantern</button>
-                </div>
+                </div> */}
                 <div className="lanternCircles">
                     <span className="whiteCircle">{this.state.white}</span>
                     <span className="blueCircle">{this.state.blue}</span>

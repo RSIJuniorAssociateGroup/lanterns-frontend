@@ -1,4 +1,6 @@
-/* General styles */
+/******************************************************************
+General styles 
+******************************************************************/
 body, html {
   height: 100%;
 }
@@ -9,8 +11,16 @@ body {
   height: 100%;
   background-repeat: no-repeat;
 }
-  
-/* Board specific styles */
+
+/* In game view: grid css */
+.gameView {
+  display: grid;
+  grid-template-columns: 4% 4% 4% 80% 4%;
+}  
+
+/******************************************************************
+Game Board
+******************************************************************/
 .box {
   /* background-image: url(./pictures/tile01-0.png); */
   display: inline-block;       
@@ -43,20 +53,24 @@ body {
   line-height: 0;
   margin: auto;
   box-shadow: 0px 0px 20px white;
-  margin-top: 10%;
+  margin-top: 15rem;
   margin-bottom: auto;
 }
 
-/* player component */
+/******************************************************************
+ Player component
+ ******************************************************************/
 .player {
   color: red;
 }
 
-/* Lantern hand */
+/******************************************************************
+ Lantern hand 
+ ******************************************************************/
 .lanternCircles {
   text-align: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   margin-top: 6rem;
   margin-bottom: 1rem;

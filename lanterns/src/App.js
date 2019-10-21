@@ -110,34 +110,75 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="gameView">
-				{/* PLAYER INFO */}
-				<header>
-					{[0, 1, 2, 3].map((i) => {
-						return (
-							<Player
-								// each child in a list should contain a key
-								key={i}
-								playerId={i}
-								playerName="Brandon"
-								lakeTileHand={[4, 7, 36]}
-								playerHonorScore={0}
-								playerActive="false"
-							/>
-						);
-					}
-					)
-					}
-				</header>
-				{/* Game board */}
-				<div>
-					{/* <Board /> */}
+
+				{/* PLAYER 0 INFO */}
+				<div className="playerZero">
+					<Player
+						// each child in a list should contain a key
+						key={0}
+						playerId={0}
+						playerName="Anton"
+						lakeTileHand={[4, 7, 36]}
+						playerHonorScore={0}
+						playerActive="false"
+					/>
 				</div>
-				{/* Rotate Lake Tile */}
-				<button onClick={() => RotateTileRight(tile01.colorList)}>
-					Rotate Tile
-          </button>
-				<Board />
-				<LanternHand />
+
+				<div className="middleGameView">
+
+				{/* PLAYER 1 INFO */}
+				<div>
+					<Player
+						// each child in a list should contain a key
+						key={0}
+						playerId={0}
+						playerName="Anton"
+						lakeTileHand={[4, 7, 36]}
+						playerHonorScore={0}
+						playerActive="false"
+					/>
+				</div>
+
+				{/* Game board */}
+				<div className="boardGridStyle">
+					<Board />
+				</div>
+
+				{/* PLAYER 3 INFO */}
+				<div>
+					<Player
+						// each child in a list should contain a key
+						key={0}
+						playerId={0}
+						playerName="Anton"
+						lakeTileHand={[4, 7, 36]}
+						playerHonorScore={0}
+						playerActive="false"
+					/>
+				</div>
+
+				<div>
+					<LanternHand />
+				</div>
+
+				</div>
+
+				{/* PLAYER 2 (HUMAN) INFO */}
+				<div>
+					<Player
+						// each child in a list should contain a key
+						key={0}
+						playerId={0}
+						playerName="Anton"
+						lakeTileHand={[4, 7, 36]}
+						playerHonorScore={0}
+						playerActive="false"
+					/>
+										<button onClick={() => RotateTileRight(tile01.colorList)}>
+						Rotate Tile
+          		</button>
+				</div>
+
 				{/* <img src={lakeTileImage} alt="picutre of lakeTile"></img> */}
 			</div>
 		);

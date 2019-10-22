@@ -25,7 +25,7 @@ class Player extends React.Component {
         console.log("Players are seated top to bottom by id as follows: " + playerSeats);
         return (
             <div>
-                <p>{this.state.playerName}</p>
+                <p className="playerName">{this.state.playerName}</p>
             </div>
         );
     }

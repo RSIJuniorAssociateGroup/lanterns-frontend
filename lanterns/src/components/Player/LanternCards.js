@@ -70,13 +70,41 @@ class LanternCards extends React.Component {
                     <button onClick={this.purpleLantern.bind(this)}>Add Lantern</button>
                 </div> */}
                 <div className="lanternCircles">
-                    <span className="whiteCircle">{this.state.white}</span>
-                    <span className="blueCircle">{this.state.blue}</span>
-                    <span className="redCircle">{this.state.red}</span>
-                    <span className="greenCircle">{this.state.green}</span>
-                    <span className="blackCircle">{this.state.black}</span>
-                    <span className="yellowCircle">{this.state.yellow}</span>
-                    <span className="purpleCircle">{this.state.purple}</span>
+                    <div className="whiteCircle">
+                        <div className="circleText">
+                            {this.state.white}
+                        </div>
+                    </div>
+                    <div className="blueCircle">
+                        <div className="circleText">
+                            {this.state.blue}
+                        </div>
+                    </div>
+                    <div className="redCircle">
+                        <div className="circleText">
+                            {this.state.blue}
+                        </div>
+                    </div>
+                    <div className="greenCircle">
+                        <div className="circleText">
+                            {this.state.blue}
+                        </div>
+                    </div>
+                    <div className="blackCircle">
+                        <div className="circleText">
+                            {this.state.blue}
+                        </div>
+                    </div>
+                    <div className="yellowCircle">
+                        <div className="circleText">
+                            {this.state.blue}
+                        </div>
+                    </div>
+                    <div className="purpleCircle">
+                        <div className="circleText">
+                            {this.state.blue}
+                        </div>
+                    </div>
                 </div>
             </div>
         )

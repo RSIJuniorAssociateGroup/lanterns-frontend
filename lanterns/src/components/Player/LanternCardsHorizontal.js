@@ -1,10 +1,11 @@
 import React from '../../../node_modules/react';
 import '../../App.css';
 
-class LanternSupply extends React.Component {
+class LanternCardsHorizontal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            player: 0,
             white: 0,
             blue: 0,
             red: 0,
@@ -68,8 +69,8 @@ class LanternSupply extends React.Component {
                     <button onClick={this.yellowLantern.bind(this)}>Add Lantern</button>
                     <button onClick={this.purpleLantern.bind(this)}>Add Lantern</button>
                 </div> */}
-                <div className="lanternCircles">
-                <div className="whiteCircle">
+                <div className="lanternCirclesHorizontal">
+                <div className="whiteCircleHorizontal">
                         <div className="circleText">
                             {this.state.white}
                         </div>
@@ -110,4 +111,4 @@ class LanternSupply extends React.Component {
     }
 }
 
-export default LanternSupply;
+export default LanternCardsHorizontal;

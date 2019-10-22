@@ -1,8 +1,8 @@
-import React from '../../../node_modules/react';
-import "./PlayerHand.css"
+import React from 'react';
+import "./PlayerLakeTiles.css"
 import LakeTile from "../LakeTileComponent/LakeTile"
 
-class PlayerHand extends React.Component {
+class PlayerLakeTiles extends React.Component {
     render() {
         return (
             <div className="player-hand" >
@@ -32,4 +32,4 @@ class PlayerHand extends React.Component {
     }
 }
 
-export default PlayerHand;
+export default PlayerLakeTiles;

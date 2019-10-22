@@ -3,8 +3,10 @@ import './App.css';
 import Player from './components/player/Players';
 import RotateTileRight, { tile01 } from './components/LakeTileComponent/RotateTile';
 import lakeTileImage from './pictures/tile01-0.png';
-import LanternSupply from './components/supply/LanternSupply'; 
-import PlayerHand from './components/player/PlayerHand';
+import LanternSupply from './components/supply/LanternSupply';
+import PlayerLakeTiles from './components/player/PlayerLakeTiles';
+import LanternCards from './components/player/LanternCards';
+import LanternCardsHorizontal from './components/player/LanternCardsHorizontal';
 // imports for testing
 
 class Box extends React.Component {
@@ -113,7 +115,6 @@ class App extends React.Component {
 			<div className="gameView">
 
 				{/* PLAYER 0 INFO */}
-				{/* <div className="playerContainer"> */}
 				<div className="playerZero">
 					<Player
 						// each child in a list should contain a key
@@ -124,13 +125,12 @@ class App extends React.Component {
 						playerHonorScore={0}
 						playerActive="false"
 					/>
+					<LanternCardsHorizontal />
+					<PlayerLakeTiles />
 				</div>
-				{/* </div> */}
 
-				{/* <div className="middleGameView"> */}
 
 				{/* PLAYER 1 INFO */}
-				{/* <div className="playerContainer"> */}
 				<div className="playerOne">
 					<Player
 						// each child in a list should contain a key
@@ -141,8 +141,9 @@ class App extends React.Component {
 						playerHonorScore={0}
 						playerActive="false"
 					/>
+					<PlayerLakeTiles />
+					<LanternCards />
 				</div>
-				{/* </div> */}
 
 				{/* Game board */}
 				<div className="boardGridStyle">
@@ -150,7 +151,6 @@ class App extends React.Component {
 				</div>
 
 				{/* PLAYER 3 INFO */}
-				{/* <div className="playerContainer"> */}
 				<div className="playerThree">
 					<Player
 						// each child in a list should contain a key
@@ -161,17 +161,18 @@ class App extends React.Component {
 						playerHonorScore={0}
 						playerActive="false"
 					/>
+					<PlayerLakeTiles />
+					<LanternCards />
 				</div>
-				{/* </div> */}
 
 				<div className="supplyGrid">
 					<LanternSupply />
 				</div>
 
-				{/* </div> */}
 
 				{/* PLAYER 2 (HUMAN) INFO */}
 				<div className="playerTwo">
+
 					<Player
 						// each child in a list should contain a key
 						key={0}
@@ -181,16 +182,19 @@ class App extends React.Component {
 						playerHonorScore={0}
 						playerActive="false"
 					/>
-<PlayerHand/>
+
+					<PlayerLakeTiles />
+
+					<LanternCardsHorizontal />
 
 					<button onClick={() => RotateTileRight(tile01.colorList)}>
 						Rotate Tile
           		</button>
 				</div>
 
-        {/* <img src={lakeTileImage} alt="picutre of lakeTile"></img> */}
-        
-                
+				{/* <img src={lakeTileImage} alt="picutre of lakeTile"></img> */}
+
+
 			</div>
 		);
 	}

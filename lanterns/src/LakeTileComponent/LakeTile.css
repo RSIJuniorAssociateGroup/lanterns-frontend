@@ -32,13 +32,13 @@
   grid-row-start: 1;
   grid-row-end: 2;
 }
-.bottomTri {
+.leftTri {
   background-color: yellow;
   height: 100px;
   width: 100px;
   justify-self: end;
 }
-.leftTri {
+.bottomTri {
   background-color: green;
   height: 100px;
   width: 100px;

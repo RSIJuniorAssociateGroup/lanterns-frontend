@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import PlayerHand from "./PlayerHand"
-import LakeTile from "./LakeTile"
+import LakeTile from "./LakeTileComponent/LakeTile"
 
 // ROTATING TILE
 

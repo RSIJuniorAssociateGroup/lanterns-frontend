@@ -7,20 +7,30 @@ import LanternSupply from './components/supply/LanternSupply';
 import PlayerLakeTiles from './components/player/PlayerLakeTiles';
 import LanternCards from './components/player/LanternCards';
 import LanternCardsHorizontal from './components/player/LanternCardsHorizontal';
+import LakeTile from './components/LakeTileComponent/LakeTile'
+
 // imports for testing
 
-class Box extends React.Component {
-	selectBox = () => {
-		this.props.selectBox(this.props.row, this.props.col);
+class BoardTile extends React.Component {
+	selectBoardTile = () => {
+		this.props.selectBoardTile(this.props.row, this.props.col);
 	}
 
 	render() {
 		return (
 			<div
-				className={this.props.boxClass}
+				className={this.props.BoardTileClass}
 				id={this.props.id}
-				onClick={this.selectBox}
-			/>
+				onClick={this.selectBoardTile}
+			>
+				<div className="lake-tile-holder">
+					<LakeTile
+						topColor={2}
+						rightColor={4}
+						bottomColor={5}
+						leftColor={3} />
+				</div>
+			</div>
 		);
 	}
 }
@@ -30,20 +40,20 @@ class Grid extends React.Component {
 		const width = (this.props.cols * 102);
 		var rowsArr = [];
 
-		var boxClass = "";
+		var BoardTileClass = "";
 		for (var i = 0; i < this.props.rows; i++) {
 			for (var j = 0; j < this.props.cols; j++) {
-				let boxId = i + "_" + j;
+				let BoardTileId = i + "_" + j;
 
-				boxClass = this.props.gridFull[i][j] ? "box on" : "box off";
+				BoardTileClass = this.props.gridFull[i][j] ? "BoardTile on" : "BoardTile off";
 				rowsArr.push(
-					<Box
-						boxClass={boxClass}
-						key={boxId}
-						boxId={boxId}
+					<BoardTile
+						BoardTileClass={BoardTileClass}
+						key={BoardTileId}
+						BoardTileId={BoardTileId}
 						row={i}
 						col={j}
-						selectBox={this.props.selectBox}
+						selectBoardTile={this.props.selectBoardTile}
 
 					/>
 				);
@@ -69,7 +79,7 @@ class Board extends React.Component {
 		}
 	}
 
-	selectBox = (row, col) => {
+	selectBoardTile = (row, col) => {
 		let gridCopy = arrayClone(this.state.gridFull);
 		gridCopy[row][col] = !gridCopy[row][col];
 		console.log(row, col);
@@ -98,7 +108,7 @@ class Board extends React.Component {
 					gridFull={this.state.gridFull}
 					rows={this.rows}
 					cols={this.cols}
-					selectBox={this.selectBox}
+					selectBoardTile={this.selectBoardTile}
 				/>
 			</div>
 		);

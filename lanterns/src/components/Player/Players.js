@@ -26,6 +26,7 @@ class Player extends React.Component {
         return (
             <div>
                 <p className="playerName">{this.state.playerName}</p>
+                <p className="honorScore">Honor Score: {this.state.playerHonorScore}</p>
             </div>
         );
     }

@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 // ROTATING TILE
 function RotateTileRight(props) {
     console.log("Right");

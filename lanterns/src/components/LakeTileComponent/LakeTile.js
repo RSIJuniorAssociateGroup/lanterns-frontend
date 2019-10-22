@@ -71,16 +71,16 @@ class LakeTile extends React.Component {
                 <div className="parent"
                     onClick={this.rotate}>
                     <div className="topTri">
-                        <img src={top} />
+                        <img src={top} alt="top lanterns"/>
                     </div>
                     <div className="rightTri">
-                        <img src={right} />
+                        <img src={right} alt="right lanterns"/>
                     </div>
                     <div className="leftTri">
-                        <img src={left} />
+                        <img src={left} alt="left lanterns"/>
                     </div>
                     <div className="bottomTri">
-                        <img src={bottom} />
+                        <img src={bottom} alt="bottom lanterns"/>
                     </div>
                 </div>
             </div>

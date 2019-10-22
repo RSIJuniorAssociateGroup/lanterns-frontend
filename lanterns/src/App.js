@@ -4,6 +4,7 @@ import Player from './components/players';
 import RotateTileRight, { tile01 } from './components/rotateTile';
 import lakeTileImage from './pictures/tile01-0.png';
 import LanternHand from './components/lanternHand';
+import PlayerHand from './PlayerHand';
 // importsfor testing
 
 class Box extends React.Component {
@@ -180,12 +181,16 @@ class App extends React.Component {
 						playerHonorScore={0}
 						playerActive="false"
 					/>
+<PlayerHand/>
+
 					<button onClick={() => RotateTileRight(tile01.colorList)}>
 						Rotate Tile
           		</button>
 				</div>
 
-				{/* <img src={lakeTileImage} alt="picutre of lakeTile"></img> */}
+        {/* <img src={lakeTileImage} alt="picutre of lakeTile"></img> */}
+        
+                
 			</div>
 		);
 	}

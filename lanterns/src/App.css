@@ -197,3 +197,6 @@ Game Board
   line-height: 3rem;
   margin-bottom: 1rem;
 }
+.game-info {
+  margin-left: 20px;
+}

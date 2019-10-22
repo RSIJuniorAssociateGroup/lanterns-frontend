@@ -1,0 +1,55 @@
+.parentContainer {
+  display: block;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  }
+.parent {
+  position: absolute;
+  margin: auto;
+  display: grid;
+  transform: rotate(45deg);  
+  top: -50px;
+  left: -50px;
+}
+.topTri {
+  /* background-color: blue; */
+  height: 100px;
+  width: 100px;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  justify-self: end;
+}
+.rightTri {
+  background-color: red;
+  height: 100px;
+  width: 100px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.leftTri {
+  background-color: yellow;
+  height: 100px;
+  width: 100px;
+  justify-self: end;
+}
+.bottomTri {
+  background-color: green;
+  height: 100px;
+  width: 100px;
+}
+.overlayDiv {
+  justify-items: center;
+  position: absolute;
+  height: 1rem;
+  width: 1rem;
+  top: 1rem;
+  left: 50%;
+  height: 1rem;
+  overflow: hidden
+}

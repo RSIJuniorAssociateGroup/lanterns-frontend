@@ -202,9 +202,6 @@ class App extends React.Component {
           		</button>
 				</div>
 
-				{/* <img src={lakeTileImage} alt="picutre of lakeTile"></img> */}
-
-
 			</div>
 		);
 	}

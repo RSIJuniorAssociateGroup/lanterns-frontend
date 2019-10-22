@@ -1,7 +1,7 @@
-import React from 'react';
-import '../App.css';
+import React from '../../../node_modules/react';
+import '../../App.css';
 
-class LanternHand extends React.Component {
+class LanternSupply extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -82,4 +82,4 @@ class LanternHand extends React.Component {
     }
 }
 
-export default LanternHand;
+export default LanternSupply;

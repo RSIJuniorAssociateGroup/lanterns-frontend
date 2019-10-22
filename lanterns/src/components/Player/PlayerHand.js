@@ -1,6 +1,6 @@
 import React from "react"
 import "./PlayerHand.css"
-import LakeTile from "./LakeTileComponent/LakeTile"
+import LakeTile from "../LakeTileComponent/LakeTile"
 
 class PlayerHand extends React.Component {
     render() {

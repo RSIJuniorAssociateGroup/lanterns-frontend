@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Player from './components/players';
-import RotateTileRight, { tile01 } from './components/rotateTile';
+import Player from './components/player/Players';
+import RotateTileRight, { tile01 } from './components/LakeTileComponent/RotateTile';
 import lakeTileImage from './pictures/tile01-0.png';
-import LanternHand from './components/lanternHand';
-import PlayerHand from './PlayerHand';
-// importsfor testing
+import LanternSupply from './components/supply/LanternSupply'; 
+import PlayerHand from './components/player/PlayerHand';
+// imports for testing
 
 class Box extends React.Component {
 	selectBox = () => {
@@ -165,7 +165,7 @@ class App extends React.Component {
 				{/* </div> */}
 
 				<div className="supplyGrid">
-					<LanternHand />
+					<LanternSupply />
 				</div>
 
 				{/* </div> */}

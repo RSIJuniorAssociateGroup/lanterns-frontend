@@ -39,7 +39,7 @@ class DedicationToken extends React.Component {
 
         return (
             <div className="tokenHand">
-                <button className="tokenContainer" onClick={this.nextToken}>
+                <button className="tokenContainer" onClick={this.nextTokens}>
                     <img src={ded4} width="150" alt="4_of_a_Kind" />
                     <h1>{points4}</h1>
                 </button>

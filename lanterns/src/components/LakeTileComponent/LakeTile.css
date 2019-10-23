@@ -24,7 +24,6 @@
   justify-self: end;
 }
 .rightTri {
-  background-color: red;
   height: 100px;
   width: 100px;
   grid-column-start: 2;
@@ -33,13 +32,11 @@
   grid-row-end: 2;
 }
 .leftTri {
-  background-color: yellow;
   height: 100px;
   width: 100px;
   justify-self: end;
 }
 .bottomTri {
-  background-color: green;
   height: 100px;
   width: 100px;
 }

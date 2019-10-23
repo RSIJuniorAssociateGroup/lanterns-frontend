@@ -1,0 +1,25 @@
+.tokenHand {
+    
+    text-align: center;
+    padding-top: 50px;
+    
+   
+}
+
+.tokenContainer {
+    position: relative;
+    width: 150px;
+    background: none;
+    border: none;
+    padding: 0 0 0 0;
+    margin-top: 5px;
+}
+
+
+
+h1 {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    text-align: center;
+}

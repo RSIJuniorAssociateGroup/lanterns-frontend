@@ -160,6 +160,7 @@ Game Board
   align-items: center;
   justify-content: space-around !important;
 }
+
 .circleText {
   margin-left: 1rem;
 }
@@ -167,10 +168,7 @@ Game Board
 .whiteCircle {
   height: 90px;
   width: 90px;
-  /* background-color: #bbb; */
   background-image: url(./pictures/white.png);
-  /* border-radius: 50%; */
-  /* border: 5px solid gray; */
   line-height: 5rem;
   margin-top: 1rem;
   margin-bottom: 1rem;

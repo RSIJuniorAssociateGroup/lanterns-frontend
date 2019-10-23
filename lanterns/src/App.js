@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import Player from './components/player/Players';
+import Player from './components/Player/Players';
 import RotateTileRight, { tile01 } from './components/LakeTileComponent/RotateTile';
 import lakeTileImage from './pictures/tile01-0.png';
-import LanternSupply from './components/supply/LanternSupply';
-import PlayerLakeTiles from './components/player/PlayerLakeTiles';
-import LanternCards from './components/player/LanternCards';
-import LanternCardsHorizontal from './components/player/LanternCardsHorizontal';
+import LanternSupply from './components/Supply/LanternSupply';
+import PlayerLakeTiles from './components/Player/PlayerLakeTiles';
+import LanternCards from './components/Player/LanternCards';
+import LanternCardsHorizontal from './components/Player/LanternCardsHorizontal';
 import LakeTile from './components/LakeTileComponent/LakeTile'
 
 // imports for testing

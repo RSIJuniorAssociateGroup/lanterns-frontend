@@ -1,7 +1,7 @@
 import React from "react";
-import ded4 from '../resources/4_of_a_Kind.jpg';
-import dedPairs from '../resources/3_pairs.jpg';
-import ded7 from '../resources/7_unique.jpg';
+import ded4 from '../../pictures/4_of_a_Kind.jpg';
+import dedPairs from '../../pictures/3_pairs.jpg';
+import ded7 from '../../pictures/7_unique.jpg';
 import './ded.css';
 
 // Tie this component to 'player hand'  ex:
@@ -14,24 +14,28 @@ import './ded.css';
 // Bool: sufficient cards to make trade?  T/F
 
 
-let fIndex = 0;
-let pIndex = 0;
-let sIndex = 0;
+
 
 class DedicationToken extends React.Component {
+    state = {
+        fIndex: 0,
+        pIndex: 0,
+        sIndex: 0
+    }
     constructor(props) {
         super(props);
-        this.nextToken = this.nextToken.bind(this);
-        this.nextToken2 = this.nextToken2.bind(this);
-        this.nextToken3 = this.nextToken3.bind(this);
+        this.buyToken = this.buyToken.bind(this);
     };
 
     render() {
-
         // Backend arrays of tokens?
         let fourTokensStack = [8, 7, 6, 5, 5, 4, 'generic'];
         let pairsTokenStack = [9, 8, 7, 6, 5, 5, 'generic'];
         let sevenTokensStack = [10, 9, 8, 7, 6, 5, 'generic'];
+
+        let fIndex = this.state.fIndex;
+        let pIndex = this.state.pIndex;
+        let sIndex = this.state.sIndex;
 
         let points4 = fourTokensStack[fIndex];
         let pointsPairs = pairsTokenStack[pIndex];
@@ -39,54 +43,35 @@ class DedicationToken extends React.Component {
 
         return (
             <div className="tokenHand">
-                <button className="tokenContainer" onClick={this.nextToken}>
+                <button data-id="1" className="tokenContainer" onClick={this.buyToken}>
                     <img src={ded4} width="150" alt="4_of_a_Kind" />
                     <h1>{points4}</h1>
                 </button>
-                <button className="tokenContainer" onClick={this.nextToken2}>
+                <button data-id="2" className="tokenContainer" onClick={this.buyToken}>
                     <img src={dedPairs} width="150" alt="3_pairs" />
                     <h1>{pointsPairs}</h1>
                 </button>
-                <button className="tokenContainer" onClick={this.nextToken3}>
+                <button data-id="3" className="tokenContainer" onClick={this.buyToken}>
                     <img src={ded7} width="150" alt="3_pairs" />
                     <h1>{points7}</h1>
                 </button>
             </div>
         )
     }
-    nextToken() {
-        let legalMove = false;
-        if (legalMove === false) {
-            return;
-        }
-        for (var i = 0; i < Array.length; i++) {
-            fIndex += 1;
-            this.forceUpdate();
-        }
-    }
 
-    nextToken2() {
+    buyToken(e) {
         let legalMove = true;
         if (legalMove === false) {
             return;
         }
-        for (var i = 0; i < Array.length; i++) {
-            pIndex += 1;
-            this.forceUpdate();
+        if (e.currentTarget.dataset.id === "1" && legalMove) {
+            this.setState({ fIndex: this.state.fIndex + 1 })
+        } else if (e.currentTarget.dataset.id === '2' && legalMove) {
+            this.setState({ pIndex: this.state.pIndex + 1 })
+        } else if (e.currentTarget.dataset.id === '3' && legalMove) {
+            this.setState({ sIndex: this.state.sIndex + 1 })
         }
     }
-
-    nextToken3() {
-        let legalMove = true;
-        if (legalMove === false) {
-            return;
-        }
-        for (var i = 0; i < Array.length; i++) {
-            sIndex += 1;
-            this.forceUpdate();
-        }
-    }
-
 }
 
 export default DedicationToken;

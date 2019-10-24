@@ -8,7 +8,7 @@ import PlayerLakeTiles from './components/Player/PlayerLakeTiles';
 import LanternCards from './components/Player/LanternCards';
 import LanternCardsHorizontal from './components/Player/LanternCardsHorizontal';
 import LakeTile from './components/LakeTileComponent/LakeTile'
-import DedicationToken from './components/dedication-tokens'
+import DedicationToken from './components/DedicationToken/dedication-tokens'
 // imports for testing
 
 class BoardTile extends React.Component {

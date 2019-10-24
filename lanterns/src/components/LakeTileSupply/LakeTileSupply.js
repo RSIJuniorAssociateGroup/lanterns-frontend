@@ -75,7 +75,7 @@ class LakeTileSupply extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="supplyContainer">
                 {this.state.tiles[0]}
             </div>
         )

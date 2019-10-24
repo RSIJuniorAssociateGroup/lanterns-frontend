@@ -199,10 +199,6 @@ class App extends React.Component {
 					<PlayerLakeTiles />
 
 					<LanternCardsHorizontal />
-
-					<button onClick={() => RotateTileRight(tile01.colorList)}>
-						Rotate Tile
-          		</button>
 				</div>
 
 			</div>

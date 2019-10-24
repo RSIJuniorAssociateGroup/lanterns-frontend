@@ -1,6 +1,7 @@
 import React from "react"
 import "./LakeTileSupply.css"
 import LakeTile from "../LakeTileComponent/LakeTile.js"
+import LakeTileSupplyPile from "./lakeTileStack.png"
 
 class LakeTileSupply extends React.Component {
     constructor(props) {
@@ -75,8 +76,13 @@ class LakeTileSupply extends React.Component {
 
     render() {
         return (
-            <div className="supplyContainer">
-                {this.state.tiles[0]}
+            <div  >
+                <div className="supplyContainer">
+                    <img src={LakeTileSupplyPile}/>
+                    <h2 className="pileCounterStyle">
+                        {this.state.tiles.length}
+                    </h2>
+                </div>
             </div>
         )
     }

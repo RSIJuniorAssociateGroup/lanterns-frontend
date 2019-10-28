@@ -8,40 +8,37 @@ class PlayerLakeTiles extends React.Component {
         return (
             <div className="player-hand" >
                 <div className="lake-tile-holder">
-                <BoardTile id="boardTile-1" col="1" row="1" className="boardTile">
-                <LakeTile
-                    id="lakeTile-1" draggable="true"
-                    topColor={2}
-                    rightColor={4}
-                    bottomColor={5}
-                    leftColor={3}
-                >
-                </LakeTile>
-            </BoardTile>
+                    <LakeTile
+                        id="lakeTile-10"
+                        draggable="true"
+                        topColor={2}
+                        rightColor={4}
+                        bottomColor={5}
+                        leftColor={3}
+                    >
+                    </LakeTile>
                 </div>
                 <div className="lake-tile-holder">
-                <BoardTile id="boardTile-1" col="1" row="1" className="boardTile">
-                <LakeTile
-                    id="lakeTile-1" draggable="true"
-                    topColor={2}
-                    rightColor={4}
-                    bottomColor={5}
-                    leftColor={3}
-                >
-                </LakeTile>
-            </BoardTile>
+                    <LakeTile
+                        id="lakeTile-11" 
+                        draggable="true"
+                        topColor={2}
+                        rightColor={4}
+                        bottomColor={5}
+                        leftColor={3}
+                    >
+                    </LakeTile>
                 </div>
                 <div className="lake-tile-holder">
-                <BoardTile id="boardTile-1" col="1" row="1" className="boardTile">
-                <LakeTile
-                    id="lakeTile-1" draggable="true"
-                    topColor={2}
-                    rightColor={4}
-                    bottomColor={5}
-                    leftColor={3}
-                >
-                </LakeTile>
-            </BoardTile>
+                    <LakeTile
+                        id="lakeTile-12" 
+                        draggable="true"
+                        topColor={2}
+                        rightColor={4}
+                        bottomColor={5}
+                        leftColor={3}
+                    >
+                    </LakeTile>
                 </div>
             </div>
         );

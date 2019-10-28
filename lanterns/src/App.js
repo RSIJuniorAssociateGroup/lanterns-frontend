@@ -26,7 +26,7 @@ class App extends React.Component {
 						playerActive="false"
 					/>
 					<LanternCardsHorizontal />
-					<PlayerLakeTiles />
+					{/* <PlayerLakeTiles /> */}
 				</div>
 
 
@@ -42,7 +42,7 @@ class App extends React.Component {
 						playerActive="false"
 					/>
 					<LanternCards />
-					<PlayerLakeTiles />
+					{/* <PlayerLakeTiles /> */}
 				</div>
 
 				{/* Game board */}
@@ -61,7 +61,7 @@ class App extends React.Component {
 						playerHonorScore={0}
 						playerActive="false"
 					/>
-					<PlayerLakeTiles />
+					{/* <PlayerLakeTiles /> */}
 					<LanternCards />
 				</div>
 
@@ -87,7 +87,6 @@ class App extends React.Component {
 					<PlayerLakeTiles />
 
 					<LanternCardsHorizontal />
-
 				</div>
 
 			</div>

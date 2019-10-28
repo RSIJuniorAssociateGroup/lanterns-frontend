@@ -43,11 +43,7 @@ class DedicationToken extends React.Component {
 
         return (
             <div className="tokenHand">
-<<<<<<< HEAD:lanterns/src/components/dedication-tokens.js
-                <button className="tokenContainer" onClick={this.nextTokens}>
-=======
                 <button data-id="1" className="tokenContainer" onClick={this.buyToken}>
->>>>>>> 7c28acb5d73d6fefcdc1e273dd0ccec0573097d9:lanterns/src/components/DedicationToken/dedication-tokens.js
                     <img src={ded4} width="150" alt="4_of_a_Kind" />
                     <h1>{points4}</h1>
                 </button>

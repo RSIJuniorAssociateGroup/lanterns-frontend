@@ -5,8 +5,9 @@ import LanternSupply from './components/Supply/LanternSupply';
 import PlayerLakeTiles from './components/Player/PlayerLakeTiles';
 import LanternCards from './components/Player/LanternCards';
 import LanternCardsHorizontal from './components/Player/LanternCardsHorizontal';
-import DedicationToken from './components/dedication-tokens';
 import Board from './components/Board/Board';
+import LakeTile from './components/LakeTileComponent/LakeTile'
+import DedicationToken from './components/DedicationToken/dedication-tokens'
 // imports for testing
 
 class App extends React.Component {

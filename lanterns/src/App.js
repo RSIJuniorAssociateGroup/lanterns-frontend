@@ -31,19 +31,19 @@ class App extends React.Component {
 
 
 				{/* PLAYER 1 INFO */}
-				<div className="playerOne">
-					<Player
-						// each child in a list should contain a key
-						key={0}
-						playerId={0}
-						playerName="Obi One"
-						lakeTileHand={[4, 7, 36]}
-						playerHonorScore={0}
-						playerActive="false"
-					/>
-					<LanternCards />
+				{/* <div className="playerOne"> */}
+					{/* <Player */}
+						{/* // each child in a list should contain a key */}
+						{/* key={0} */}
+						{/* playerId={0} */}
+						{/* playerName="Obi One" */}
+						{/* lakeTileHand={[4, 7, 36]} */}
+						{/* playerHonorScore={0} */}
+						{/* playerActive="false" */}
+					{/* /> */}
+					{/* <LanternCards /> */}
 					{/* <PlayerLakeTiles /> */}
-				</div>
+				{/* </div> */}
 
 				{/* Game board */}
 				<div className="boardGridStyle">
@@ -51,8 +51,8 @@ class App extends React.Component {
 				</div>
 
 				{/* PLAYER 3 INFO */}
-				<div className="playerThree">
-					<Player
+				{/* <div className="playerThree"> */}
+					{/* <Player
 						// each child in a list should contain a key
 						key={0}
 						playerId={0}
@@ -60,10 +60,10 @@ class App extends React.Component {
 						lakeTileHand={[4, 7, 36]}
 						playerHonorScore={0}
 						playerActive="false"
-					/>
+					/> */}
 					{/* <PlayerLakeTiles /> */}
-					<LanternCards />
-				</div>
+					{/* <LanternCards /> */}
+				{/* </div> */}
 
 				<div className="supplyGrid">
 					<LanternSupply />

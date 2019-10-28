@@ -102,43 +102,49 @@ Grid Styles
   text-align: center;
 } 
 /******************************************************************
-Game Board
+Game Board, Board Tiles & Lake Tiles
 ******************************************************************/
-.BoardTile {
-  /* background-image: url(./pictures/tile01-0.png); */
-  display: inline-block;       
-  border: 1px solid black;
+.board {
+  display: flex;
+  justify-content: flex-start;
+
+  width: 300px;
+  /* max-width: 300px; */
+  height: 300px;
+  /* max-height: 300px; */
+
+  overflow: hidden;
+
+  flex-wrap: wrap;
+
+  margin: 0 auto;
+  /* padding: 15px; */
+}
+
+/* Board Tiles */
+
+.board .boardTile {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 100px;
+  height: 100px;
+
+  background-color: #313131;
+}
+
+/* Lake Tiles */
+
+.board .boardTile .lakeTile {
   width: 100px;
   height: 100px;
-  margin-bottom: -1px;
-  }
+  background-color: beige;
 
-.off {
-  background-color: lightgray;
+  cursor: pointer;
+  /* margin-bottom: 15px; */
+  border: 1px solid red;
 }
-
-.on {
-  background-color: green;
-}
-  
-.BoardTile:hover { 
-  background: #00CCFF;
-}
-
-.center {
-  margin: auto;
-  display: table;
-  margin-top: 10px;
-}
-
-.grid {
-  width: 150px;
-  line-height: 0;
-  margin: auto;
-  box-shadow: 0px 0px 20px white;
-  grid-row: 2/3;
-}
-
 /******************************************************************
  Lantern Supply/Hand
  ******************************************************************/

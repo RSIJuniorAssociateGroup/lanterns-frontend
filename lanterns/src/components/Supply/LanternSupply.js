@@ -59,15 +59,6 @@ class LanternSupply extends React.Component {
     render() {
         return (
             <div>
-                {/* <div className="lanternCircles">
-                    <button onClick={this.whiteLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.blueLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.redLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.greenLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.blackLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.yellowLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.purpleLantern.bind(this)}>Add Lantern</button>
-                </div> */}
                 <div className="lanternCircles">
                 <div className="whiteCircle">
                         <div className="circleText">

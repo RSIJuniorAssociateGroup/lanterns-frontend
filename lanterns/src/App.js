@@ -8,6 +8,8 @@ import LanternCardsHorizontal from './components/Player/LanternCardsHorizontal';
 import Board from './components/Board/Board';
 import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
+import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
+
 // imports for testing
 
 class App extends React.Component {
@@ -69,6 +71,7 @@ class App extends React.Component {
 				<div className="supplyGrid">
 					<LanternSupply />
 					<DedicationToken />
+					<LakeTileSupply />
 				</div>
 
 

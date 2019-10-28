@@ -5,6 +5,7 @@
   overflow: hidden;
   position: relative;
   }
+
 .parent {
   position: absolute;
   margin: auto;
@@ -13,8 +14,8 @@
   top: -50px;
   left: -50px;
 }
+
 .topTri {
-  /* background-color: blue; */
   height: 100px;
   width: 100px;
   grid-column-start: 1;
@@ -22,27 +23,32 @@
   grid-row-start: 1;
   grid-row-end: 2;
   justify-self: end;
+  background-size: 100%;
 }
+
 .rightTri {
-  background-color: red;
   height: 100px;
   width: 100px;
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
+  background-size: 100%;
 }
+
 .leftTri {
-  background-color: yellow;
   height: 100px;
   width: 100px;
   justify-self: end;
+  background-size: 100%;
 }
+
 .bottomTri {
-  background-color: green;
   height: 100px;
   width: 100px;
+  background-size: 100%;
 }
+
 .overlayDiv {
   justify-items: center;
   position: absolute;

@@ -80,12 +80,10 @@ class App extends React.Component {
 						key={0}
 						playerId={0}
 						playerName="Double Duo"
-						lakeTileHand={[4, 7, 36]}
+						lakeTileHand={<PlayerLakeTiles/>}
 						playerHonorScore={0}
 						playerActive="false"
 					/>
-
-					<PlayerLakeTiles />
 
 					<LanternCardsHorizontal />
 				</div>

@@ -1,0 +1,17 @@
+.supplyContainer {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width: 150px;
+    height: 150px;
+    padding-bottom: 18px;
+    left: 25%;
+    display: flex;
+}
+
+.pileCounterStyle {
+    position: absolute;
+    bottom: 1%;
+    text-align: center;
+    left: 36%;
+}

@@ -71,7 +71,21 @@ class LakeTileSupply extends React.Component {
             tempTiles[randomIndex] = temporaryValue
         }
 
-        this.state.tiles = tempTiles
+        this.setState({
+            tile: tempTiles
+        })
+    }
+
+    getTopCard() {
+        let tempSupply = this.state.tiles
+
+        let tile = tempSupply.pop()
+
+        this.setState({
+            tiles: tempSupply
+        })
+
+        return tile
     }
 
     render() {

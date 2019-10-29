@@ -45,10 +45,29 @@ class PlayerLakeTiles extends React.Component {
         return tempPlayerHand
     }
 
+    receiveLakeTile(tile) {
+        let tempPlayerHand = this.state.playerHand
+
+        if (this.state.playerHand.length === 3) {
+            return false
+        } else {
+            tempPlayerHand.push(tile)
+        }
+
+        this.setState({
+            playerHand: tempPlayerHand
+        })
+
+
+        return true
+    }
+
     render() {
         return (
             <div className="player-hand" >
-                {this.state.playerHand.map(tile => <div className="lake-tile-holder">{tile}</div>)}
+                {this.state.playerHand[0]}
+                {this.state.playerHand[1]}
+                {this.state.playerHand[2]}
             </div>
         );
     }

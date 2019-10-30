@@ -4,14 +4,11 @@
     margin: 10px;
     height: 100px;
     width: 312px;
-    /* background-color: #00abfa;
-    background-image: url("https://www.transparenttextures.com/patterns/arches.png"); */
 
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: auto auto auto;
     justify-content: left;
     column-gap: 25px;
-    /* box-shadow: 5px 5px 5px 5px #888888;
-    border-radius: 25px; */
 }
 
 .lake-tile-holder {

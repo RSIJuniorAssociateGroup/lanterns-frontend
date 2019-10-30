@@ -5,7 +5,7 @@ import LakeTile from '../LakeTileComponent/LakeTile';
 function Board() {
     return (
         <main className="board">
-            <BoardTile col="0" row="0" className="boardTile">
+            <BoardTile col="0" row="0" className="boardTile" boardTileLakeTileId="null">
             </BoardTile>
             <BoardTile col="1" row="0" className="boardTile">
             </BoardTile>

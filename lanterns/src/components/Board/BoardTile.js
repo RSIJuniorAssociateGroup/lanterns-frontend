@@ -5,14 +5,14 @@ class BoardTile extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            canDrop: true
+            canDrop: true,
+            boardTileLakeTileId: this.props.tileid
         }
     }
 
-    cannotDrop = e => {
-        e.this.setState({ canDrop : this.state.canDrop = false});
-        alert("Here");
-    }
+    // onTextChange: function(val) {
+        
+    // }
 
     drop = e => {
         e.preventDefault();
@@ -27,10 +27,16 @@ class BoardTile extends React.Component {
 
         this.setState({ canDrop : this.state.canDrop = false});
 
-        console.log(lakeTile_id);
-        console.log(this.state.canDrop);
-        // this.props.tileid = lakeTile_id;
-        // console.log(this.props.tileid);
+        // this.setState({ boardTileLakeTileId: this.state.boardTileLakeTileId = this.props.tileid});
+        // console.log(lakeTile_id);
+        // console.log(this.state.canDrop);
+        // myFunction(this.props.col);
+        // myFunction(this.props.row);
+        // myFunction(this.props.className);
+
+        // myFunction(this.lakeTile_id);
+        // myFunction(this.props.boardTileLakeTileId);
+
     }
 
     // Allows you to continue with function of dropping.
@@ -39,8 +45,8 @@ class BoardTile extends React.Component {
     }
 
     render() {
-        if (this.state.canDrop == true) {
-            myFunction()
+        if (this.state.canDrop === true) {
+            // myFunction()
         return (
             <div
                 id={this.props.id}
@@ -52,6 +58,7 @@ class BoardTile extends React.Component {
                 onDrop={this.drop}
                 // called when call one of lakeTiles over the baord. 
                 onDragOver={this.dragOver}
+                // boardtilelaketileid={this.setState(this.props.tileid)}
             >
                 {this.props.children}
             </div>

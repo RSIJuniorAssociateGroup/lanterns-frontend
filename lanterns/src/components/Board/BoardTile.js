@@ -16,7 +16,7 @@ class BoardTile extends React.Component {
     
     drop = e => {
         //grab the col & row of current baordTile and pass into the place tile function
-        placeTile(thisBoard, this.props.col, this.props.row);
+        // placeTile(thisBoard, this.props.col, this.props.row);
  
         if (placeTile(thisBoard, this.props.col, this.props.row) !== false) {
         e.preventDefault();

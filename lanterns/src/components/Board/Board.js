@@ -59,28 +59,28 @@ export function checkAdjacency(array, i, j) {
     //      [ 0, 1, 2 ], 
     //      [ 0, 0, 1 ] ]
 
-    //check above (right after rotation)
-    if (array[j][i - 1] == 2) {
-        array[i][j] = 1;
+    console.log("This is the current i index" + [i]);
+    console.log("This is the current j index" + [j]);
+
+    //check above
+    if (i > 0 && array[i-1][j] ==2) {
+     array[i][j]=1;
     }
 
-    //check to the right (top after rotation)
-    if (array[i][j + 1] == 2) {
-        array[i][j] = 1;
+    //check to the right
+    if (j < 2 && array[i][j+1] == 2) {
+      array[i][j]=1;
     }
 
     //check bellow
-    if (array[j][i + 1] == 2) {
-        array[i][j] = 1;
+    if (i < array.length-1 && array[i+1][j] == 2) {
+      array[i][j]=1;
     }
-
-    //check to the left (bellow after rotation)
-    if (array[i][j - 1] == 2) {
-        array[i][j] = 1;
+    
+    //check to the left
+    if (j > 0 && array[i][j-1] == 2) {
+     array[i][j]=1;
     }
-    // console.log(array);
-
-    //verifies that get array 9 times
     // console.log(array);
 
     //Insuring that it's efficient
@@ -112,19 +112,9 @@ export function placeTile(array, i, j) {
   }
 
 }
-// console.log(thisBoard);
 
-//  checkNotZero(thisBoard);
-
-//TESTS
 placeFirstTile(thisBoard, 1, 1);
-//[ [ 0, 1, 0 ], [ 1, 2, 1 ], [ 0, 1, 0 ] ]
- placeTile(thisBoard, 0, 0);
- //You cannot place a tile here
-//   placeTile(thisBoard, 2, 1);
-  // [ [ 1, 2, 1 ], [ 1, 2, 1 ], [ 1, 2, 1 ] ]
-//  placeTile(thisBoard, 0, 1);
- //[ [ 1, 2, 1 ], [ 1, 2, 1 ], [ 1, 1, 0 ] ]
+
 
 class Board extends React.Component {
     render() {

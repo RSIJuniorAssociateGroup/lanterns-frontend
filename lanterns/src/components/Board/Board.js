@@ -23,6 +23,7 @@ export function createBoard(size) {
 
 
 export function checkNotZero(array) {
+  console.log("Made it to checkNotZero");
     for (var i = 0; i < array.length; i++) {
         var innerArrayLength = array[i].length;
         for (var j = 0; j < innerArrayLength; j++) {
@@ -42,6 +43,8 @@ export function checkNotZero(array) {
 export let count = 0;
 
 export function checkAdjacency(array, i, j) {
+  console.log("Made it to checkAdjacency");
+
     // for (var i = 0; i < array.length; i++) {
     //     var innerArrayLength = array[i].length;
     //   for (var j = 0; j < innerArrayLength; j++) {

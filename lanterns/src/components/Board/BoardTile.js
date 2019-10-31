@@ -18,7 +18,7 @@ class BoardTile extends React.Component {
         //grab the col & row of current baordTile and pass into the place tile function
         placeTile(thisBoard, this.props.col, this.props.row);
  
-        // if (placeTile != false) {
+        if (placeTile(thisBoard, this.props.col, this.props.row) !== false) {
         e.preventDefault();
         // Transfer the id between this event, get the element by id
         // and append it to the boardTile
@@ -30,7 +30,7 @@ class BoardTile extends React.Component {
         e.target.appendChild(lakeTile);
 
         this.setState({ canDrop: this.state.canDrop = false });
-            
+        }
     }
 
     // Allows you to continue with function of dropping.

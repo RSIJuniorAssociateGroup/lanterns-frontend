@@ -35,17 +35,17 @@ class App extends React.Component {
 
 				{/* PLAYER 1 INFO */}
 				{/* <div className="playerOne"> */}
-					{/* <Player */}
-						{/* // each child in a list should contain a key */}
-						{/* key={0} */}
-						{/* playerId={0} */}
-						{/* playerName="Obi One" */}
-						{/* lakeTileHand={[4, 7, 36]} */}
-						{/* playerHonorScore={0} */}
-						{/* playerActive="false" */}
-					{/* /> */}
-					{/* <LanternCards /> */}
-					{/* <PlayerLakeTiles /> */}
+				{/* <Player */}
+				{/* // each child in a list should contain a key */}
+				{/* key={0} */}
+				{/* playerId={0} */}
+				{/* playerName="Obi One" */}
+				{/* lakeTileHand={[4, 7, 36]} */}
+				{/* playerHonorScore={0} */}
+				{/* playerActive="false" */}
+				{/* /> */}
+				{/* <LanternCards /> */}
+				{/* <PlayerLakeTiles /> */}
 				{/* </div> */}
 
 				{/* Game board */}
@@ -55,7 +55,7 @@ class App extends React.Component {
 
 				{/* PLAYER 3 INFO */}
 				{/* <div className="playerThree"> */}
-					{/* <Player
+				{/* <Player
 						// each child in a list should contain a key
 						key={0}
 						playerId={0}
@@ -64,8 +64,8 @@ class App extends React.Component {
 						playerHonorScore={0}
 						playerActive="false"
 					/> */}
-					{/* <PlayerLakeTiles /> */}
-					{/* <LanternCards /> */}
+				{/* <PlayerLakeTiles /> */}
+				{/* <LanternCards /> */}
 				{/* </div> */}
 
 				<div className="supplyGrid">
@@ -89,7 +89,6 @@ class App extends React.Component {
 					/>
 
 					<PlayerLakeTiles />
-
 					<LanternCardsHorizontal />
 				</div>
 

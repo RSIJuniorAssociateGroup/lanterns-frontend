@@ -8,10 +8,6 @@ class PlayerLakeTiles extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            playerHand: props.lakeTileHand
-        }
-
     }
 
     makeHand() {
@@ -46,7 +42,6 @@ class PlayerLakeTiles extends React.Component {
     }
 
     render() {
-        console.log(this.state.lakeTileHand.length)
         return (
             <div className="player-hand" >
                 

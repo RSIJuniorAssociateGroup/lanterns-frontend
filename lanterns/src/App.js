@@ -80,6 +80,11 @@ class App extends React.Component {
 
 			],
 
+			playerLanternSupplies: [
+				[2, 4, 2, 3, 4, 5, 1],
+				[1, 5, 5, 1, 3, 4, 4]
+			],
+
 			lakeTileSupply: [
 				<LakeTile
 					id="lakeTile-32"
@@ -164,7 +169,7 @@ class App extends React.Component {
 						playerHonorScore={0}
 						playerActive={false}
 					/>,
-					<LanternCardsHorizontal />
+					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[0]} />
 					{/* <PlayerLakeTiles /> */}
 				</div>
 
@@ -227,7 +232,7 @@ class App extends React.Component {
 
 					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
 
-					<LanternCardsHorizontal />
+					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[1]} />
 				</div>
 
 			</div>
@@ -265,6 +270,60 @@ class App extends React.Component {
 		})
 
 		return tile
+	}
+
+	makeDedication(type) {
+		let tempLanternCards = this.state.playerLanternSupplies[activePlayerIndex];
+		if (type === 7) {
+			if (this.checkOneOfEach(tempLanternCards)) {
+
+			}
+			
+		} else if (type === 2) {
+			if (this.checkTwoPair(tempLanternCards)) {
+
+			}
+
+		} else if (type === 4) {
+			if (this.checkFourOfAKind(tempLanternCards)) {
+				
+			}
+		}
+	}
+
+	checkOneOfEach(lanternCards) {
+		for (let i in lanternCards) {
+			if (i === 0) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	checkTwoPair(lanternCards) {
+		let pairs = 0;
+		for (let i in lanternCards) {
+			if (i === 2) {
+				pairs++;
+			}
+		}
+
+		if (pairs >= 3) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	checkFourOfAKind(lanternCards) {
+		for (let i in lanternCards) {
+			if (i === 4) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
 

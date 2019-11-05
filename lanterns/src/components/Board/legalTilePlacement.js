@@ -16,7 +16,7 @@ export function checkNotZero(array) {
   for (var i = 0; i < array.length; i++) {
     var innerArrayLength = array[i].length;
     for (var j = 0; j < innerArrayLength; j++) {
-      if (array[i][j] == notTargetable) {
+      if (array[i][j] === notTargetable) {
         checkAdjacency(array, i, j)
       }
     }
@@ -25,22 +25,22 @@ export function checkNotZero(array) {
 
 export function checkAdjacency(array, i, j) {
   //check above
-  if (i > 0 && array[i - 1][j] == tilePlaced) {
+  if (i > 0 && array[i - 1][j] === tilePlaced) {
     array[i][j] = 1;
   }
 
   //check to the right
-  if (j < tilePlaced && array[i][j + 1] == tilePlaced) {
+  if (j < tilePlaced && array[i][j + 1] === tilePlaced) {
     array[i][j] = 1;
   }
 
   //check bellow
-  if (i < array.length - 1 && array[i + 1][j] == tilePlaced) {
+  if (i < array.length - 1 && array[i + 1][j] === tilePlaced) {
     array[i][j] = 1;
   }
 
   //check to the left
-  if (j > 0 && array[i][j - 1] == tilePlaced) {
+  if (j > 0 && array[i][j - 1] === tilePlaced) {
     array[i][j] = 1;
   }
 

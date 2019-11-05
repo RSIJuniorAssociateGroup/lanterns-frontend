@@ -12,11 +12,11 @@ class LakeTile extends React.Component {
    constructor(props) {
        super(props)
        this.state = {
-           rotation: 45,
            colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor]
        }
        this.rotate = this.rotate.bind(this)
    }
+
    rotate() {
        let temp = this.state.colors
        let tempColor = temp.pop()
@@ -26,6 +26,7 @@ class LakeTile extends React.Component {
            colors: newColors
        })
    }
+
    getLanternImage(num) {
        let image = null;
        switch (num) {
@@ -53,6 +54,7 @@ class LakeTile extends React.Component {
        }
        return image
    }
+
    dragStart = e => {
        const target = e.target;
        e.dataTransfer.setData('lakeTile_id', target.id);
@@ -61,9 +63,11 @@ class LakeTile extends React.Component {
            target.style.display = "none";
        }, 0);
    }
+
    dragOver = e => {
        e.stopPropagation();
    }
+
    render() {
        const top = this.getLanternImage(this.state.colors[0])
        const right = this.getLanternImage(this.state.colors[1])

@@ -227,6 +227,7 @@ class App extends React.Component {
 
 					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
 
+					<PlayerLakeTiles />
 					<LanternCardsHorizontal />
 				</div>
 

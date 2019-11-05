@@ -1,6 +1,6 @@
 import React from 'react';
 import Board, {LegalBoard} from './Board';
-import {placeTile} from './LegalTilePlacement';
+import {placeTile} from './LegalTilePlaced';
 
 class BoardTile extends React.Component {
     constructor(props) {

@@ -1,5 +1,6 @@
 import React from 'react';
-import Board, {legalBoardPlacement, boardy} from './Board';
+import Board, {LegalBoard} from './Board';
+import {placeTile} from './LegalTilePlacement';
 
 class BoardTile extends React.Component {
     constructor(props) {
@@ -12,14 +13,8 @@ class BoardTile extends React.Component {
         }
     }
 
-    // if (array[row][col] )
-    
     drop = e => {
-        //grab the col & row of current baordTile and pass into the place tile function
-        // placeTile(thisBoard, this.props.col, this.props.row);
- 
-        // console.log(boardy);
-        // if (legalBoardPlacement. (this.thisBoard, this.props.col, this.props.row) !== false) {
+        if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
         e.preventDefault();
         // Transfer the id between this event, get the element by id
         // and append it to the boardTile
@@ -31,7 +26,7 @@ class BoardTile extends React.Component {
         e.target.appendChild(lakeTile);
 
         this.setState({ canDrop: this.state.canDrop = false });
-        // }
+        }
     }
 
     // Allows you to continue with function of dropping.

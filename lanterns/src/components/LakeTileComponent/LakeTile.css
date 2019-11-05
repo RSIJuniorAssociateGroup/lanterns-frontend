@@ -1,7 +1,7 @@
 .parentContainer {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 300px;
   overflow: hidden;
   position: relative;
   }
@@ -11,13 +11,13 @@
   margin: auto;
   display: grid;
   transform: rotate(45deg);  
-  top: -50px;
-  left: -50px;
+  top: -150px;
+  left: -150px;
 }
 
 .topTri {
-  height: 100px;
-  width: 100px;
+  height: 300px;
+  width: 300px;
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 1;
@@ -27,8 +27,8 @@
 }
 
 .rightTri {
-  height: 100px;
-  width: 100px;
+  height: 300px;
+  width: 300px;
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 1;
@@ -37,15 +37,15 @@
 }
 
 .leftTri {
-  height: 100px;
-  width: 100px;
+  height: 300px;
+  width: 300px;
   justify-self: end;
   background-size: 100%;
 }
 
 .bottomTri {
-  height: 100px;
-  width: 100px;
+  height: 300px;
+  width: 300px;
   background-size: 100%;
 }
 

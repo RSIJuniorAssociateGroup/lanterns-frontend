@@ -82,7 +82,7 @@ class App extends React.Component {
 
 			playerLanternSupplies: [
 				[2, 4, 2, 3, 4, 5, 1],
-				[1, 5, 5, 1, 3, 4, 4]
+				[0, 1, 2, 1, 4, 2, 1]
 			],
 
 			lakeTileSupply: [
@@ -230,7 +230,7 @@ class App extends React.Component {
 						playerActive={true}
 					/>
 
-					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
+					<button onClick={() => this.makeDedication(4)}>Click</button>
 
 					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[1]} />
 				</div>
@@ -261,39 +261,34 @@ class App extends React.Component {
 
 	getTopLakeTile() {
 
-		let tempSupply = this.state.lakeTileSupply
+		let tempSupply = this.state.lakeTileSupply;
 
-		let tile = tempSupply.pop()
+		let tile = tempSupply.pop();
 
 		this.setState({
 			lakeTileSupply: tempSupply
-		})
+		});
 
-		return tile
+		return tile;
 	}
 
 	makeDedication(type) {
 		let tempLanternCards = this.state.playerLanternSupplies[activePlayerIndex];
-		if (type === 7) {
-			if (this.checkOneOfEach(tempLanternCards)) {
 
-			}
+		if (type === 7) {
+			console.log(this.checkOneOfEach(tempLanternCards));
 			
 		} else if (type === 2) {
-			if (this.checkTwoPair(tempLanternCards)) {
-
-			}
+			console.log(this.checkTwoPair(tempLanternCards));
 
 		} else if (type === 4) {
-			if (this.checkFourOfAKind(tempLanternCards)) {
-				
-			}
+			console.log(this.checkFourOfAKind(tempLanternCards));
 		}
 	}
 
 	checkOneOfEach(lanternCards) {
-		for (let i in lanternCards) {
-			if (i === 0) {
+		for (let i = 0; i < lanternCards.length; i++) {
+			if (lanternCards[i] === 0) {
 				return false;
 			}
 		}
@@ -303,8 +298,8 @@ class App extends React.Component {
 
 	checkTwoPair(lanternCards) {
 		let pairs = 0;
-		for (let i in lanternCards) {
-			if (i === 2) {
+		for (let i = 0; i < lanternCards.length; i++) {
+			if (lanternCards[i] >= 2) {
 				pairs++;
 			}
 		}
@@ -317,8 +312,8 @@ class App extends React.Component {
 	}
 
 	checkFourOfAKind(lanternCards) {
-		for (let i in lanternCards) {
-			if (i === 4) {
+		for (let i = 0; i < lanternCards.length; i++) {
+			if (lanternCards[i] >= 4) {
 				return true;
 			}
 		}

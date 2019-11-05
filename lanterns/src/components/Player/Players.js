@@ -1,4 +1,5 @@
 import React from '../../../node_modules/react';
+import "./PlayerLakeTiles.css"
 
 // PLAYER 
 const playerSeats = [];
@@ -7,10 +8,10 @@ class Player extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            playerId: this.props.playerId,
-            playerName: this.props.playerName,
-            lakeTileHand: this.props.lakeTileHand,
-            playerHonorScore: this.props.playerHonorScore,
+            playerId: props.playerId,
+            playerName: props.playerName,
+            lakeTileHand: props.lakeTileHand,
+            playerHonorScore: props.playerHonorScore,
             playerActive: false
         }
     }
@@ -21,6 +22,10 @@ class Player extends React.Component {
             <div>
                 <p className="playerName">{this.state.playerName}</p>
                 <p className="honorScore">Honor Score: {this.state.playerHonorScore}</p>
+                <div className="player-hand">
+                    {this.state.lakeTileHand}
+                </div>
+
             </div>
         );
     }

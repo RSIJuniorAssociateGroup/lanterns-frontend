@@ -20,7 +20,11 @@ class DedicationToken extends React.Component {
     state = {
         fIndex: 0,
         pIndex: 0,
-        sIndex: 0
+        sIndex: 0,
+        fourTokensStack: [8, 7, 6, 5, 5, 4, 'generic'],
+        pairsTokenStack: [9, 8, 7, 6, 5, 5, 'generic'],
+        sevenTokensStack: [10, 9, 8, 7, 6, 5, 'generic'],
+
     }
     constructor(props) {
         super(props);
@@ -29,17 +33,10 @@ class DedicationToken extends React.Component {
 
     render() {
         // Backend arrays of tokens?
-        let fourTokensStack = [8, 7, 6, 5, 5, 4, 'generic'];
-        let pairsTokenStack = [9, 8, 7, 6, 5, 5, 'generic'];
-        let sevenTokensStack = [10, 9, 8, 7, 6, 5, 'generic'];
 
-        let fIndex = this.state.fIndex;
-        let pIndex = this.state.pIndex;
-        let sIndex = this.state.sIndex;
-
-        let points4 = fourTokensStack[fIndex];
-        let pointsPairs = pairsTokenStack[pIndex];
-        let points7 = sevenTokensStack[sIndex];
+        let points4 = this.state.fourTokensStack[this.state.fIndex];
+        let pointsPairs = this.state.pairsTokenStack[this.state.pIndex];
+        let points7 = this.state.sevenTokensStack[this.state.sIndex];
 
         return (
             <div className="tokenHand">
@@ -60,15 +57,14 @@ class DedicationToken extends React.Component {
     }
 
     buyToken(e) {
-        let legalMove = true;
-        if (legalMove === false) {
-            return;
-        }
-        if (e.currentTarget.dataset.id === "1" && legalMove) {
+        if (e.currentTarget.dataset.id === "1" && this.props.checkDedication(4)) {
+            this.props.getDedication(this.state.fourTokensStack[this.state.fIndex])
             this.setState({ fIndex: this.state.fIndex + 1 })
-        } else if (e.currentTarget.dataset.id === '2' && legalMove) {
+        } else if (e.currentTarget.dataset.id === '2' && this.props.checkDedication(2)) {
+            this.props.getDedication(this.state.pairsTokenStack[this.state.pIndex])
             this.setState({ pIndex: this.state.pIndex + 1 })
-        } else if (e.currentTarget.dataset.id === '3' && legalMove) {
+        } else if (e.currentTarget.dataset.id === '3' && this.props.checkDedication(7)) {
+            this.props.getDedication(this.state.sevenTokensStack[this.state.sIndex])
             this.setState({ sIndex: this.state.sIndex + 1 })
         }
     }

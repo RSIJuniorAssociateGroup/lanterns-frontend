@@ -20,7 +20,7 @@ class DedicationToken extends React.Component {
     state = {
         fIndex: 0,
         pIndex: 0,
-        sIndex: 0
+        sIndex: 0,
     }
     constructor(props) {
         super(props);
@@ -52,7 +52,7 @@ class DedicationToken extends React.Component {
                     <h1>{pointsPairs}</h1>
                 </button>
                 <button data-id="3" className="tokenContainer" onClick={this.buyToken}>
-                    <img src={ded7} width="150" alt="3_pairs" />
+                    <img src={ded7} width="150" alt="One of Each" />
                     <h1>{points7}</h1>
                 </button>
             </div>
@@ -60,15 +60,12 @@ class DedicationToken extends React.Component {
     }
 
     buyToken(e) {
-        let legalMove = true;
-        if (legalMove === false) {
-            return;
-        }
-        if (e.currentTarget.dataset.id === "1" && legalMove) {
+        if ((e.currentTarget.dataset.id === "1") && this.props.checkDedication(4)) {
+            console.log("success");
             this.setState({ fIndex: this.state.fIndex + 1 })
-        } else if (e.currentTarget.dataset.id === '2' && legalMove) {
+        } else if ((e.currentTarget.dataset.id === '2') && this.props.checkDedication(2)) {
             this.setState({ pIndex: this.state.pIndex + 1 })
-        } else if (e.currentTarget.dataset.id === '3' && legalMove) {
+        } else if ((e.currentTarget.dataset.id === '3') && this.props.checkDedication(7)) {
             this.setState({ sIndex: this.state.sIndex + 1 })
         }
     }

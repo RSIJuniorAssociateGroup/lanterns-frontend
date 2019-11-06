@@ -9,6 +9,7 @@ import Board from './components/Board/Board';
 import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
+import { bool } from 'prop-types';
 
 // imports for testing
 
@@ -19,7 +20,8 @@ class App extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this)
+		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
+		this.checkDedication = this.checkDedication.bind(this);
 
 		this.state = {
 
@@ -82,7 +84,7 @@ class App extends React.Component {
 
 			playerLanternSupplies: [
 				[2, 4, 2, 3, 4, 5, 1],
-				[0, 1, 2, 1, 4, 2, 1]
+				[1, 1, 2, 1, 4, 2, 1],
 			],
 
 			lakeTileSupply: [
@@ -211,7 +213,10 @@ class App extends React.Component {
 
 				<div className="supplyGrid">
 					<LanternSupply />
-					<DedicationToken />
+					<DedicationToken
+						checkDedication={this.checkDedication}
+						getDedication={this.getDedication}
+					/>
 					<LakeTileSupply
 						supply={this.state.lakeTileSupply} />
 				</div>
@@ -230,7 +235,7 @@ class App extends React.Component {
 						playerActive={true}
 					/>
 
-					<button onClick={() => this.makeDedication(4)}>Click</button>
+					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
 
 					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[1]} />
 				</div>
@@ -272,18 +277,27 @@ class App extends React.Component {
 		return tile;
 	}
 
-	makeDedication(type) {
+	getDedication(value) {
+		console.log(value)
+	}
+
+	checkDedication(type) {
 		let tempLanternCards = this.state.playerLanternSupplies[activePlayerIndex];
+		let canMakeDedication = false;
 
-		if (type === 7) {
-			console.log(this.checkOneOfEach(tempLanternCards));
-			
-		} else if (type === 2) {
-			console.log(this.checkTwoPair(tempLanternCards));
-
-		} else if (type === 4) {
-			console.log(this.checkFourOfAKind(tempLanternCards));
+		switch (type) {
+			case 2:
+				canMakeDedication = this.checkTwoPair(tempLanternCards);
+				break;
+			case 4:
+				canMakeDedication = this.checkFourOfAKind(tempLanternCards);
+				break;
+			case 7:
+				canMakeDedication = this.checkOneOfEach(tempLanternCards);
+				break;
 		}
+
+		return canMakeDedication;
 	}
 
 	checkOneOfEach(lanternCards) {

@@ -57,11 +57,7 @@ class LakeTile extends React.Component {
 
    dragStart = e => {
        const target = e.target;
-       e.dataTransfer.setData('lakeTile_id', target.id);
-       // Allows it to be visible when we drag it.
-       setTimeout(() => {
-           target.style.display = "none";
-       }, 0);
+       e.dataTransfer.setData('lakeTile_id', e.target.id);
    }
 
    dragOver = e => {

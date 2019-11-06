@@ -160,7 +160,7 @@ class App extends React.Component {
 						key={0}
 						playerId={0}
 						playerName="Sub Zero"
-						lakeTileHand={this.state.playerHands[0]}
+						// lakeTileHand={this.state.playerHands[0]}
 						playerHonorScore={0}
 						playerActive={false}
 					/>,

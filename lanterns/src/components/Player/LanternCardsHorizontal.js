@@ -21,37 +21,37 @@ class LanternCardsHorizontal extends React.Component {
                 <div className="lanternCirclesHorizontal">
                     <div className="whiteCircleHorizontal">
                         <div className="circleText">
-                            {this.state.white}
+                            {this.props.lanternCards[0]}
                         </div>
                     </div>
                     <div className="blueCircle">
                         <div className="circleText">
-                            {this.state.blue}
+                            {this.props.lanternCards[1]}
                         </div>
                     </div>
                     <div className="redCircle">
                         <div className="circleText">
-                            {this.state.red}
+                            {this.props.lanternCards[2]}
                         </div>
                     </div>
                     <div className="greenCircle">
                         <div className="circleText">
-                            {this.state.green}
+                            {this.props.lanternCards[3]}
                         </div>
                     </div>
                     <div className="blackCircle">
                         <div className="circleText">
-                            {this.state.black}
+                            {this.props.lanternCards[4]}
                         </div>
                     </div>
                     <div className="yellowCircle">
                         <div className="circleText">
-                            {this.state.orange}
+                            {this.props.lanternCards[5]}
                         </div>
                     </div>
                     <div className="purpleCircle">
                         <div className="circleText">
-                            {this.state.purple}
+                            {this.props.lanternCards[6]}
                         </div>
                     </div>
                 </div>

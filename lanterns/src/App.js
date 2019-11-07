@@ -347,20 +347,68 @@ class App extends React.Component {
 		}
 
 		if (pairs >= 3) {
+			this.moveLanternCardsThreePair()
 			return true;
 		} else {
 			return false;
 		}
 	}
 
+	moveLanternCardsThreePair() {
+		let tempPlayerSupplies = this.state.playerLanternSupplies;
+		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempGameSupply = this.state.gameLanternSupply;
+
+		let pairCount = 0;
+
+		for (let i = 0; i < tempPlayerSupply.length; i++) {
+			if (pairCount === 3) {
+				break;
+			} else {
+				if (tempPlayerSupply[i] >= 2) {
+					tempPlayerSupply[i] -= 2;
+					tempGameSupply[i] += 2;
+					pairCount++;
+				}
+			}
+		}
+
+		tempPlayerSupplies[activePlayerIndex] = tempPlayerSupply;
+
+		this.setState({
+			playerLanternSupplies: tempPlayerSupplies,
+			gameLanternSupply: tempGameSupply,
+		});
+	}
+
 	checkFourOfAKind(lanternCards) {
 		for (let i = 0; i < lanternCards.length; i++) {
 			if (lanternCards[i] >= 4) {
+				this.moveLanternCardsFourOfAKind();
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	moveLanternCardsFourOfAKind() {
+		let tempPlayerSupplies = this.state.playerLanternSupplies;
+		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempGameSupply = this.state.gameLanternSupply;
+
+		for (let i = 0; i < tempPlayerSupply.length; i++) {
+			if (tempPlayerSupply[i] >= 4) {
+				tempPlayerSupply[i] -= 4;
+				tempGameSupply[i] += 4;
+				break;
+			}
+		}
+
+		this.setState({
+			playerLanternSupplies: tempPlayerSupplies,
+			gameLanternSupply: tempGameSupply,
+		});
 	}
 }
 

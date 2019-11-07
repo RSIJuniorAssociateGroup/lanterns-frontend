@@ -15,6 +15,7 @@ class Player extends React.Component {
             playerActive: false,
         }
     }
+    
     render() {
 
         playerSeats.push(this.state.playerId);

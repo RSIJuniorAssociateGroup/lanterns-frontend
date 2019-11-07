@@ -4,58 +4,46 @@ import '../../App.css';
 class LanternSupply extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            white: props.gameSupply[0],
-            blue: props.gameSupply[1],
-            red: props.gameSupply[2],
-            green: props.gameSupply[3],
-            black: props.gameSupply[4],
-            yellow: props.gameSupply[5],
-            purple: props.gameSupply[6],
-        }
     }
 
-    componentDidUpdate() {
-        
-    }
 
     render() {
         return (
             <div>
                 <div className="lanternCircles">
-                <div className="whiteCircle">
+                    <div className="whiteCircle">
                         <div className="circleText">
-                            {this.state.white}
+                            {this.props.gameSupply[0]}
                         </div>
                     </div>
                     <div className="blueCircle">
                         <div className="circleText">
-                            {this.state.blue}
+                            {this.props.gameSupply[1]}
                         </div>
                     </div>
                     <div className="redCircle">
                         <div className="circlsText">
-                            {this.state.red}
+                            {this.props.gameSupply[2]}
                         </div>
                     </div>
                     <div className="greenCircle">
                         <div className="circleText">
-                            {this.state.green}
+                            {this.props.gameSupply[3]}
                         </div>
                     </div>
                     <div className="blackCircle">
                         <div className="circleText">
-                            {this.state.black}
+                            {this.props.gameSupply[4]}
                         </div>
                     </div>
                     <div className="yellowCircle">
                         <div className="circleText">
-                            {this.state.yellow}
+                            {this.props.gameSupply[5]}
                         </div>
                     </div>
                     <div className="purpleCircle">
                         <div className="circleText">
-                            {this.state.purple}
+                            {this.props.gameSupply[6]}
                         </div>
                     </div>
                 </div>

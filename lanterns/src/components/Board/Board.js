@@ -2,6 +2,7 @@ import React from 'react'
 import BoardTile from './BoardTile';
 import LakeTile from '../LakeTileComponent/LakeTile';
 import {createBoard, placeFirstTile} from './LegalTilePlaced';
+// import {startingPlayer} from '../../GameLogic';
 
 export let LegalBoard = placeFirstTile(createBoard(3), 1, 1);
 

@@ -11,10 +11,12 @@ import whiteTile from "./whiteTile.jpg";
 class LakeTile extends React.Component {
    constructor(props) {
        super(props)
+
+       this.rotate = this.rotate.bind(this)
+
        this.state = {
            colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor]
        }
-       this.rotate = this.rotate.bind(this)
    }
 
    rotate() {
@@ -58,7 +60,7 @@ class LakeTile extends React.Component {
    dragStart = e => {
        const target = e.target;
        e.dataTransfer.setData('lakeTile_id', e.target.id);
-   }
+   } 
 
    dragOver = e => {
        e.stopPropagation();

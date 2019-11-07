@@ -2,17 +2,17 @@ import React from 'react';
 import './App.css';
 import Player from './components/Player/Players';
 import LanternSupply from './components/Supply/LanternSupply';
-import PlayerLakeTiles from './components/Player/PlayerLakeTiles';
-import LanternCards from './components/Player/LanternCards';
 import LanternCardsHorizontal from './components/Player/LanternCardsHorizontal';
 import Board from './components/Board/Board';
 import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
+// import ActivePlayerIndex from './components/Board/Board'
+import {startingPlayer} from './GameLogic';
 
 // imports for testing
 
-let activePlayerIndex = 1
+export let ActivePlayerIndex = startingPlayer(2);
 
 class App extends React.Component {
 
@@ -20,10 +20,9 @@ class App extends React.Component {
 		super(props)
 
 		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this)
-
+		
 		this.state = {
-
-			playerHands: [
+			playerZeroHand: [
 				[
 					<LakeTile
 						id="lakeTile-10"
@@ -49,9 +48,11 @@ class App extends React.Component {
 						bottomColor={7}
 						leftColor={5}
 					/>
-				],
+				]
+			],
 
-				[
+			playerTwoHand: [
+					[
 					<LakeTile
 						id="lakeTile-20"
 						draggable="true"
@@ -76,8 +77,7 @@ class App extends React.Component {
 						bottomColor={7}
 						leftColor={5}
 					/>
-				],
-
+				]
 			],
 
 			lakeTileSupply: [
@@ -143,9 +143,7 @@ class App extends React.Component {
 					bottomColor={7}
 					leftColor={7} />,
 			],
-
 		}
-
 		//this.state.players[0].lakeTileHand = this.state.playerOneHand
 	}
 
@@ -160,7 +158,7 @@ class App extends React.Component {
 						key={0}
 						playerId={0}
 						playerName="Sub Zero"
-						// lakeTileHand={this.state.playerHands[0]}
+						lakeTileHand={this.state.playerZeroHand}
 						playerHonorScore={0}
 						playerActive={false}
 					/>,
@@ -168,41 +166,10 @@ class App extends React.Component {
 					{/* <PlayerLakeTiles /> */}
 				</div>
 
-
-				{/* PLAYER 1 INFO */}
-				{/* <div className="playerOne"> */}
-				{/* <Player */}
-				{/* // each child in a list should contain a key */}
-				{/* key={0} */}
-				{/* playerId={0} */}
-				{/* playerName="Obi One" */}
-				{/* lakeTileHand={[4, 7, 36]} */}
-				{/* playerHonorScore={0} */}
-				{/* playerActive="false" */}
-				{/* /> */}
-				{/* <LanternCards /> */}
-				{/* <PlayerLakeTiles /> */}
-				{/* </div> */}
-
 				{/* Game board */}
 				<div className="boardGridStyle">
 					<Board />
 				</div>
-
-				{/* PLAYER 3 INFO */}
-				{/* <div className="playerThree"> */}
-				{/* <Player
-						// each child in a list should contain a key
-						key={0}
-						playerId={0}
-						playerName="Triple Threat"
-						lakeTileHand={[4, 7, 36]}
-						playerHonorScore={0}
-						playerActive="false"
-					/> */}
-				{/* <PlayerLakeTiles /> */}
-				{/* <LanternCards /> */}
-				{/* </div> */}
 
 				<div className="supplyGrid">
 					<LanternSupply />
@@ -220,7 +187,7 @@ class App extends React.Component {
 						key={2}
 						playerId={2}
 						playerName="Double Duo"
-						lakeTileHand={this.state.playerHands[1]}
+						lakeTileHand={this.state.playerTwoHand}
 						playerHonorScore={0}
 						playerActive={true}
 					/>
@@ -237,16 +204,16 @@ class App extends React.Component {
 
 	drawLakeTileForActivePlayer() {
 
-		if (!this.state.playerHands[activePlayerIndex].length < 3) {
+		if (!this.state.playerHands[ActivePlayerIndex].length < 3) {
 
 			let lakeTile = this.getTopLakeTile()
 
 			let tempPlayersHand = this.state.playerHands
-			let tempPlayerHand = this.state.playerHands[activePlayerIndex]
+			let tempPlayerHand = this.state.playerHands[ActivePlayerIndex]
 
 			tempPlayerHand.push(lakeTile)
 
-			tempPlayersHand[activePlayerIndex] = tempPlayerHand
+			tempPlayersHand[ActivePlayerIndex] = tempPlayerHand
 
 			this.setState({
 				playerHands: tempPlayersHand
@@ -267,7 +234,10 @@ class App extends React.Component {
 
 		return tile
 	}
+
+	// enforcePlayerTurn(ActivePlayerIndex) {
+
+	// }
 }
 
 export default App;
-

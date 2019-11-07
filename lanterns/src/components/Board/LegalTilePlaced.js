@@ -60,8 +60,7 @@ export function placeTile(array, i, j) {
     console.log(array);
     return array;
   } else {
-    alert("You cannot place a tile here.");
+    alert("You cannot legally place a tile here.");
     return false;
   }
-
 }

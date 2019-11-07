@@ -1,31 +1,47 @@
 import React from 'react';
-import Board, {LegalBoard} from './Board';
-import {placeTile} from './LegalTilePlaced';
+import Board, { LegalBoard } from './Board';
+import { placeTile } from './LegalTilePlaced';
+import { ActivePlayerIndex } from "../../App";
+import { endTurn } from "../../GameLogic";
 
 class BoardTile extends React.Component {
     constructor(props) {
         super(props)
+
+        //    this.canPlaceLakeTile = this.canPlaceLakeTile.bind(this)
+
         this.state = {
             canDrop: true,
             boardTileLakeTileId: this.props.tileid,
             col: this.props.col,
-            row: this.props.row
+            row: this.props.row,
         }
     }
 
+    thisState
+
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
-        e.preventDefault();
-        // Transfer the id between this event, get the element by id
-        // and append it to the boardTile
-        const lakeTile_id = e.dataTransfer.getData('lakeTile_id');
+            if (ActivePlayerIndex[0] === 1) {
 
-        const lakeTile = document.getElementById(lakeTile_id);
-        lakeTile.style.display = 'block';
+                endTurn(ActivePlayerIndex);
 
-        e.target.appendChild(lakeTile);
+                e.preventDefault();
+                // Transfer the id between this event, get the element by id
+                // and append it to the boardTile
+                const lakeTile_id = e.dataTransfer.getData('lakeTile_id');
 
-        this.setState({ canDrop: this.state.canDrop = false });
+                const lakeTile = document.getElementById(lakeTile_id);
+                lakeTile.style.display = 'block';
+
+                e.target.appendChild(lakeTile);
+
+                this.setState({ canDrop: this.state.canDrop = false });
+                console.log("Now the turn is over and it is someone elses turn i.e. " + ActivePlayerIndex);
+            } else {
+                alert("It's not your turn, you cannot place this tile.");
+                console.log(ActivePlayerIndex);
+            }
         }
     }
 

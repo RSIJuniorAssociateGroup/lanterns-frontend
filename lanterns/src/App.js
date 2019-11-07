@@ -22,6 +22,7 @@ class App extends React.Component {
 
 		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
 		this.checkDedication = this.checkDedication.bind(this);
+		this.getDedication = this.getDedication.bind(this);
 
 		this.state = {
 
@@ -82,10 +83,14 @@ class App extends React.Component {
 
 			],
 
+			gameLanternSupply: [2, 0, 0, 0, 0, 3, 0],
+
 			playerLanternSupplies: [
 				[2, 4, 2, 3, 4, 5, 1],
 				[1, 1, 2, 1, 4, 2, 1],
 			],
+
+			playerHonorScores: [0, 0],
 
 			lakeTileSupply: [
 				<LakeTile
@@ -153,10 +158,10 @@ class App extends React.Component {
 
 		}
 
-		//this.state.players[0].lakeTileHand = this.state.playerOneHand
 	}
 
 	render() {
+		console.log(this.state.playerHonorScores)
 		return (
 			<div className="gameView">
 
@@ -166,13 +171,12 @@ class App extends React.Component {
 						// each child in a list should contain a key
 						key={0}
 						playerId={0}
-						playerName="Sub Zero"
+						playerName={"Sub Zero"}
 						lakeTileHand={this.state.playerHands[0]}
-						playerHonorScore={0}
+						playerHonorScore={this.state.playerHonorScores[0]}
 						playerActive={false}
 					/>,
 					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[0]} />
-					{/* <PlayerLakeTiles /> */}
 				</div>
 
 
@@ -212,7 +216,7 @@ class App extends React.Component {
 				{/* </div> */}
 
 				<div className="supplyGrid">
-					<LanternSupply />
+					<LanternSupply gameSupply={this.state.gameLanternSupply}/>
 					<DedicationToken
 						checkDedication={this.checkDedication}
 						getDedication={this.getDedication}
@@ -229,9 +233,9 @@ class App extends React.Component {
 						// each child in a list should contain a key
 						key={2}
 						playerId={2}
-						playerName="Double Duo"
+						playerName={"Double Duo"}
 						lakeTileHand={this.state.playerHands[1]}
-						playerHonorScore={0}
+						playerHonorScore={this.state.playerHonorScores[1]}
 						playerActive={true}
 					/>
 
@@ -255,11 +259,11 @@ class App extends React.Component {
 
 			tempPlayerHand.push(lakeTile)
 
-			tempPlayersHand[activePlayerIndex] = tempPlayerHand
+			tempPlayersHand[activePlayerIndex] = tempPlayerHand;
 
 			this.setState({
 				playerHands: tempPlayersHand
-			})
+			});
 		}
 
 	}
@@ -278,7 +282,12 @@ class App extends React.Component {
 	}
 
 	getDedication(value) {
-		console.log(value)
+		let tempHonorScores = this.state.playerHonorScores;
+		tempHonorScores[activePlayerIndex] += value;
+
+		this.setState({
+			playerHonorScores: tempHonorScores
+		});
 	}
 
 	checkDedication(type) {
@@ -287,7 +296,7 @@ class App extends React.Component {
 
 		switch (type) {
 			case 2:
-				canMakeDedication = this.checkTwoPair(tempLanternCards);
+				canMakeDedication = this.checkThreePair(tempLanternCards);
 				break;
 			case 4:
 				canMakeDedication = this.checkFourOfAKind(tempLanternCards);
@@ -307,10 +316,29 @@ class App extends React.Component {
 			}
 		}
 
+		this.moveLanternsCardsOneOfEach();
 		return true;
 	}
 
-	checkTwoPair(lanternCards) {
+	moveLanternsCardsOneOfEach() {
+		let tempPlayerSupplies = this.state.playerLanternSupplies;
+		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempGameSupply = this.state.gameLanternSupply;
+
+		for (let i = 0; i  < tempPlayerSupply.length; i++) {
+			tempPlayerSupply[i]--;
+			tempGameSupply[i]++;
+		}
+
+		tempPlayerSupplies[activePlayerIndex] = tempPlayerSupply;
+
+		this.setState({
+			playerLanternSupplies: tempPlayerSupplies,
+			gameLanternSupply: tempGameSupply,
+		});
+	}
+
+	checkThreePair(lanternCards) {
 		let pairs = 0;
 		for (let i = 0; i < lanternCards.length; i++) {
 			if (lanternCards[i] >= 2) {

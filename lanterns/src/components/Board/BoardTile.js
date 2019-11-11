@@ -8,7 +8,10 @@ class BoardTile extends React.Component {
     constructor(props) {
         super(props)
 
+        // console.log(props);
         //    this.canPlaceLakeTile = this.canPlaceLakeTile.bind(this)
+
+        this.setCurrentPlayer = this.props.setCurrentPlayer.bind(this);
 
         this.state = {
             canDrop: true,
@@ -25,7 +28,8 @@ class BoardTile extends React.Component {
             if (ActivePlayerIndex[0] === 1) {
 
                 endTurn(ActivePlayerIndex);
-
+                this.setCurrentPlayer(ActivePlayerIndex);
+                
                 e.preventDefault();
                 // Transfer the id between this event, get the element by id
                 // and append it to the boardTile
@@ -37,10 +41,11 @@ class BoardTile extends React.Component {
                 e.target.appendChild(lakeTile);
 
                 this.setState({ canDrop: this.state.canDrop = false });
-                console.log("Now the turn is over and it is someone elses turn i.e. " + ActivePlayerIndex);
+                // window.location.reload(false);
+                // console.log("Now the turn is over and it is someone elses turn i.e. " + ActivePlayerIndex);
             } else {
                 alert("It's not your turn, you cannot place this tile.");
-                console.log(ActivePlayerIndex);
+                // console.log(ActivePlayerIndex);
             }
         }
     }

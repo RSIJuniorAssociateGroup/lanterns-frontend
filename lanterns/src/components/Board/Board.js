@@ -2,39 +2,44 @@ import React from 'react'
 import BoardTile from './BoardTile';
 import LakeTile from '../LakeTileComponent/LakeTile';
 import {createBoard, placeFirstTile} from './LegalTilePlaced';
-// import {startingPlayer} from '../../GameLogic';
 
 export let LegalBoard = placeFirstTile(createBoard(3), 1, 1);
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props)
+    // console.log(props);
+    this.setCurrentPlayer = this.props.setCurrentPlayer.bind(this);
+  }
+  
   render() {
     return (
       <main className="board">
-        <BoardTile col="0" row="0" className="boardTile" boardTileLakeTileId="null">
+        <BoardTile col="0" row="0" className="boardTile" boardTileLakeTileId="null" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
         </BoardTile>
-        <BoardTile col="1" row="0" className="boardTile">
+        <BoardTile col="1" row="0" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
         </BoardTile>
-        <BoardTile col="2" row="0" className="boardTile">
+        <BoardTile col="2" row="0" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
 
         </BoardTile>
 
-        <BoardTile col="0" row="1" className="boardTile">
+        <BoardTile col="0" row="1" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
         </BoardTile>
-        <BoardTile col="1" row="1" className="boardTile">
+        <BoardTile col="1" row="1" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
           <LakeTile id="lakeTile-5" draggable="true" topColor={2}
             rightColor={4}
             bottomColor={5}
             leftColor={3}>
           </LakeTile>
         </BoardTile>
-        <BoardTile col="2" row="1" className="boardTile">
+        <BoardTile col="2" row="1" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
         </BoardTile>
 
-        <BoardTile col="0" row="2" className="boardTile">
+        <BoardTile col="0" row="2" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
         </BoardTile>
-        <BoardTile col="1" row="2" className="boardTile">
+        <BoardTile col="1" row="2" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
         </BoardTile>
-        <BoardTile col="2" row="2" className="boardTile">
+        <BoardTile col="2" row="2" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
         </BoardTile>
       </main>
     )

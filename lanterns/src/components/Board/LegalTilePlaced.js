@@ -54,10 +54,10 @@ export function placeFirstTile(array, i, j) {
 }
 
 export function placeTile(array, i, j) {
-  if (array[i][j] != 0) {
+  if (array[i][j] !== 0) {
     array[i][j] = tilePlaced;
     checkNotZero(array);
-    console.log(array);
+    // console.log(array);
     return array;
   } else {
     alert("You cannot legally place a tile here.");

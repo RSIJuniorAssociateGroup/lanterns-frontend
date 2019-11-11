@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Player from './components/Player/Players';
 import LanternSupply from './components/Supply/LanternSupply';
@@ -8,7 +8,7 @@ import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 // import ActivePlayerIndex from './components/Board/Board'
-import {startingPlayer} from './GameLogic';
+import { startingPlayer } from './GameLogic';
 
 // imports for testing
 
@@ -19,9 +19,11 @@ class App extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this)
-		
+		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
+		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
+
 		this.state = {
+			currentPlayer: ActivePlayerIndex,
 			playerZeroHand: [
 				[
 					<LakeTile
@@ -52,7 +54,7 @@ class App extends React.Component {
 			],
 
 			playerTwoHand: [
-					[
+				[
 					<LakeTile
 						id="lakeTile-20"
 						draggable="true"
@@ -143,32 +145,78 @@ class App extends React.Component {
 					bottomColor={7}
 					leftColor={7} />,
 			],
+			playerHands: [this.playerZeroHand, this.playerTwoHand],
 		}
-		//this.state.players[0].lakeTileHand = this.state.playerOneHand
+
+		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 	}
 
+	// const [firstDieResult, setFirstDieResult] = useState(1);
+	
+	// componentDidMount() {
+	// 	this.timerId = setInterval(
+	// 		() => this.setCurrentPlayer(),
+	// 		1000
+	// 	);
+	// }
+
+	// componentWillUnmount() {
+	// 	clearInterval(this.timerId);
+	// }
+
+	setCurrentPlayer(array){
+		this.setState({
+			currentPlayer: array
+		});
+	}
+
+
 	render() {
+		// console.log(this.state.playerHands);
+		// // console.log(ActivePlayerIndex[0]);
+
+		console.log("render");
+
+		let component = null;
+
+		console.log(this.state.currentPlayer[0]);
+		if(this.state.currentPlayer[0] == 0) {
+			component= (<Player
+				// each child in a list should contain a key
+				key={0}
+				playerId={0}
+				playerName="Sub Zero"
+				lakeTileHand={this.state.playerZeroHand}
+				playerHonorScore={0}
+			/>)
+		} else if (this.state.currentPlayer[0] == 1) {
+			component= (<Player
+				// each child in a list should contain a key
+				key={0}
+				playerId={0}
+				playerName="Sub Zero"
+				playerHonorScore={0}
+			/>)
+		} 
+
+		console.log(component);
+
 		return (
 			<div className="gameView">
 
 				{/* PLAYER 0 INFO */}
+
 				<div className="playerZero">
-					<Player
-						// each child in a list should contain a key
-						key={0}
-						playerId={0}
-						playerName="Sub Zero"
-						lakeTileHand={this.state.playerZeroHand}
-						playerHonorScore={0}
-						playerActive={false}
-					/>,
+					{component}
 					<LanternCardsHorizontal />
 					{/* <PlayerLakeTiles /> */}
 				</div>
 
 				{/* Game board */}
 				<div className="boardGridStyle">
-					<Board />
+					<Board 
+						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
+					/>
 				</div>
 
 				<div className="supplyGrid">
@@ -203,23 +251,18 @@ class App extends React.Component {
 	}
 
 	drawLakeTileForActivePlayer() {
-
-		if (!this.state.playerHands[ActivePlayerIndex].length < 3) {
-
 			let lakeTile = this.getTopLakeTile()
 
 			let tempPlayersHand = this.state.playerHands
-			let tempPlayerHand = this.state.playerHands[ActivePlayerIndex]
+			let tempPlayerHand = this.state.playerHands[0]
 
-			tempPlayerHand.push(lakeTile)
+			tempPlayerHand.push(lakeTile);
 
-			tempPlayersHand[ActivePlayerIndex] = tempPlayerHand
+			tempPlayersHand[0] = tempPlayerHand
 
 			this.setState({
 				playerHands: tempPlayersHand
 			})
-		}
-
 	}
 
 	getTopLakeTile() {
@@ -234,10 +277,6 @@ class App extends React.Component {
 
 		return tile
 	}
-
-	// enforcePlayerTurn(ActivePlayerIndex) {
-
-	// }
 }
 
 export default App;

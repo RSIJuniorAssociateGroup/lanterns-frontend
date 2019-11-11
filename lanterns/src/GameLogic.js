@@ -4,7 +4,7 @@ export function startingPlayer(num) {
 	array[0] = 1;
 	//computer player gets to go second
 	array[1] = 0;
-	console.log(array);
+	// console.log(array);
 
 	return array;
 }
@@ -12,15 +12,16 @@ export function startingPlayer(num) {
 export function endTurn(activePlayer) {
 
 	let item = "";
-	let list = activePlayer;
-	console.log(list);
-	item = list[list.length - 1];
-	console.log(item);
-	list.pop();
-	list.unshift(item);
-	console.log(list);
+	let array = activePlayer;
+	// console.log(array);
+	item = array[array.length - 1];
+	// console.log(item);
+	array.pop();
+	array.unshift(item);
+	// console.log(array);
 	// console.log("Previously was " + activePlayer);
 	// // activePlayer = (activePlayer + 1) % 2 ;
 	// console.log("Now is " + activePlayer);
-	return list;
+	
+	return array;
 }

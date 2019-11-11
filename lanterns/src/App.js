@@ -152,7 +152,7 @@ class App extends React.Component {
 	}
 
 	// const [firstDieResult, setFirstDieResult] = useState(1);
-	
+
 	// componentDidMount() {
 	// 	this.timerId = setInterval(
 	// 		() => this.setCurrentPlayer(),
@@ -164,7 +164,7 @@ class App extends React.Component {
 	// 	clearInterval(this.timerId);
 	// }
 
-	setCurrentPlayer(array){
+	setCurrentPlayer(array) {
 		this.setState({
 			currentPlayer: array
 		});
@@ -180,24 +180,24 @@ class App extends React.Component {
 		let component = null;
 
 		console.log(this.state.currentPlayer[0]);
-		if(this.state.currentPlayer[0] == 0) {
-			component= (<Player
-				// each child in a list should contain a key
-				key={0}
-				playerId={0}
-				playerName="Sub Zero"
-				lakeTileHand={this.state.playerZeroHand}
-				playerHonorScore={0}
-			/>)
-		} else if (this.state.currentPlayer[0] == 1) {
-			component= (<Player
-				// each child in a list should contain a key
-				key={0}
-				playerId={0}
-				playerName="Sub Zero"
-				playerHonorScore={0}
-			/>)
-		} 
+		// if(this.state.currentPlayer[0] == 1) {
+		// 	component= (<Player
+		// 		// each child in a list should contain a key
+		// 		key={0}
+		// 		playerId={0}
+		// 		playerName="Sub Zero"
+		// 		lakeTileHand={this.state.playerZeroHand}
+		// 		playerHonorScore={0}
+		// 	/>)
+		// } else if (this.state.currentPlayer[0] == 1) {
+		// 	component= (<Player
+		// 		// each child in a list should contain a key
+		// 		key={0}
+		// 		playerId={0}
+		// 		playerName="Sub Zero"
+		// 		playerHonorScore={0}
+		// 	/>)
+		// } 
 
 		console.log(component);
 
@@ -207,14 +207,36 @@ class App extends React.Component {
 				{/* PLAYER 0 INFO */}
 
 				<div className="playerZero">
-					{component}
+					{/* {component} */}
+					{(() => {
+						switch(this.state.currentPlayer[0]) {
+							case 1: return <Player
+							// each child in a list should contain a key
+							key={0}
+							playerId={0}
+							playerName="Sub Zero"
+							// lakeTileHand={this.state.playerZeroHand}
+							playerHonorScore={0}
+						/>;
+							case 0: return <Player
+							// each child in a list should contain a key
+							key={0}
+							playerId={0}
+							playerName="Sub Zero"
+							lakeTileHand={this.state.playerZeroHand}
+							playerHonorScore={0}
+						/>;
+							default: return "ERROR ERROR ERROR ERROR";
+						}
+					})()}
+					
 					<LanternCardsHorizontal />
 					{/* <PlayerLakeTiles /> */}
 				</div>
 
 				{/* Game board */}
 				<div className="boardGridStyle">
-					<Board 
+					<Board
 						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
 					/>
 				</div>
@@ -251,18 +273,18 @@ class App extends React.Component {
 	}
 
 	drawLakeTileForActivePlayer() {
-			let lakeTile = this.getTopLakeTile()
+		let lakeTile = this.getTopLakeTile()
 
-			let tempPlayersHand = this.state.playerHands
-			let tempPlayerHand = this.state.playerHands[0]
+		let tempPlayersHand = this.state.playerHands
+		let tempPlayerHand = this.state.playerHands[0]
 
-			tempPlayerHand.push(lakeTile);
+		tempPlayerHand.push(lakeTile);
 
-			tempPlayersHand[0] = tempPlayerHand
+		tempPlayersHand[0] = tempPlayerHand
 
-			this.setState({
-				playerHands: tempPlayersHand
-			})
+		this.setState({
+			playerHands: tempPlayersHand
+		})
 	}
 
 	getTopLakeTile() {

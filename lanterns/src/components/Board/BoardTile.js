@@ -25,7 +25,7 @@ class BoardTile extends React.Component {
 
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
-            if (ActivePlayerIndex[0] === 1) {
+            if (ActivePlayerIndex[0] === 0) {
 
                 endTurn(ActivePlayerIndex);
                 this.setCurrentPlayer(ActivePlayerIndex);

@@ -1,9 +1,9 @@
 export function startingPlayer(num) {
 	let array = new Array(num);
 	//human player gets to go first
-	array[0] = 1;
+	array[0] = 0;
 	//computer player gets to go second
-	array[1] = 0;
+	array[1] = 1;
 	// console.log(array);
 
 	return array;

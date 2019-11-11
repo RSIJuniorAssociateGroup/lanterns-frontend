@@ -8,9 +8,6 @@ class BoardTile extends React.Component {
     constructor(props) {
         super(props)
 
-        // console.log(props);
-        //    this.canPlaceLakeTile = this.canPlaceLakeTile.bind(this)
-
         this.setCurrentPlayer = this.props.setCurrentPlayer.bind(this);
 
         this.state = {
@@ -25,7 +22,7 @@ class BoardTile extends React.Component {
 
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
-            if (ActivePlayerIndex[0] === 0) {
+            // if (ActivePlayerIndex[0] === 0) {
 
                 endTurn(ActivePlayerIndex);
                 this.setCurrentPlayer(ActivePlayerIndex);
@@ -40,13 +37,10 @@ class BoardTile extends React.Component {
 
                 e.target.appendChild(lakeTile);
 
-                this.setState({ canDrop: this.state.canDrop = false });
-                // window.location.reload(false);
-                // console.log("Now the turn is over and it is someone elses turn i.e. " + ActivePlayerIndex);
-            } else {
-                alert("It's not your turn, you cannot place this tile.");
-                // console.log(ActivePlayerIndex);
-            }
+            // } else {
+            //     alert("It's not your turn, you cannot place this tile.");
+            //     // console.log(ActivePlayerIndex);
+            // }
         }
     }
 
@@ -69,7 +63,6 @@ class BoardTile extends React.Component {
                     onDrop={this.drop}
                     // called when call one of lakeTiles over the baord. 
                     onDragOver={this.dragOver}
-                // boardtilelaketileid={this.setState(this.props.tileid)}
                 >
                     {this.props.children}
                 </div>

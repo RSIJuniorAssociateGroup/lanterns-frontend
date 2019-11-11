@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Player from './components/Player/Players';
+import PlayerNotTurn from './components/Player/PlayerNotTurn';
 import LanternSupply from './components/Supply/LanternSupply';
 import LanternCardsHorizontal from './components/Player/LanternCardsHorizontal';
 import Board from './components/Board/Board';
@@ -215,15 +216,14 @@ class App extends React.Component {
 							key={0}
 							playerId={0}
 							playerName="Sub Zero"
-							// lakeTileHand={this.state.playerZeroHand}
+							lakeTileHand={this.state.playerZeroHand}
 							playerHonorScore={0}
 						/>;
-							case 0: return <Player
+							case 0: return <PlayerNotTurn
 							// each child in a list should contain a key
 							key={0}
 							playerId={0}
 							playerName="Sub Zero"
-							lakeTileHand={this.state.playerZeroHand}
 							playerHonorScore={0}
 						/>;
 							default: return "ERROR ERROR ERROR ERROR";
@@ -252,15 +252,29 @@ class App extends React.Component {
 				{/* PLAYER 2 (HUMAN) INFO */}
 				<div className="playerTwo">
 
-					<Player
-						// each child in a list should contain a key
-						key={2}
-						playerId={2}
-						playerName="Double Duo"
-						lakeTileHand={this.state.playerTwoHand}
-						playerHonorScore={0}
-						playerActive={true}
-					/>
+				{(() => {
+						switch(this.state.currentPlayer[0]) {
+							case 0: return <Player
+							// each child in a list should contain a key
+							key={2}
+							playerId={2}
+							playerName="Double Duo"
+							lakeTileHand={this.state.playerTwoHand}
+							playerHonorScore={0}
+							playerActive={true}
+						/>;
+							case 1: return <PlayerNotTurn
+							// each child in a list should contain a key
+							key={2}
+							playerId={2}
+							playerName="Double Duo"
+							playerHonorScore={0}
+							playerActive={true}
+						/>;
+							default: return "ERROR ERROR ERROR ERROR";
+						}
+					})()}
+					
 
 					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
 

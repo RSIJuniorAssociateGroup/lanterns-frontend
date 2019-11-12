@@ -24,7 +24,7 @@ class App extends React.Component {
 		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 
 		this.state = {
-			currentPlayer: ActivePlayerIndex,
+			currentPlayer: activePlayerIndex,
 			playerHands: [
 				[
 					<LakeTile
@@ -168,16 +168,16 @@ class App extends React.Component {
 
 	drawLakeTileForActivePlayer() {
 
-		if (!this.state.playerHands[ActivePlayerIndex[0]].length < 3) {
+		if (!this.state.playerHands[activePlayerIndex[0]].length < 3) {
 
 			let lakeTile = this.getTopLakeTile()
 
 			let tempPlayersHand = this.state.playerHands
-			let tempPlayerHand = this.state.playerHands[ActivePlayerIndex[0]]
+			let tempPlayerHand = this.state.playerHands[activePlayerIndex[0]]
 
 			tempPlayerHand.push(lakeTile)
 
-			tempPlayersHand[ActivePlayerIndex[0]] = tempPlayerHand;
+			tempPlayersHand[activePlayerIndex[0]] = tempPlayerHand;
 
 			this.setState({
 				playerHands: tempPlayersHand
@@ -288,7 +288,7 @@ class App extends React.Component {
 
 	getDedication(value) {
 		let tempHonorScores = this.state.playerHonorScores;
-		tempHonorScores[activePlayerIndex] += value;
+		tempHonorScores[activePlayerIndex[0]] += value;
 
 		this.setState({
 			playerHonorScores: tempHonorScores
@@ -296,7 +296,7 @@ class App extends React.Component {
 	}
 
 	checkDedication(type) {
-		let tempLanternCards = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempLanternCards = this.state.playerLanternSupplies[activePlayerIndex[0]];
 		let canMakeDedication = false;
 
 		switch (type) {
@@ -327,7 +327,7 @@ class App extends React.Component {
 
 	moveLanternsCardsOneOfEach() {
 		let tempPlayerSupplies = this.state.playerLanternSupplies;
-		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex[0]];
 		let tempGameSupply = this.state.gameLanternSupply;
 
 		for (let i = 0; i  < tempPlayerSupply.length; i++) {
@@ -335,7 +335,7 @@ class App extends React.Component {
 			tempGameSupply[i]++;
 		}
 
-		tempPlayerSupplies[activePlayerIndex] = tempPlayerSupply;
+		tempPlayerSupplies[activePlayerIndex[0]] = tempPlayerSupply;
 
 		this.setState({
 			playerLanternSupplies: tempPlayerSupplies,
@@ -361,7 +361,7 @@ class App extends React.Component {
 
 	moveLanternCardsThreePair() {
 		let tempPlayerSupplies = this.state.playerLanternSupplies;
-		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex[0]];
 		let tempGameSupply = this.state.gameLanternSupply;
 
 		let pairCount = 0;
@@ -378,7 +378,7 @@ class App extends React.Component {
 			}
 		}
 
-		tempPlayerSupplies[activePlayerIndex] = tempPlayerSupply;
+		tempPlayerSupplies[activePlayerIndex[0]] = tempPlayerSupply;
 
 		this.setState({
 			playerLanternSupplies: tempPlayerSupplies,
@@ -399,7 +399,7 @@ class App extends React.Component {
 
 	moveLanternCardsFourOfAKind() {
 		let tempPlayerSupplies = this.state.playerLanternSupplies;
-		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex[0]];
 		let tempGameSupply = this.state.gameLanternSupply;
 
 		for (let i = 0; i < tempPlayerSupply.length; i++) {

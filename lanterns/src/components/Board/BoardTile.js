@@ -1,7 +1,7 @@
 import React from 'react';
 import { LegalBoard } from './Board';
 import { placeTile } from './LegalTilePlaced';
-import { ActivePlayerIndex } from "../../App";
+import { activePlayerIndex } from "../../App";
 import { endTurn } from "../../GameLogic";
 
 class BoardTile extends React.Component {
@@ -23,8 +23,8 @@ class BoardTile extends React.Component {
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
 
-                endTurn(ActivePlayerIndex);
-                this.setCurrentPlayer(ActivePlayerIndex);
+                endTurn(activePlayerIndex);
+                this.setCurrentPlayer(activePlayerIndex);
                 
                 e.preventDefault();
                 // Transfer the id between this event, get the element by id

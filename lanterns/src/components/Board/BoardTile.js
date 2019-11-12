@@ -1,5 +1,5 @@
 import React from 'react';
-import Board, { LegalBoard } from './Board';
+import { LegalBoard } from './Board';
 import { placeTile } from './LegalTilePlaced';
 import { ActivePlayerIndex } from "../../App";
 import { endTurn } from "../../GameLogic";
@@ -22,7 +22,6 @@ class BoardTile extends React.Component {
 
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
-            // if (ActivePlayerIndex[0] === 0) {
 
                 endTurn(ActivePlayerIndex);
                 this.setCurrentPlayer(ActivePlayerIndex);
@@ -36,11 +35,6 @@ class BoardTile extends React.Component {
                 lakeTile.style.display = 'block';
 
                 e.target.appendChild(lakeTile);
-
-            // } else {
-            //     alert("It's not your turn, you cannot place this tile.");
-            //     // console.log(ActivePlayerIndex);
-            // }
         }
     }
 
@@ -51,7 +45,6 @@ class BoardTile extends React.Component {
 
     render() {
         if (this.state.canDrop === true) {
-            // myFunction()
             return (
                 <div
                     id={this.props.id}

@@ -13,15 +13,9 @@ export function endTurn(activePlayer) {
 
 	let item = "";
 	let array = activePlayer;
-	// console.log(array);
 	item = array[array.length - 1];
-	// console.log(item);
 	array.pop();
 	array.unshift(item);
-	// console.log(array);
-	// console.log("Previously was " + activePlayer);
-	// // activePlayer = (activePlayer + 1) % 2 ;
-	// console.log("Now is " + activePlayer);
 	
 	return array;
 }

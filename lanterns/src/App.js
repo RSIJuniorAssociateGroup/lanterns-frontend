@@ -13,7 +13,7 @@ import { bool } from 'prop-types';
 
 // imports for testing
 
-let activePlayerIndex = 1
+let activePlayerIndex = 0
 
 class App extends React.Component {
 

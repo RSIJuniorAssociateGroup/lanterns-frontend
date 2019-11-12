@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Player from './components/Player/Players';
 import PlayerNotTurn from './components/Player/PlayerNotTurn';
@@ -25,7 +25,7 @@ class App extends React.Component {
 
 		this.state = {
 			currentPlayer: ActivePlayerIndex,
-			playerZeroHand: [
+			playerHands: [
 				[
 					<LakeTile
 						id="lakeTile-10"
@@ -51,10 +51,8 @@ class App extends React.Component {
 						bottomColor={7}
 						leftColor={5}
 					/>
-				]
-			],
+				],
 
-			playerTwoHand: [
 				[
 					<LakeTile
 						id="lakeTile-20"
@@ -80,8 +78,10 @@ class App extends React.Component {
 						bottomColor={7}
 						leftColor={5}
 					/>
-				]
+				],
+
 			],
+
 
 			lakeTileSupply: [
 				<LakeTile
@@ -146,24 +146,11 @@ class App extends React.Component {
 					bottomColor={7}
 					leftColor={7} />,
 			],
-			playerHands: [this.playerZeroHand, this.playerTwoHand],
+			// playerHands: [this.state.playerZeroHand, this.state.playerTwoHand],
 		}
 
 		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 	}
-
-	// const [firstDieResult, setFirstDieResult] = useState(1);
-
-	// componentDidMount() {
-	// 	this.timerId = setInterval(
-	// 		() => this.setCurrentPlayer(),
-	// 		1000
-	// 	);
-	// }
-
-	// componentWillUnmount() {
-	// 	clearInterval(this.timerId);
-	// }
 
 	setCurrentPlayer(array) {
 		this.setState({
@@ -172,36 +159,90 @@ class App extends React.Component {
 	}
 
 
+	drawLakeTileForActivePlayer() {
+
+		if (!this.state.playerHands[ActivePlayerIndex[0]].length < 3) {
+
+			let lakeTile = this.getTopLakeTile()
+
+			let tempPlayersHand = this.state.playerHands
+			let tempPlayerHand = this.state.playerHands[ActivePlayerIndex[0]]
+
+			tempPlayerHand.push(lakeTile)
+
+			tempPlayersHand[ActivePlayerIndex[0]] = tempPlayerHand;
+
+			this.setState({
+				playerHands: tempPlayersHand
+			});
+		}
+
+	}
+
+	getTopLakeTile() {
+
+		let tempSupply = this.state.lakeTileSupply;
+
+		let tile = tempSupply.pop();
+
+		this.setState({
+			lakeTileSupply: tempSupply
+		});
+
+		return tile;
+	}
+	// drawLakeTileForActivePlayer() {
+	// 	let lakeTile = this.getTopLakeTile();
+	// 	let tempPlayersHand = [];
+	// 	let tempPlayerHand = [];
+
+	// 	if (this.state.currentPlayer[0] === 0) {
+	// 	tempPlayersHand = this.state.playerZeroHand
+	// 	tempPlayerHand = this.state.playerZeroHand
+
+	// 	tempPlayerHand.push(lakeTile);
+
+	// 	tempPlayersHand[0] = tempPlayerHand
+
+	// 	this.setState({
+	// 		playerZeroHand: tempPlayersHand
+	// 	})
+	// } else if (this.state.currentPlayer[0] === 1){
+	// 	tempPlayersHand = this.state.playerTwoHand
+	// 	tempPlayerHand = this.state.playerTwoHand
+
+	// 	tempPlayerHand.push(lakeTile);
+
+	// 	tempPlayersHand[0] = tempPlayerHand
+
+	// 	this.setState({
+	// 		playerTwoHand: tempPlayersHand
+	// 	})
+	// }
+	// }
+
+	// getTopLakeTile() {
+
+	// 	let tempSupply = this.state.lakeTileSupply
+
+	// 	let tile = tempSupply.pop()
+
+	// 	this.setState({
+	// 		lakeTileSupply: tempSupply
+	// 	})
+
+	// 	return tile
+	// }
+
 	render() {
 		// console.log(this.state.playerHands);
 		// // console.log(ActivePlayerIndex[0]);
 
-		console.log("render");
+		// console.log("render");
 
-		let component = null;
+		// let component = null;
 
 		console.log(this.state.currentPlayer[0]);
-		// if(this.state.currentPlayer[0] == 1) {
-		// 	component= (<Player
-		// 		// each child in a list should contain a key
-		// 		key={0}
-		// 		playerId={0}
-		// 		playerName="Sub Zero"
-		// 		lakeTileHand={this.state.playerZeroHand}
-		// 		playerHonorScore={0}
-		// 	/>)
-		// } else if (this.state.currentPlayer[0] == 1) {
-		// 	component= (<Player
-		// 		// each child in a list should contain a key
-		// 		key={0}
-		// 		playerId={0}
-		// 		playerName="Sub Zero"
-		// 		playerHonorScore={0}
-		// 	/>)
-		// } 
-
-		console.log(component);
-
 		return (
 			<div className="gameView">
 
@@ -209,27 +250,36 @@ class App extends React.Component {
 
 				<div className="playerZero">
 					{/* {component} */}
+
+					{/* <Player
+						// each child in a list should contain a key
+						key={0}
+						playerId={0}
+						playerName="Sub Zero"
+						lakeTileHand={this.state.playerZeroHand}
+						playerHonorScore={0}
+					/> */}
 					{(() => {
-						switch(this.state.currentPlayer[0]) {
-							case 1: return <Player
-							// each child in a list should contain a key
-							key={0}
-							playerId={0}
-							playerName="Sub Zero"
-							lakeTileHand={this.state.playerZeroHand}
-							playerHonorScore={0}
-						/>;
-							case 0: return <PlayerNotTurn
-							// each child in a list should contain a key
-							key={0}
-							playerId={0}
-							playerName="Sub Zero"
-							playerHonorScore={0}
-						/>;
+						switch (this.state.currentPlayer[0]) {
+							case 0: return <Player
+								// each child in a list should contain a key
+								key={0}
+								playerId={0}
+								playerName="Sub Zero"
+								lakeTileHand={this.state.playerHands[0]}
+								playerHonorScore={0}
+							/>;
+							case 1: return <PlayerNotTurn
+								// each child in a list should contain a key
+								key={0}
+								playerId={0}
+								playerName="Sub Zero"
+								playerHonorScore={0}
+							/>;
 							default: return "ERROR ERROR ERROR ERROR";
 						}
 					})()}
-					
+
 					<LanternCardsHorizontal />
 					{/* <PlayerLakeTiles /> */}
 				</div>
@@ -238,6 +288,7 @@ class App extends React.Component {
 				<div className="boardGridStyle">
 					<Board
 						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
+						drawLakeTileForActivePlayer={this.drawLakeTileForActivePlayer.bind(this)}
 					/>
 				</div>
 
@@ -252,18 +303,28 @@ class App extends React.Component {
 				{/* PLAYER 2 (HUMAN) INFO */}
 				<div className="playerTwo">
 
-				{(() => {
+					{/* <Player
+						// each child in a list should contain a key
+						key={2}
+						playerId={2}
+						playerName="Double Duo"
+						lakeTileHand={this.state.playerTwoHand}
+						playerHonorScore={0}
+						playerActive={true}
+					/> */}
+
+					{(() => {
 						switch(this.state.currentPlayer[0]) {
-							case 0: return <Player
+							case 1: return <Player
 							// each child in a list should contain a key
 							key={2}
 							playerId={2}
 							playerName="Double Duo"
-							lakeTileHand={this.state.playerTwoHand}
+							lakeTileHand={this.state.playerHands[1]}
 							playerHonorScore={0}
 							playerActive={true}
 						/>;
-							case 1: return <PlayerNotTurn
+							case 0: return <PlayerNotTurn
 							// each child in a list should contain a key
 							key={2}
 							playerId={2}
@@ -274,7 +335,7 @@ class App extends React.Component {
 							default: return "ERROR ERROR ERROR ERROR";
 						}
 					})()}
-					
+
 
 					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
 
@@ -286,33 +347,7 @@ class App extends React.Component {
 		);
 	}
 
-	drawLakeTileForActivePlayer() {
-		let lakeTile = this.getTopLakeTile()
 
-		let tempPlayersHand = this.state.playerHands
-		let tempPlayerHand = this.state.playerHands[0]
-
-		tempPlayerHand.push(lakeTile);
-
-		tempPlayersHand[0] = tempPlayerHand
-
-		this.setState({
-			playerHands: tempPlayersHand
-		})
-	}
-
-	getTopLakeTile() {
-
-		let tempSupply = this.state.lakeTileSupply
-
-		let tile = tempSupply.pop()
-
-		this.setState({
-			lakeTileSupply: tempSupply
-		})
-
-		return tile
-	}
 }
 
 export default App;

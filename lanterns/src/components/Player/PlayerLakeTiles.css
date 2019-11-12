@@ -12,8 +12,8 @@
 }
 
 .lake-tile-holder {
-    width:100%; /*width of your image*/
-    height:100%; /*height of your image*/
+    /* width:50px;  /*width of your image*/
+    /* height: 50px; /*height of your image
     margin:2; /* If you want no margin */
     padding:0;
     

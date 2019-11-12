@@ -5,104 +5,53 @@ class LanternCardsHorizontal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            player: 0,
-            white: 0,
-            blue: 0,
-            red: 0,
-            green: 0,
-            black: 0,
-            yellow: 0,
-            purple: 0
+            white: props.lanternCards[0],
+            blue: props.lanternCards[1],
+            red: props.lanternCards[2],
+            green: props.lanternCards[3],
+            black: props.lanternCards[4],
+            orange: props.lanternCards[5],
+            purple: props.lanternCards[6]
         }
     }
 
-    whiteLantern() {
-        this.setState((prevState) => ({
-            white: prevState.white + 1
-        }));
-    }
-
-    blueLantern() {
-        this.setState((prevState) => ({
-            blue: prevState.blue + 1
-        }));
-    }
-
-    redLantern() {
-        this.setState((prevState) => ({
-            red: prevState.red + 1
-        }));
-    }
-
-    greenLantern() {
-        this.setState((prevState) => ({
-            green: prevState.green + 1
-        }));
-    }
-
-    blackLantern() {
-        this.setState((prevState) => ({
-            black: prevState.black + 1
-        }));
-    }
-
-    yellowLantern() {
-        this.setState((prevState) => ({
-            yellow: prevState.yellow + 1
-        }));
-    }
-
-    purpleLantern() {
-        this.setState((prevState) => ({
-            purple: prevState.purple + 1
-        }));
-    }
     render() {
         return (
             <div>
-                {/* <div className="lanternCircles">
-                    <button onClick={this.whiteLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.blueLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.redLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.greenLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.blackLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.yellowLantern.bind(this)}>Add Lantern</button>
-                    <button onClick={this.purpleLantern.bind(this)}>Add Lantern</button>
-                </div> */}
                 <div className="lanternCirclesHorizontal">
-                <div className="whiteCircleHorizontal">
+                    <div className="whiteCircleHorizontal">
                         <div className="circleText">
-                            {this.state.white}
+                            {this.props.lanternCards[0]}
                         </div>
                     </div>
                     <div className="blueCircle">
                         <div className="circleText">
-                            {this.state.blue}
+                            {this.props.lanternCards[1]}
                         </div>
                     </div>
                     <div className="redCircle">
                         <div className="circleText">
-                            {this.state.blue}
+                            {this.props.lanternCards[2]}
                         </div>
                     </div>
                     <div className="greenCircle">
                         <div className="circleText">
-                            {this.state.blue}
+                            {this.props.lanternCards[3]}
                         </div>
                     </div>
                     <div className="blackCircle">
                         <div className="circleText">
-                            {this.state.blue}
+                            {this.props.lanternCards[4]}
                         </div>
                     </div>
                     <div className="yellowCircle">
                         <div className="circleText">
-                            {this.state.blue}
+                            {this.props.lanternCards[5]}
                         </div>
                     </div>
                     <div className="purpleCircle">
                         <div className="circleText">
-                            {this.state.blue}
+                            {this.props.lanternCards[6]}
                         </div>
                     </div>
                 </div>

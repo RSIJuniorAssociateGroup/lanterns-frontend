@@ -2,7 +2,7 @@ import React from "react";
 import ded4 from '../../pictures/4_of_a_Kind.jpg';
 import dedPairs from '../../pictures/3_pairs.jpg';
 import ded7 from '../../pictures/7_unique.jpg';
-import './ded.css';
+import './dedicationTokens.css';
 
 // Tie this component to 'player hand'  ex:
 // initialize 'Honor Array': playerDedicationTokens = []
@@ -21,10 +21,6 @@ class DedicationToken extends React.Component {
         fIndex: 0,
         pIndex: 0,
         sIndex: 0,
-        fourTokensStack: [8, 7, 6, 5, 5, 4, 'generic'],
-        pairsTokenStack: [9, 8, 7, 6, 5, 5, 'generic'],
-        sevenTokensStack: [10, 9, 8, 7, 6, 5, 'generic'],
-
     }
     constructor(props) {
         super(props);
@@ -33,10 +29,17 @@ class DedicationToken extends React.Component {
 
     render() {
         // Backend arrays of tokens?
+        let fourTokensStack = [8, 7, 6, 5, 5, 4, 'generic'];
+        let pairsTokenStack = [9, 8, 7, 6, 5, 5, 'generic'];
+        let sevenTokensStack = [10, 9, 8, 7, 6, 5, 'generic'];
 
-        let points4 = this.state.fourTokensStack[this.state.fIndex];
-        let pointsPairs = this.state.pairsTokenStack[this.state.pIndex];
-        let points7 = this.state.sevenTokensStack[this.state.sIndex];
+        let fIndex = this.state.fIndex;
+        let pIndex = this.state.pIndex;
+        let sIndex = this.state.sIndex;
+
+        let points4 = fourTokensStack[fIndex];
+        let pointsPairs = pairsTokenStack[pIndex];
+        let points7 = sevenTokensStack[sIndex];
 
         return (
             <div className="tokenHand">
@@ -49,7 +52,7 @@ class DedicationToken extends React.Component {
                     <h1>{pointsPairs}</h1>
                 </button>
                 <button data-id="3" className="tokenContainer" onClick={this.buyToken}>
-                    <img src={ded7} width="150" alt="3_pairs" />
+                    <img src={ded7} width="150" alt="One of Each" />
                     <h1>{points7}</h1>
                 </button>
             </div>
@@ -57,14 +60,12 @@ class DedicationToken extends React.Component {
     }
 
     buyToken(e) {
-        if (e.currentTarget.dataset.id === "1" && this.props.checkDedication(4)) {
-            this.props.getDedication(this.state.fourTokensStack[this.state.fIndex])
+        if ((e.currentTarget.dataset.id === "1") && this.props.checkDedication(4)) {
+            console.log("success");
             this.setState({ fIndex: this.state.fIndex + 1 })
-        } else if (e.currentTarget.dataset.id === '2' && this.props.checkDedication(2)) {
-            this.props.getDedication(this.state.pairsTokenStack[this.state.pIndex])
+        } else if ((e.currentTarget.dataset.id === '2') && this.props.checkDedication(2)) {
             this.setState({ pIndex: this.state.pIndex + 1 })
-        } else if (e.currentTarget.dataset.id === '3' && this.props.checkDedication(7)) {
-            this.props.getDedication(this.state.sevenTokensStack[this.state.sIndex])
+        } else if ((e.currentTarget.dataset.id === '3') && this.props.checkDedication(7)) {
             this.setState({ sIndex: this.state.sIndex + 1 })
         }
     }

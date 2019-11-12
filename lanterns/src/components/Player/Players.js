@@ -1,4 +1,4 @@
-import React from '../../../node_modules/react';
+import React from 'react';
 import "./PlayerLakeTiles.css"
 
 // Player seats to be used during resource distribution
@@ -7,6 +7,7 @@ const playerSeats = [];
 class Player extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             playerId: props.playerId,
             playerName: props.playerName,
@@ -15,13 +16,14 @@ class Player extends React.Component {
             playerActive: false,
         }
     }
+    
     render() {
 
         playerSeats.push(this.state.playerId);
         return (
             <div >
                 <p className="playerName">{this.state.playerName}</p>
-                <p className="honorScore">Honor Score: {this.state.playerHonorScore}</p>
+                <p>Honor Score: {this.props.playerHonorScore}</p>
                 <div className="player-hand">
                     {this.state.lakeTileHand}
                 </div>
@@ -31,4 +33,4 @@ class Player extends React.Component {
     }
 }
 
-export default Player; 
+export default Player;

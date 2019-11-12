@@ -8,9 +8,10 @@ import Board from './components/Board/Board';
 import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
+import { bool } from 'prop-types';
 import { startingPlayer } from './GameLogic';
 
-export let ActivePlayerIndex = startingPlayer(2);
+export let activePlayerIndex = startingPlayer(2);
 
 class App extends React.Component {
 
@@ -18,6 +19,8 @@ class App extends React.Component {
 		super(props)
 
 		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
+		this.checkDedication = this.checkDedication.bind(this);
+		this.getDedication = this.getDedication.bind(this);
 		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 
 		this.state = {
@@ -79,6 +82,14 @@ class App extends React.Component {
 
 			],
 
+			gameLanternSupply: [2, 0, 0, 0, 0, 3, 0],
+
+			playerLanternSupplies: [
+				[2, 4, 2, 3, 4, 5, 1],
+				[1, 1, 2, 1, 4, 2, 1],
+			],
+
+			playerHonorScores: [0, 0],
 
 			lakeTileSupply: [
 				<LakeTile
@@ -172,7 +183,6 @@ class App extends React.Component {
 				playerHands: tempPlayersHand
 			});
 		}
-
 	}
 
 	getTopLakeTile() {
@@ -204,21 +214,21 @@ class App extends React.Component {
 								playerId={0}
 								playerName="Sub Zero"
 								lakeTileHand={this.state.playerHands[0]}
-								playerHonorScore={0}
+								playerHonorScore={this.state.playerHonorScores[0]}
 							/>;
 							case 1: return <PlayerNotTurn
 								// each child in a list should contain a key
 								key={0}
 								playerId={0}
 								playerName="Sub Zero"
-								playerHonorScore={0}
+								playerHonorScore={this.state.playerHonorScores[0]}
 							/>;
 							default: return "ERROR ERROR ERROR ERROR";
 						}
 					})()}
 
-					<LanternCardsHorizontal />
-					{/* <PlayerLakeTiles /> */}
+					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[0]} />
+            
 				</div>
 
 				{/* Game board */}
@@ -230,8 +240,11 @@ class App extends React.Component {
 				</div>
 
 				<div className="supplyGrid">
-					<LanternSupply />
-					<DedicationToken />
+					<LanternSupply gameSupply={this.state.gameLanternSupply}/>
+					<DedicationToken
+						checkDedication={this.checkDedication}
+						getDedication={this.getDedication}
+					/>
 					<LakeTileSupply
 						supply={this.state.lakeTileSupply} />
 				</div>
@@ -239,7 +252,7 @@ class App extends React.Component {
 
 				{/* PLAYER 2 (HUMAN) INFO */}
 				<div className="playerTwo">
-
+					
 					{(() => {
 						switch(this.state.currentPlayer[0]) {
 							case 1: return <Player
@@ -248,7 +261,7 @@ class App extends React.Component {
 							playerId={2}
 							playerName="Double Duo"
 							lakeTileHand={this.state.playerHands[1]}
-							playerHonorScore={0}
+						  playerHonorScore={this.state.playerHonorScores[1]}
 							playerActive={true}
 						/>;
 							case 0: return <PlayerNotTurn
@@ -256,25 +269,152 @@ class App extends React.Component {
 							key={2}
 							playerId={2}
 							playerName="Double Duo"
-							playerHonorScore={0}
+						  playerHonorScore={this.state.playerHonorScores[1]}
 							playerActive={true}
 						/>;
 							default: return "ERROR ERROR ERROR ERROR";
 						}
 					})()}
 
-
 					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
 
-					{/* <PlayerLakeTiles /> */}
-					<LanternCardsHorizontal />
+					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[1]} />
+
 				</div>
 
 			</div>
 		);
 	}
 
+	getDedication(value) {
+		let tempHonorScores = this.state.playerHonorScores;
+		tempHonorScores[activePlayerIndex] += value;
 
+		this.setState({
+			playerHonorScores: tempHonorScores
+		});
+	}
+
+	checkDedication(type) {
+		let tempLanternCards = this.state.playerLanternSupplies[activePlayerIndex];
+		let canMakeDedication = false;
+
+		switch (type) {
+			case 2:
+				canMakeDedication = this.checkThreePair(tempLanternCards);
+				break;
+			case 4:
+				canMakeDedication = this.checkFourOfAKind(tempLanternCards);
+				break;
+			case 7:
+				canMakeDedication = this.checkOneOfEach(tempLanternCards);
+				break;
+		}
+
+		return canMakeDedication;
+	}
+
+	checkOneOfEach(lanternCards) {
+		for (let i = 0; i < lanternCards.length; i++) {
+			if (lanternCards[i] === 0) {
+				return false;
+			}
+		}
+
+		this.moveLanternsCardsOneOfEach();
+		return true;
+	}
+
+	moveLanternsCardsOneOfEach() {
+		let tempPlayerSupplies = this.state.playerLanternSupplies;
+		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempGameSupply = this.state.gameLanternSupply;
+
+		for (let i = 0; i  < tempPlayerSupply.length; i++) {
+			tempPlayerSupply[i]--;
+			tempGameSupply[i]++;
+		}
+
+		tempPlayerSupplies[activePlayerIndex] = tempPlayerSupply;
+
+		this.setState({
+			playerLanternSupplies: tempPlayerSupplies,
+			gameLanternSupply: tempGameSupply,
+		});
+	}
+
+	checkThreePair(lanternCards) {
+		let pairs = 0;
+		for (let i = 0; i < lanternCards.length; i++) {
+			if (lanternCards[i] >= 2) {
+				pairs++;
+			}
+		}
+
+		if (pairs >= 3) {
+			this.moveLanternCardsThreePair()
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	moveLanternCardsThreePair() {
+		let tempPlayerSupplies = this.state.playerLanternSupplies;
+		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempGameSupply = this.state.gameLanternSupply;
+
+		let pairCount = 0;
+
+		for (let i = 0; i < tempPlayerSupply.length; i++) {
+			if (pairCount === 3) {
+				break;
+			} else {
+				if (tempPlayerSupply[i] >= 2) {
+					tempPlayerSupply[i] -= 2;
+					tempGameSupply[i] += 2;
+					pairCount++;
+				}
+			}
+		}
+
+		tempPlayerSupplies[activePlayerIndex] = tempPlayerSupply;
+
+		this.setState({
+			playerLanternSupplies: tempPlayerSupplies,
+			gameLanternSupply: tempGameSupply,
+		});
+	}
+
+	checkFourOfAKind(lanternCards) {
+		for (let i = 0; i < lanternCards.length; i++) {
+			if (lanternCards[i] >= 4) {
+				this.moveLanternCardsFourOfAKind();
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	moveLanternCardsFourOfAKind() {
+		let tempPlayerSupplies = this.state.playerLanternSupplies;
+		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex];
+		let tempGameSupply = this.state.gameLanternSupply;
+
+		for (let i = 0; i < tempPlayerSupply.length; i++) {
+			if (tempPlayerSupply[i] >= 4) {
+				tempPlayerSupply[i] -= 4;
+				tempGameSupply[i] += 4;
+				break;
+			}
+		}
+
+		this.setState({
+			playerLanternSupplies: tempPlayerSupplies,
+			gameLanternSupply: tempGameSupply,
+		});
+	}
 }
 
 export default App;

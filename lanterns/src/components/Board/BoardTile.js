@@ -1,31 +1,40 @@
 import React from 'react';
-import Board, {LegalBoard} from './Board';
-import {placeTile} from './LegalTilePlaced';
+import { LegalBoard } from './Board';
+import { placeTile } from './LegalTilePlaced';
+import { ActivePlayerIndex } from "../../App";
+import { endTurn } from "../../GameLogic";
 
 class BoardTile extends React.Component {
     constructor(props) {
         super(props)
+
+        this.setCurrentPlayer = this.props.setCurrentPlayer.bind(this);
+
         this.state = {
             canDrop: true,
             boardTileLakeTileId: this.props.tileid,
             col: this.props.col,
-            row: this.props.row
+            row: this.props.row,
         }
     }
 
+    thisState
+
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
-        e.preventDefault();
-        // Transfer the id between this event, get the element by id
-        // and append it to the boardTile
-        const lakeTile_id = e.dataTransfer.getData('lakeTile_id');
 
-        const lakeTile = document.getElementById(lakeTile_id);
-        lakeTile.style.display = 'block';
+                endTurn(ActivePlayerIndex);
+                this.setCurrentPlayer(ActivePlayerIndex);
+                
+                e.preventDefault();
+                // Transfer the id between this event, get the element by id
+                // and append it to the boardTile
+                const lakeTile_id = e.dataTransfer.getData('lakeTile_id');
 
-        e.target.appendChild(lakeTile);
+                const lakeTile = document.getElementById(lakeTile_id);
+                lakeTile.style.display = 'block';
 
-        this.setState({ canDrop: this.state.canDrop = false });
+                e.target.appendChild(lakeTile);
         }
     }
 
@@ -36,7 +45,6 @@ class BoardTile extends React.Component {
 
     render() {
         if (this.state.canDrop === true) {
-            // myFunction()
             return (
                 <div
                     id={this.props.id}
@@ -48,7 +56,6 @@ class BoardTile extends React.Component {
                     onDrop={this.drop}
                     // called when call one of lakeTiles over the baord. 
                     onDragOver={this.dragOver}
-                // boardtilelaketileid={this.setState(this.props.tileid)}
                 >
                     {this.props.children}
                 </div>

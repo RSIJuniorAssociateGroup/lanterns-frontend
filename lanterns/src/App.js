@@ -1,28 +1,27 @@
 import React from 'react';
 import './App.css';
 import Player from './components/Player/Players';
+import PlayerNotTurn from './components/Player/PlayerNotTurn';
 import LanternSupply from './components/Supply/LanternSupply';
-import PlayerLakeTiles from './components/Player/PlayerLakeTiles';
-import LanternCards from './components/Player/LanternCards';
 import LanternCardsHorizontal from './components/Player/LanternCardsHorizontal';
 import Board from './components/Board/Board';
 import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
+import { startingPlayer } from './GameLogic';
 
-// imports for testing
-
-let activePlayerIndex = 1
+export let ActivePlayerIndex = startingPlayer(2);
 
 class App extends React.Component {
 
 	constructor(props) {
 		super(props)
 
-		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this)
+		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
+		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 
 		this.state = {
-
+			currentPlayer: ActivePlayerIndex,
 			playerHands: [
 				[
 					<LakeTile
@@ -79,6 +78,7 @@ class App extends React.Component {
 				],
 
 			],
+
 
 			lakeTileSupply: [
 				<LakeTile
@@ -143,66 +143,91 @@ class App extends React.Component {
 					bottomColor={7}
 					leftColor={7} />,
 			],
-
 		}
 
-		//this.state.players[0].lakeTileHand = this.state.playerOneHand
+		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
+	}
+
+	setCurrentPlayer(array) {
+		this.setState({
+			currentPlayer: array
+		});
+	}
+
+
+	drawLakeTileForActivePlayer() {
+
+		if (!this.state.playerHands[ActivePlayerIndex[0]].length < 3) {
+
+			let lakeTile = this.getTopLakeTile()
+
+			let tempPlayersHand = this.state.playerHands
+			let tempPlayerHand = this.state.playerHands[ActivePlayerIndex[0]]
+
+			tempPlayerHand.push(lakeTile)
+
+			tempPlayersHand[ActivePlayerIndex[0]] = tempPlayerHand;
+
+			this.setState({
+				playerHands: tempPlayersHand
+			});
+		}
+
+	}
+
+	getTopLakeTile() {
+
+		let tempSupply = this.state.lakeTileSupply;
+
+		let tile = tempSupply.pop();
+
+		this.setState({
+			lakeTileSupply: tempSupply
+		});
+
+		return tile;
 	}
 
 	render() {
+
 		return (
 			<div className="gameView">
 
 				{/* PLAYER 0 INFO */}
 				<div className="playerZero">
-					<Player
-						// each child in a list should contain a key
-						key={0}
-						playerId={0}
-						playerName="Sub Zero"
-						// lakeTileHand={this.state.playerHands[0]}
-						playerHonorScore={0}
-						playerActive={false}
-					/>,
+
+					{(() => {
+						switch (this.state.currentPlayer[0]) {
+							case 0: return <Player
+								// each child in a list should contain a key
+								key={0}
+								playerId={0}
+								playerName="Sub Zero"
+								lakeTileHand={this.state.playerHands[0]}
+								playerHonorScore={0}
+							/>;
+							case 1: return <PlayerNotTurn
+								// each child in a list should contain a key
+								key={0}
+								playerId={0}
+								playerName="Sub Zero"
+								playerHonorScore={0}
+							/>;
+							default: return "ERROR ERROR ERROR ERROR";
+						}
+					})()}
+
 					<LanternCardsHorizontal />
 					{/* <PlayerLakeTiles /> */}
 				</div>
 
-
-				{/* PLAYER 1 INFO */}
-				{/* <div className="playerOne"> */}
-				{/* <Player */}
-				{/* // each child in a list should contain a key */}
-				{/* key={0} */}
-				{/* playerId={0} */}
-				{/* playerName="Obi One" */}
-				{/* lakeTileHand={[4, 7, 36]} */}
-				{/* playerHonorScore={0} */}
-				{/* playerActive="false" */}
-				{/* /> */}
-				{/* <LanternCards /> */}
-				{/* <PlayerLakeTiles /> */}
-				{/* </div> */}
-
 				{/* Game board */}
 				<div className="boardGridStyle">
-					<Board />
+					<Board
+						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
+						drawLakeTileForActivePlayer={this.drawLakeTileForActivePlayer.bind(this)}
+					/>
 				</div>
-
-				{/* PLAYER 3 INFO */}
-				{/* <div className="playerThree"> */}
-				{/* <Player
-						// each child in a list should contain a key
-						key={0}
-						playerId={0}
-						playerName="Triple Threat"
-						lakeTileHand={[4, 7, 36]}
-						playerHonorScore={0}
-						playerActive="false"
-					/> */}
-				{/* <PlayerLakeTiles /> */}
-				{/* <LanternCards /> */}
-				{/* </div> */}
 
 				<div className="supplyGrid">
 					<LanternSupply />
@@ -215,15 +240,29 @@ class App extends React.Component {
 				{/* PLAYER 2 (HUMAN) INFO */}
 				<div className="playerTwo">
 
-					<Player
-						// each child in a list should contain a key
-						key={2}
-						playerId={2}
-						playerName="Double Duo"
-						lakeTileHand={this.state.playerHands[1]}
-						playerHonorScore={0}
-						playerActive={true}
-					/>
+					{(() => {
+						switch(this.state.currentPlayer[0]) {
+							case 1: return <Player
+							// each child in a list should contain a key
+							key={2}
+							playerId={2}
+							playerName="Double Duo"
+							lakeTileHand={this.state.playerHands[1]}
+							playerHonorScore={0}
+							playerActive={true}
+						/>;
+							case 0: return <PlayerNotTurn
+							// each child in a list should contain a key
+							key={2}
+							playerId={2}
+							playerName="Double Duo"
+							playerHonorScore={0}
+							playerActive={true}
+						/>;
+							default: return "ERROR ERROR ERROR ERROR";
+						}
+					})()}
+
 
 					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
 
@@ -235,39 +274,7 @@ class App extends React.Component {
 		);
 	}
 
-	drawLakeTileForActivePlayer() {
 
-		if (!this.state.playerHands[activePlayerIndex].length < 3) {
-
-			let lakeTile = this.getTopLakeTile()
-
-			let tempPlayersHand = this.state.playerHands
-			let tempPlayerHand = this.state.playerHands[activePlayerIndex]
-
-			tempPlayerHand.push(lakeTile)
-
-			tempPlayersHand[activePlayerIndex] = tempPlayerHand
-
-			this.setState({
-				playerHands: tempPlayersHand
-			})
-		}
-
-	}
-
-	getTopLakeTile() {
-
-		let tempSupply = this.state.lakeTileSupply
-
-		let tile = tempSupply.pop()
-
-		this.setState({
-			lakeTileSupply: tempSupply
-		})
-
-		return tile
-	}
 }
 
 export default App;
-

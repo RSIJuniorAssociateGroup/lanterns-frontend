@@ -30,7 +30,6 @@ class Board extends React.Component {
             rightColor={this.props.firstTileColors[1]}
             bottomColor={this.props.firstTileColors[2]}
             leftColor={this.props.firstTileColors[3]}>
-
           </LakeTile>
         </BoardTile>
         <BoardTile col="2" row="1" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>

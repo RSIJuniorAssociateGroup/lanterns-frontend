@@ -158,6 +158,10 @@ class App extends React.Component {
 		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 	}
 
+	componentWillMount() {
+		this.gameSetup();
+	}
+
 	gameSetup() {
 
 		let shuffledLakeTiles = shuffleLakeTiles(this.state.lakeTileSupply);
@@ -288,7 +292,6 @@ class App extends React.Component {
 					})()}
 
 					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
-					<button onClick={this.gameSetup}>Setup</button>
 
 					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[1]} />
 

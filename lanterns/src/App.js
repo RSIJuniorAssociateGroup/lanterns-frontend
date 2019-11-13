@@ -25,6 +25,8 @@ class App extends React.Component {
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
 		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
+		this.updatePlayerHand = this.updatePlayerHand.bind(this);
+		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
@@ -165,8 +167,6 @@ class App extends React.Component {
 					leftColor={7} />,
 			],
 		}
-
-		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 	}
 
 	setCurrentPlayer(array) {
@@ -175,6 +175,11 @@ class App extends React.Component {
 		});
 	}
 
+	//Logic for player hand
+
+	updatePlayerHand() {
+		console.log("Here");
+	}
 
 	drawLakeTileForActivePlayer() {
 
@@ -246,6 +251,7 @@ class App extends React.Component {
 					<Board
 						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
 						drawLakeTileForActivePlayer={this.drawLakeTileForActivePlayer.bind(this)}
+						updatePlayerHand={this.updatePlayerHand.bind(this)}
 					/>
 				</div>
 

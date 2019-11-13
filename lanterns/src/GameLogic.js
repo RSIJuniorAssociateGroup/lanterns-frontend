@@ -67,16 +67,16 @@ export function orientFirstTile(playerCount) {
 
 	switch (rng) {
 		case 0:
-			tileColors.push([6, 7, 1, 2])
+			tileColors.push(6, 7, 1, 2)
 			break;
 		case 1:
-			tileColors.push([1, 2, 6, 7])
+			tileColors.push(1, 2, 6, 7)
 			break;
 		case 2:
-			tileColors.push([2, 6, 7, 1])
+			tileColors.push(2, 6, 7, 1)
 			break;
 		case 3:
-			tileColors.push([7, 1, 2, 6]);
+			tileColors.push(7, 1, 2, 6);
 			break;
 	}
 

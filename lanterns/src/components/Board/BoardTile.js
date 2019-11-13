@@ -23,18 +23,23 @@ class BoardTile extends React.Component {
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
 
+            e.preventDefault();
+            // Transfer the id between this event, get the element by id
+            // and append it to the boardTile
+            const lakeTile_id = e.dataTransfer.getData('lakeTile_id');
+
+            const lakeTile = document.getElementById(lakeTile_id);
+
+            if (lakeTile !== null) {
                 endTurn(activePlayerIndex);
                 this.setCurrentPlayer(activePlayerIndex);
-                
-                e.preventDefault();
-                // Transfer the id between this event, get the element by id
-                // and append it to the boardTile
-                const lakeTile_id = e.dataTransfer.getData('lakeTile_id');
 
-                const lakeTile = document.getElementById(lakeTile_id);
                 lakeTile.style.display = 'block';
 
                 e.target.appendChild(lakeTile);
+            } else {
+                alert("You cannot move a placed tiled.")
+            }
         }
     }
 

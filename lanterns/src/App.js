@@ -34,6 +34,7 @@ class App extends React.Component {
 						rightColor={4}
 						bottomColor={5}
 						leftColor={3}
+						canRotate={true}
 					/>,
 					<LakeTile
 						id="lakeTile-11"
@@ -42,6 +43,7 @@ class App extends React.Component {
 						rightColor={4}
 						bottomColor={1}
 						leftColor={2}
+						canRotate={true}
 					/>,
 					<LakeTile
 						id="lakeTile-12"
@@ -50,6 +52,7 @@ class App extends React.Component {
 						rightColor={6}
 						bottomColor={7}
 						leftColor={5}
+						canRotate={true}
 					/>
 				],
 
@@ -61,6 +64,7 @@ class App extends React.Component {
 						rightColor={2}
 						bottomColor={2}
 						leftColor={2}
+						canRotate={true}
 					/>,
 					<LakeTile
 						id="lakeTile-21"
@@ -69,6 +73,7 @@ class App extends React.Component {
 						rightColor={4}
 						bottomColor={1}
 						leftColor={2}
+						canRotate={true}
 					/>,
 					<LakeTile
 						id="lakeTile-22"
@@ -77,6 +82,7 @@ class App extends React.Component {
 						rightColor={6}
 						bottomColor={7}
 						leftColor={5}
+						canRotate={true}
 					/>
 				],
 

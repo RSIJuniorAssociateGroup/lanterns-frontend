@@ -15,11 +15,13 @@ class LakeTile extends React.Component {
        this.rotate = this.rotate.bind(this)
 
        this.state = {
-           colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor]
+           colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor],
+            canRotate: props.CanRotate
        }
    }
 
    rotate() {
+       if (this.props.canRotate === true) {
        let temp = this.state.colors
        let tempColor = temp.pop()
        temp.unshift(tempColor);
@@ -27,6 +29,9 @@ class LakeTile extends React.Component {
        this.setState({
            colors: newColors
        })
+    } else {
+        alert("You cannot rotate a placed tile.")
+    }
    }
 
    getLanternImage(num) {
@@ -80,6 +85,7 @@ class LakeTile extends React.Component {
                    draggable={this.props.draggable}
                    onDragStart={this.dragStart}
                    onDragOver={this.dragOver}
+                   canRotate={this.CanRotate}
                >
                    <div className="parent"
                        onClick={this.rotate}>

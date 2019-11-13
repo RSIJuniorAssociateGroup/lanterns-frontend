@@ -30,7 +30,9 @@ class Board extends React.Component {
           <LakeTile id="lakeTile-5" draggable="true" topColor={2}
             rightColor={4}
             bottomColor={5}
-            leftColor={3}>
+            leftColor={3}
+            canRotate={false}>
+              
           </LakeTile>
         </BoardTile>
         <BoardTile col="2" row="1" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>

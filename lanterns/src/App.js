@@ -10,8 +10,11 @@ import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { bool } from 'prop-types';
 import { startingPlayer } from './GameLogic';
+import {createBoard, placeFirstTile} from './components/Board/LegalTilePlaced';
 
 export let activePlayerIndex = startingPlayer(2);
+
+export let LegalBoard = placeFirstTile(createBoard(3), 1, 1);
 
 class App extends React.Component {
 
@@ -25,6 +28,7 @@ class App extends React.Component {
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
+			legalBoard: LegalBoard,
 			playerHands: [
 				[
 					<LakeTile
@@ -205,7 +209,7 @@ class App extends React.Component {
 	}
 
 	render() {
-
+		console.log(this.state.legalBoard);
 		return (
 			<div className="gameView">
 

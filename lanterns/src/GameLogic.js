@@ -60,3 +60,25 @@ export function dealLakeTiles(playerCount, lakeTiles) {
 
 	return [playerHands, lakeTiles];
 }
+
+export function orientFirstTile(playerCount) {
+	let rng = Math.floor(Math.random() * playerCount);
+	let tileColors = [];
+
+	switch (rng) {
+		case 0:
+			tileColors.push([6, 7, 1, 2])
+			break;
+		case 1:
+			tileColors.push([1, 2, 6, 7])
+			break;
+		case 2:
+			tileColors.push([2, 6, 7, 1])
+			break;
+		case 3:
+			tileColors.push([7, 1, 2, 6]);
+			break;
+	}
+
+	return tileColors;
+}

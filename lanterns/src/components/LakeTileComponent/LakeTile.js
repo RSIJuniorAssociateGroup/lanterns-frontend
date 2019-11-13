@@ -13,10 +13,6 @@ class LakeTile extends React.Component {
        super(props)
 
        this.rotate = this.rotate.bind(this)
-
-       this.state = {
-           colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor]
-       }
    }
 
    rotate() {
@@ -67,10 +63,10 @@ class LakeTile extends React.Component {
    }
 
    render() {
-       const top = this.getLanternImage(this.state.colors[0])
-       const right = this.getLanternImage(this.state.colors[1])
-       const bottom = this.getLanternImage(this.state.colors[2])
-       const left = this.getLanternImage(this.state.colors[3])
+       const top = this.getLanternImage(this.props.topColor)
+       const right = this.getLanternImage(this.props.rightColor)
+       const bottom = this.getLanternImage(this.props.bottomColor)
+       const left = this.getLanternImage(this.props.leftColor)
        return (
            <div
            > {this.props.children}

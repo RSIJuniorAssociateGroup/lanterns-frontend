@@ -9,7 +9,7 @@ import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { bool } from 'prop-types';
-import { startingPlayer, shuffleLakeTiles, dealLakeTiles } from './GameLogic';
+import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile } from './GameLogic';
 
 export let activePlayerIndex = startingPlayer(2);
 
@@ -79,17 +79,17 @@ class App extends React.Component {
 					id="lakeTile-21"
 					draggable="true"
 					topColor={3}
-					rightColor={4}
+					rightColor={5}
 					bottomColor={1}
-					leftColor={2}
+					leftColor={3}
 				/>,
 				<LakeTile
 					id="lakeTile-22"
 					draggable="true"
 					topColor={1}
 					rightColor={6}
-					bottomColor={7}
-					leftColor={5}
+					bottomColor={1}
+					leftColor={6}
 				/>,
 				<LakeTile
 					id="lakeTile-32"
@@ -103,10 +103,10 @@ class App extends React.Component {
 
 					id="lakeTile-42"
 					draggable="true"
-					topColor={2}
+					topColor={1}
 					rightColor={2}
-					bottomColor={2}
-					leftColor={2} />,
+					bottomColor={5}
+					leftColor={3} />,
 
 				<LakeTile
 
@@ -246,6 +246,7 @@ class App extends React.Component {
 					<Board
 						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
 						drawLakeTileForActivePlayer={this.drawLakeTileForActivePlayer.bind(this)}
+						firstTileColors={orientFirstTile(2)}
 					/>
 				</div>
 

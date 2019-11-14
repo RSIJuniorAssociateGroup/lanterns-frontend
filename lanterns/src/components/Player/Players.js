@@ -25,9 +25,7 @@ class Player extends React.Component {
                 <p className="playerName">{this.state.playerName}</p>
                 <p>Honor Score: {this.props.playerHonorScore}</p>
                 <div className="player-hand">
-                    {this.props.lakeTileHand[0]}
-                    {this.props.lakeTileHand[1]}
-                    {this.props.lakeTileHand[2]}
+                    {this.props.lakeTileHand}
                 </div>
 
             </div>

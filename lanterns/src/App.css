@@ -44,7 +44,7 @@ Grid Styles
 
 /* Player 0 Grid Styles*/
 .playerZero {
-  grid-column: 1/7;
+  grid-column: 1/6;
   grid-row: 1/1;
   color: darkred;
   background-color: #00abfa;

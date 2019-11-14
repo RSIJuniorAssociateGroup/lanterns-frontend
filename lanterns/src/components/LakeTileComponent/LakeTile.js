@@ -13,7 +13,6 @@ class LakeTile extends React.Component {
        super(props)
 
        this.rotate = this.rotate.bind(this)
-
        this.state = {
            colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor],
             canRotate: props.CanRotate

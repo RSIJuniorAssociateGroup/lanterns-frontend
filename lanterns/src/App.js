@@ -8,8 +8,8 @@ import Board from './components/Board/Board';
 import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
-import { bool } from 'prop-types';
-import { startingPlayer } from './GameLogic';
+import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile } from './GameLogic';
+import {makeLakeTiles} from "./lakeTiles";
 
 export let activePlayerIndex = startingPlayer(2);
 
@@ -22,10 +22,12 @@ class App extends React.Component {
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
 		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
+		this.gameSetup = this.gameSetup.bind(this);
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
 			playerHands: [
+<<<<<<< HEAD
 				[
 					<LakeTile
 						id="lakeTile-10"
@@ -86,6 +88,10 @@ class App extends React.Component {
 					/>
 				],
 
+=======
+				[],
+				[],
+>>>>>>> e55c6476d07e9cd0034ccda82e3f457b01eebc06
 			],
 
 			gameLanternSupply: [2, 0, 0, 0, 0, 3, 0],
@@ -97,72 +103,27 @@ class App extends React.Component {
 
 			playerHonorScores: [0, 0],
 
-			lakeTileSupply: [
-				<LakeTile
-					id="lakeTile-32"
-					draggable="true"
-					topColor={1}
-					rightColor={2}
-					bottomColor={3}
-					leftColor={4} />,
-
-				<LakeTile
-
-					id="lakeTile-42"
-					draggable="true"
-					topColor={2}
-					rightColor={2}
-					bottomColor={2}
-					leftColor={2} />,
-
-				<LakeTile
-
-					id="lakeTile-52"
-					draggable="true"
-					topColor={3}
-					rightColor={3}
-					bottomColor={3}
-					leftColor={3} />,
-
-				<LakeTile
-
-					id="lakeTile-62"
-					draggable="true"
-					topColor={4}
-					rightColor={4}
-					bottomColor={4}
-					leftColor={4} />,
-
-				<LakeTile
-
-					id="lakeTile-72"
-					draggable="true"
-					topColor={5}
-					rightColor={5}
-					bottomColor={5}
-					leftColor={5} />,
-
-				<LakeTile
-
-					id="lakeTile-82"
-					draggable="true"
-					topColor={6}
-					rightColor={6}
-					bottomColor={6}
-					leftColor={6} />,
-
-				<LakeTile
-
-					id="lakeTile-92"
-					draggable="true"
-					topColor={7}
-					rightColor={7}
-					bottomColor={7}
-					leftColor={7} />,
-			],
+			lakeTileSupply: [],
+				
 		}
 
 		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
+	}
+
+	componentWillMount() {
+		this.gameSetup();
+	}
+
+	gameSetup() {
+
+		let lakeTileDeck = makeLakeTiles();
+		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
+		let result = dealLakeTiles(2, shuffledLakeTiles);
+
+		this.setState({
+			playerHands: result[0],
+			lakeTileSupply: result[1],
+		});
 	}
 
 	setCurrentPlayer(array) {
@@ -234,7 +195,7 @@ class App extends React.Component {
 					})()}
 
 					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[0]} />
-            
+
 				</div>
 
 				{/* Game board */}
@@ -242,11 +203,12 @@ class App extends React.Component {
 					<Board
 						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
 						drawLakeTileForActivePlayer={this.drawLakeTileForActivePlayer.bind(this)}
+						firstTileColors={orientFirstTile(2)}
 					/>
 				</div>
 
 				<div className="supplyGrid">
-					<LanternSupply gameSupply={this.state.gameLanternSupply}/>
+					<LanternSupply gameSupply={this.state.gameLanternSupply} />
 					<DedicationToken
 						checkDedication={this.checkDedication}
 						getDedication={this.getDedication}
@@ -258,26 +220,26 @@ class App extends React.Component {
 
 				{/* PLAYER 2 (HUMAN) INFO */}
 				<div className="playerTwo">
-					
+
 					{(() => {
-						switch(this.state.currentPlayer[0]) {
+						switch (this.state.currentPlayer[0]) {
 							case 1: return <Player
-							// each child in a list should contain a key
-							key={2}
-							playerId={2}
-							playerName="Double Duo"
-							lakeTileHand={this.state.playerHands[1]}
-						  playerHonorScore={this.state.playerHonorScores[1]}
-							playerActive={true}
-						/>;
+								// each child in a list should contain a key
+								key={2}
+								playerId={2}
+								playerName="Double Duo"
+								lakeTileHand={this.state.playerHands[1]}
+								playerHonorScore={this.state.playerHonorScores[1]}
+								playerActive={true}
+							/>;
 							case 0: return <PlayerNotTurn
-							// each child in a list should contain a key
-							key={2}
-							playerId={2}
-							playerName="Double Duo"
-						  playerHonorScore={this.state.playerHonorScores[1]}
-							playerActive={true}
-						/>;
+								// each child in a list should contain a key
+								key={2}
+								playerId={2}
+								playerName="Double Duo"
+								playerHonorScore={this.state.playerHonorScores[1]}
+								playerActive={true}
+							/>;
 							default: return "ERROR ERROR ERROR ERROR";
 						}
 					})()}
@@ -336,7 +298,7 @@ class App extends React.Component {
 		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex[0]];
 		let tempGameSupply = this.state.gameLanternSupply;
 
-		for (let i = 0; i  < tempPlayerSupply.length; i++) {
+		for (let i = 0; i < tempPlayerSupply.length; i++) {
 			tempPlayerSupply[i]--;
 			tempGameSupply[i]++;
 		}

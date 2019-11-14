@@ -8,7 +8,7 @@ import Board from './components/Board/Board';
 import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
-import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile } from './GameLogic';
+import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile, getDeckForCorrectPlayerCount } from './GameLogic';
 import {makeLakeTiles} from "./lakeTiles";
 
 export let activePlayerIndex = startingPlayer(2);
@@ -55,7 +55,8 @@ class App extends React.Component {
 
 		let lakeTileDeck = makeLakeTiles();
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
-		let result = dealLakeTiles(2, shuffledLakeTiles);
+		let gameLakeTileDeck = getDeckForCorrectPlayerCount(shuffledLakeTiles, 2);
+		let result = dealLakeTiles(2, gameLakeTileDeck);
 
 		this.setState({
 			playerHands: result[0],

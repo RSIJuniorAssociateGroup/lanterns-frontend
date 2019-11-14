@@ -82,3 +82,26 @@ export function orientFirstTile(playerCount) {
 
 	return tileColors;
 }
+
+export function getDeckForCorrectPlayerCount(lakeTileDeck, playerCount) {
+	let totalDeckSize = 0;
+	let deck = [];
+
+	switch(playerCount) {
+		case 4:
+			totalDeckSize = 20;
+			break;
+		case 3:
+			totalDeckSize = 18;
+			break;
+		case 2:
+			totalDeckSize = 16;
+			break;
+	}
+
+	for (let i = 0; i < totalDeckSize; i++) {
+		deck.push(lakeTileDeck.pop());
+	}
+
+	return deck;
+}

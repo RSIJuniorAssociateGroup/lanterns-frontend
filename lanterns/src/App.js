@@ -11,7 +11,8 @@ import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { bool } from 'prop-types';
 import { startingPlayer } from './GameLogic';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
-
+import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile, getDeckForCorrectPlayerCount } from './GameLogic';
+import {makeLakeTiles} from "./lakeTiles";
 //pictures
 import blackTile from "./pictures/blackTile.jpg";
 import blueTile from "./pictures/blueTile.jpg";
@@ -40,6 +41,7 @@ class App extends React.Component {
 
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
+		this.gameSetup = this.gameSetup.bind(this);
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
@@ -47,78 +49,8 @@ class App extends React.Component {
 			canRotate: props.canRotate,
 			legalBoard: LegalBoard,
 			playerHands: [
-				[
-					<LakeTile
-						rotate={this.rotate.bind(this)}
-						getLantern={this.getLanternImage.bind(this)}
-						id="lakeTile-10"
-						draggable="true"
-						topColor={2}
-						rightColor={4}
-						bottomColor={5}
-						leftColor={3}
-						canRotate={true}
-					/>,
-					<LakeTile
-						rotate={this.rotate.bind(this)}
-						getLantern={this.getLanternImage.bind(this)}
-						id="lakeTile-11"
-						draggable="true"
-						topColor={3}
-						rightColor={4}
-						bottomColor={1}
-						leftColor={2}
-						canRotate={true}
-					/>,
-					<LakeTile
-						rotate={this.rotate.bind(this)}
-						getLantern={this.getLanternImage.bind(this)}
-						id="lakeTile-12"
-						draggable="true"
-						topColor={1}
-						rightColor={6}
-						bottomColor={7}
-						leftColor={5}
-						canRotate={true}
-					/>
-				],
-
-				[
-					<LakeTile
-						rotate={this.rotate.bind(this)}
-						getLantern={this.getLanternImage.bind(this)}
-						id="lakeTile-20"
-						draggable="true"
-						topColor={2}
-						rightColor={2}
-						bottomColor={2}
-						leftColor={2}
-						canRotate={true}
-					/>,
-					<LakeTile
-						rotate={this.rotate.bind(this)}
-						getLantern={this.getLanternImage.bind(this)}
-						id="lakeTile-21"
-						draggable="true"
-						topColor={3}
-						rightColor={4}
-						bottomColor={1}
-						leftColor={2}
-						canRotate={true}
-					/>,
-					<LakeTile
-						rotate={this.rotate.bind(this)}
-						getLantern={this.getLanternImage.bind(this)}
-						id="lakeTile-22"
-						draggable="true"
-						topColor={1}
-						rightColor={6}
-						bottomColor={7}
-						leftColor={5}
-						canRotate={true}
-					/>
-				],
-
+				[],
+				[],
 			],
 
 			gameLanternSupply: [2, 0, 0, 0, 0, 3, 0],
@@ -130,84 +62,26 @@ class App extends React.Component {
 
 			playerHonorScores: [0, 0],
 
-			lakeTileSupply: [
-				<LakeTile
-					rotate={this.rotate.bind(this)}
-					getLantern={this.getLanternImage.bind(this)}
-					id="lakeTile-32"
-					draggable="true"
-					topColor={1}
-					rightColor={2}
-					bottomColor={3}
-					leftColor={4} />,
-
-				<LakeTile
-					rotate={this.rotate.bind(this)}
-					getLantern={this.getLanternImage.bind(this)}
-
-					id="lakeTile-42"
-					draggable="true"
-					topColor={2}
-					rightColor={2}
-					bottomColor={2}
-					leftColor={2} />,
-
-				<LakeTile
-					rotate={this.rotate.bind(this)}
-					getLantern={this.getLanternImage.bind(this)}
-
-					id="lakeTile-52"
-					draggable="true"
-					topColor={3}
-					rightColor={3}
-					bottomColor={3}
-					leftColor={3} />,
-
-				<LakeTile
-					rotate={this.rotate.bind(this)}
-					getLantern={this.getLanternImage.bind(this)}
-
-					id="lakeTile-62"
-					draggable="true"
-					topColor={4}
-					rightColor={4}
-					bottomColor={4}
-					leftColor={4} />,
-
-				<LakeTile
-					rotate={this.rotate.bind(this)}
-					getLantern={this.getLanternImage.bind(this)}
-
-					id="lakeTile-72"
-					draggable="true"
-					topColor={5}
-					rightColor={5}
-					bottomColor={5}
-					leftColor={5} />,
-
-				<LakeTile
-					rotate={this.rotate.bind(this)}
-					getLantern={this.getLanternImage.bind(this)}
-
-					id="lakeTile-82"
-					draggable="true"
-					topColor={6}
-					rightColor={6}
-					bottomColor={6}
-					leftColor={6} />,
-
-				<LakeTile
-					rotate={this.rotate.bind(this)}
-					getLantern={this.getLanternImage.bind(this)}
-
-					id="lakeTile-92"
-					draggable="true"
-					topColor={7}
-					rightColor={7}
-					bottomColor={7}
-					leftColor={7} />,
-			],
+			lakeTileSupply: [],
+				
 		}
+	}
+
+	componentWillMount() {
+		this.gameSetup();
+	}
+
+	gameSetup() {
+
+		let lakeTileDeck = makeLakeTiles();
+		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
+		let gameLakeTileDeck = getDeckForCorrectPlayerCount(shuffledLakeTiles, 2);
+		let result = dealLakeTiles(2, gameLakeTileDeck);
+
+		this.setState({
+			playerHands: result[0],
+			lakeTileSupply: result[1],
+		});
 	}
 
 	setCurrentPlayer(array) {
@@ -354,6 +228,7 @@ class App extends React.Component {
 						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
 						drawLakeTileForActivePlayer={this.drawLakeTileForActivePlayer.bind(this)}
 						updatePlayerHand={this.updatePlayerHand.bind(this)}
+						firstTileColors={orientFirstTile(2)}
 					/>
 				</div>
 

@@ -6,11 +6,30 @@ class LakeTile extends React.Component {
     constructor(props) {
         super(props)
 
-        this.getLanternImage = this.props.getLanternImage.bind(this);
+        // this.getLanternImage = this.props.getLanternImage.bind(this);
         // this.state = {
             // colors: props.colors
         // }
-    }
+    //    this.rotate = this.rotate.bind(this)
+    //    this.state = {
+    //        colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor],
+    //         canRotate: props.CanRotate
+    //    }
+   }
+
+//    rotate() {
+//        if (this.props.canRotate === true) {
+//        let temp = this.state.colors
+//        let tempColor = temp.pop()
+//        temp.unshift(tempColor);
+//        let newColors = temp
+//        this.setState({
+//            colors: newColors
+//        })
+//     } else {
+//         alert("You cannot rotate a placed tile.")
+//     }
+// }
 
     render() {
         // const top = this.getLanternImage(this.state.colors[0])

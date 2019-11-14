@@ -52,6 +52,7 @@ export function makeLakeTiles() {
                 rightColor={lakeTiles[i][1]}
                 bottomColor={lakeTiles[i][2]}
                 leftColor={lakeTiles[i][3]}
+                canRotate={true}
             />
         );
     }

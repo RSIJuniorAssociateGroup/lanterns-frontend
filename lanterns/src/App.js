@@ -27,71 +27,8 @@ class App extends React.Component {
 		this.state = {
 			currentPlayer: activePlayerIndex,
 			playerHands: [
-<<<<<<< HEAD
-				[
-					<LakeTile
-						id="lakeTile-10"
-						draggable="true"
-						topColor={2}
-						rightColor={4}
-						bottomColor={5}
-						leftColor={3}
-						canRotate={true}
-					/>,
-					<LakeTile
-						id="lakeTile-11"
-						draggable="true"
-						topColor={3}
-						rightColor={4}
-						bottomColor={1}
-						leftColor={2}
-						canRotate={true}
-					/>,
-					<LakeTile
-						id="lakeTile-12"
-						draggable="true"
-						topColor={1}
-						rightColor={6}
-						bottomColor={7}
-						leftColor={5}
-						canRotate={true}
-					/>
-				],
-
-				[
-					<LakeTile
-						id="lakeTile-20"
-						draggable="true"
-						topColor={2}
-						rightColor={2}
-						bottomColor={2}
-						leftColor={2}
-						canRotate={true}
-					/>,
-					<LakeTile
-						id="lakeTile-21"
-						draggable="true"
-						topColor={3}
-						rightColor={4}
-						bottomColor={1}
-						leftColor={2}
-						canRotate={true}
-					/>,
-					<LakeTile
-						id="lakeTile-22"
-						draggable="true"
-						topColor={1}
-						rightColor={6}
-						bottomColor={7}
-						leftColor={5}
-						canRotate={true}
-					/>
-				],
-
-=======
 				[],
 				[],
->>>>>>> e55c6476d07e9cd0034ccda82e3f457b01eebc06
 			],
 
 			gameLanternSupply: [2, 0, 0, 0, 0, 3, 0],

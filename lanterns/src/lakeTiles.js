@@ -39,7 +39,7 @@ let lakeTiles= [
     [3, 5, 5, 6]
 ];
 
-export function makeLakeTiles() {
+export function makeLakeTiles(func) {
     let lakeTileDeck = [];
     console.log(lakeTiles.length);
 
@@ -53,6 +53,7 @@ export function makeLakeTiles() {
                 bottomColor={lakeTiles[i][2]}
                 leftColor={lakeTiles[i][3]}
                 canRotate={true}
+                getLanternImage={func}
             />
         );
     }

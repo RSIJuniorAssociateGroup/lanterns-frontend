@@ -9,7 +9,6 @@ import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { bool } from 'prop-types';
-import { startingPlayer } from './GameLogic';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
 import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile, getDeckForCorrectPlayerCount } from './GameLogic';
 import {makeLakeTiles} from "./lakeTiles";
@@ -45,7 +44,6 @@ class App extends React.Component {
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
-			colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor],
 			canRotate: props.canRotate,
 			legalBoard: LegalBoard,
 			playerHands: [
@@ -73,7 +71,7 @@ class App extends React.Component {
 
 	gameSetup() {
 
-		let lakeTileDeck = makeLakeTiles();
+		let lakeTileDeck = makeLakeTiles(this.getLanternImage);
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
 		let gameLakeTileDeck = getDeckForCorrectPlayerCount(shuffledLakeTiles, 2);
 		let result = dealLakeTiles(2, gameLakeTileDeck);
@@ -186,11 +184,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.legalBoard);
-		const top = this.getLanternImage(this.state.colors[0])
-		const right = this.getLanternImage(this.state.colors[1])
-		const bottom = this.getLanternImage(this.state.colors[2])
-		const left = this.getLanternImage(this.state.colors[3])
+
 		return (
 			<div className="gameView">
 

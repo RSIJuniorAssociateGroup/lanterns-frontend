@@ -5,7 +5,6 @@ import { createBoard, placeFirstTile } from './LegalTilePlaced';
 
 function Board(props) {
 
-  console.log(typeof this.props.firstTileColors[0][0]);
 
   return (
     <main className="board">
@@ -28,10 +27,10 @@ function Board(props) {
         updatePlayerHand={props.updatePlayerHand}>
         <LakeTile id="lakeTile-5"
           draggable="false"
-          topColor={this.props.firstTileColors[0]}
-          rightColor={this.props.firstTileColors[1]}
-          bottomColor={this.props.firstTileColors[2]}
-          leftColor={this.props.firstTileColors[3]}
+          topColor={props.firstTileColors[0]}
+          rightColor={props.firstTileColors[1]}
+          bottomColor={props.firstTileColors[2]}
+          leftColor={props.firstTileColors[3]}
           canRotate={false}>
         </LakeTile>
       </BoardTile>

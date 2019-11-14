@@ -10,7 +10,16 @@ import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { bool } from 'prop-types';
 import { startingPlayer } from './GameLogic';
-import {createBoard, placeFirstTile} from './components/Board/LegalTilePlaced';
+import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
+
+//pictures
+import blackTile from "./pictures/blackTile.jpg";
+import blueTile from "./pictures/blueTile.jpg";
+import greenTile from "./pictures/greenTile.jpg";
+import orangeTile from "./pictures/orangeTile.jpg";
+import purpleTile from "./pictures/purpleTile.jpg";
+import redTile from "./pictures/redTile.jpg";
+import whiteTile from "./pictures/whiteTile.jpg";
 
 export let activePlayerIndex = startingPlayer(2);
 
@@ -21,19 +30,27 @@ class App extends React.Component {
 	constructor(props) {
 		super(props)
 
+		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
+
+		this.rotate = this.rotate.bind(this);
+		this.getLanternImage = this.getLanternImage.bind(this);
+
 		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
+		this.updatePlayerHand = this.updatePlayerHand.bind(this);
+
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
-		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
-		this.updatePlayerHand = this.updatePlayerHand.bind(this);
-		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
+			colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor],
+			canRotate: props.canRotate,
 			legalBoard: LegalBoard,
 			playerHands: [
 				[
 					<LakeTile
+						rotate={this.rotate.bind(this)}
+						getLantern={this.getLanternImage.bind(this)}
 						id="lakeTile-10"
 						draggable="true"
 						topColor={2}
@@ -43,6 +60,8 @@ class App extends React.Component {
 						canRotate={true}
 					/>,
 					<LakeTile
+						rotate={this.rotate.bind(this)}
+						getLantern={this.getLanternImage.bind(this)}
 						id="lakeTile-11"
 						draggable="true"
 						topColor={3}
@@ -52,6 +71,8 @@ class App extends React.Component {
 						canRotate={true}
 					/>,
 					<LakeTile
+						rotate={this.rotate.bind(this)}
+						getLantern={this.getLanternImage.bind(this)}
 						id="lakeTile-12"
 						draggable="true"
 						topColor={1}
@@ -64,6 +85,8 @@ class App extends React.Component {
 
 				[
 					<LakeTile
+						rotate={this.rotate.bind(this)}
+						getLantern={this.getLanternImage.bind(this)}
 						id="lakeTile-20"
 						draggable="true"
 						topColor={2}
@@ -73,6 +96,8 @@ class App extends React.Component {
 						canRotate={true}
 					/>,
 					<LakeTile
+						rotate={this.rotate.bind(this)}
+						getLantern={this.getLanternImage.bind(this)}
 						id="lakeTile-21"
 						draggable="true"
 						topColor={3}
@@ -82,6 +107,8 @@ class App extends React.Component {
 						canRotate={true}
 					/>,
 					<LakeTile
+						rotate={this.rotate.bind(this)}
+						getLantern={this.getLanternImage.bind(this)}
 						id="lakeTile-22"
 						draggable="true"
 						topColor={1}
@@ -105,6 +132,8 @@ class App extends React.Component {
 
 			lakeTileSupply: [
 				<LakeTile
+					rotate={this.rotate.bind(this)}
+					getLantern={this.getLanternImage.bind(this)}
 					id="lakeTile-32"
 					draggable="true"
 					topColor={1}
@@ -113,6 +142,8 @@ class App extends React.Component {
 					leftColor={4} />,
 
 				<LakeTile
+					rotate={this.rotate.bind(this)}
+					getLantern={this.getLanternImage.bind(this)}
 
 					id="lakeTile-42"
 					draggable="true"
@@ -122,6 +153,8 @@ class App extends React.Component {
 					leftColor={2} />,
 
 				<LakeTile
+					rotate={this.rotate.bind(this)}
+					getLantern={this.getLanternImage.bind(this)}
 
 					id="lakeTile-52"
 					draggable="true"
@@ -131,6 +164,8 @@ class App extends React.Component {
 					leftColor={3} />,
 
 				<LakeTile
+					rotate={this.rotate.bind(this)}
+					getLantern={this.getLanternImage.bind(this)}
 
 					id="lakeTile-62"
 					draggable="true"
@@ -140,6 +175,8 @@ class App extends React.Component {
 					leftColor={4} />,
 
 				<LakeTile
+					rotate={this.rotate.bind(this)}
+					getLantern={this.getLanternImage.bind(this)}
 
 					id="lakeTile-72"
 					draggable="true"
@@ -149,6 +186,8 @@ class App extends React.Component {
 					leftColor={5} />,
 
 				<LakeTile
+					rotate={this.rotate.bind(this)}
+					getLantern={this.getLanternImage.bind(this)}
 
 					id="lakeTile-82"
 					draggable="true"
@@ -158,6 +197,8 @@ class App extends React.Component {
 					leftColor={6} />,
 
 				<LakeTile
+					rotate={this.rotate.bind(this)}
+					getLantern={this.getLanternImage.bind(this)}
 
 					id="lakeTile-92"
 					draggable="true"
@@ -173,6 +214,63 @@ class App extends React.Component {
 		this.setState({
 			currentPlayer: array
 		});
+	}
+
+	//Logic for lake tiles
+	rotate() {
+		if (this.state.canRotate === true) {
+			let temp = this.state.colors
+			let tempColor = temp.pop()
+			temp.unshift(tempColor);
+			let newColors = temp
+			this.setState({
+				colors: newColors
+			})
+		} else {
+			alert("You cannot rotate a placed lake tile.");
+		}
+	}
+
+	getLanternImage(num) {
+		let image = null;
+		switch (num) {
+			case 1:
+				image = blackTile
+				break
+			case 2:
+				image = blueTile
+				break
+			case 3:
+				image = greenTile
+				break
+			case 4:
+				image = orangeTile
+				break
+			case 5:
+				image = purpleTile
+				break
+			case 6:
+				image = redTile
+				break
+			case 7:
+				image = whiteTile
+				break;
+		}
+		return image
+	}
+
+	dragStart = e => {
+		const target = e.target;
+		e.dataTransfer.setData('lakeTile_id', e.target.id);
+		// e.dataTransfer.effectAllowed='move';
+	}
+
+	dragOver = e => {
+		e.stopPropagation();
+		this.setState({
+			canRotate: false
+		})
+		// e.dataTransfer.dropEffect='move';
 	}
 
 	//Logic for player hand
@@ -215,6 +313,10 @@ class App extends React.Component {
 
 	render() {
 		console.log(this.state.legalBoard);
+		const top = this.getLanternImage(this.state.colors[0])
+		const right = this.getLanternImage(this.state.colors[1])
+		const bottom = this.getLanternImage(this.state.colors[2])
+		const left = this.getLanternImage(this.state.colors[3])
 		return (
 			<div className="gameView">
 
@@ -243,7 +345,7 @@ class App extends React.Component {
 					})()}
 
 					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[0]} />
-            
+
 				</div>
 
 				{/* Game board */}
@@ -256,7 +358,7 @@ class App extends React.Component {
 				</div>
 
 				<div className="supplyGrid">
-					<LanternSupply gameSupply={this.state.gameLanternSupply}/>
+					<LanternSupply gameSupply={this.state.gameLanternSupply} />
 					<DedicationToken
 						checkDedication={this.checkDedication}
 						getDedication={this.getDedication}
@@ -268,26 +370,26 @@ class App extends React.Component {
 
 				{/* PLAYER 2 (HUMAN) INFO */}
 				<div className="playerTwo">
-					
+
 					{(() => {
-						switch(this.state.currentPlayer[0]) {
+						switch (this.state.currentPlayer[0]) {
 							case 1: return <Player
-							// each child in a list should contain a key
-							key={2}
-							playerId={2}
-							playerName="Double Duo"
-							lakeTileHand={this.state.playerHands[1]}
-						  playerHonorScore={this.state.playerHonorScores[1]}
-							playerActive={true}
-						/>;
+								// each child in a list should contain a key
+								key={2}
+								playerId={2}
+								playerName="Double Duo"
+								lakeTileHand={this.state.playerHands[1]}
+								playerHonorScore={this.state.playerHonorScores[1]}
+								playerActive={true}
+							/>;
 							case 0: return <PlayerNotTurn
-							// each child in a list should contain a key
-							key={2}
-							playerId={2}
-							playerName="Double Duo"
-						  playerHonorScore={this.state.playerHonorScores[1]}
-							playerActive={true}
-						/>;
+								// each child in a list should contain a key
+								key={2}
+								playerId={2}
+								playerName="Double Duo"
+								playerHonorScore={this.state.playerHonorScores[1]}
+								playerActive={true}
+							/>;
 							default: return "ERROR ERROR ERROR ERROR";
 						}
 					})()}
@@ -346,7 +448,7 @@ class App extends React.Component {
 		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex[0]];
 		let tempGameSupply = this.state.gameLanternSupply;
 
-		for (let i = 0; i  < tempPlayerSupply.length; i++) {
+		for (let i = 0; i < tempPlayerSupply.length; i++) {
 			tempPlayerSupply[i]--;
 			tempGameSupply[i]++;
 		}

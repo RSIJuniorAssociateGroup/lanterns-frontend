@@ -19,8 +19,6 @@ class BoardTile extends React.Component {
         }
     }
 
-    thisState
-
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
 

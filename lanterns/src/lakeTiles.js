@@ -39,21 +39,20 @@ let lakeTiles= [
     [3, 5, 5, 6]
 ];
 
-export function makeLakeTiles(func) {
+export function makeLakeTiles(getLanternImage, rotateLakeTile) {
     let lakeTileDeck = [];
-    console.log(lakeTiles.length);
 
     for (let i = 0; i < lakeTiles.length; i++) {
         lakeTileDeck.push(
             <LakeTile 
                 id={i} 
                 draggable={true} 
-                topColor={lakeTiles[i][0]}
-                rightColor={lakeTiles[i][1]}
-                bottomColor={lakeTiles[i][2]}
-                leftColor={lakeTiles[i][3]}
+                topColor={getLanternImage(lakeTiles[i][0])}
+                rightColor={getLanternImage(lakeTiles[i][1])}
+                bottomColor={getLanternImage(lakeTiles[i][2])}
+                leftColor={getLanternImage(lakeTiles[i][3])}
+                rotateLakeTile={rotateLakeTile}
                 canRotate={true}
-                getLanternImage={func}
             />
         );
     }

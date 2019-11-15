@@ -8,10 +8,9 @@ import Board from './components/Board/Board';
 import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
-import { bool } from 'prop-types';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
 import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile, getDeckForCorrectPlayerCount } from './GameLogic';
-import {makeLakeTiles} from "./lakeTiles";
+import { makeLakeTiles } from "./lakeTiles";
 //pictures
 import blackTile from "./pictures/blackTile.jpg";
 import blueTile from "./pictures/blueTile.jpg";
@@ -30,22 +29,16 @@ class App extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
-
-		this.rotate = this.rotate.bind(this);
-		this.getLanternImage = this.getLanternImage.bind(this);
-
 		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
-		this.updatePlayerHand = this.updatePlayerHand.bind(this);
 
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
+		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 		this.gameSetup = this.gameSetup.bind(this);
+		this.rotateLakeTile = this.rotateLakeTile.bind(this);
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
-			canRotate: props.canRotate,
-			legalBoard: LegalBoard,
 			playerHands: [
 				[],
 				[],
@@ -61,8 +54,10 @@ class App extends React.Component {
 			playerHonorScores: [0, 0],
 
 			lakeTileSupply: [],
-				
+
 		}
+
+		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 	}
 
 	componentWillMount() {
@@ -71,7 +66,7 @@ class App extends React.Component {
 
 	gameSetup() {
 
-		let lakeTileDeck = makeLakeTiles(this.getLanternImage);
+		let lakeTileDeck = makeLakeTiles(this.getLanternImage, this.rotateLakeTile);
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
 		let gameLakeTileDeck = getDeckForCorrectPlayerCount(shuffledLakeTiles, 2);
 		let result = dealLakeTiles(2, gameLakeTileDeck);
@@ -88,20 +83,6 @@ class App extends React.Component {
 		});
 	}
 
-	//Logic for lake tiles
-	rotate() {
-		if (this.state.canRotate === true) {
-			let temp = this.state.colors
-			let tempColor = temp.pop()
-			temp.unshift(tempColor);
-			let newColors = temp
-			this.setState({
-				colors: newColors
-			})
-		} else {
-			alert("You cannot rotate a placed lake tile.");
-		}
-	}
 
 	getLanternImage(num) {
 		let image = null;
@@ -129,6 +110,20 @@ class App extends React.Component {
 				break;
 		}
 		return image
+	}
+
+	rotateLakeTile(canRotate, colors) {
+		if (canRotate === true) {
+			let temp = colors;
+			let tempColor = temp.pop();
+			temp.unshift(tempColor);
+			let newColors = temp;
+			this.setState({
+				colors: newColors
+			});
+		} else {
+			alert("You cannot rotate a placed tile.");
+		}
 	}
 
 	dragStart = e => {
@@ -221,7 +216,6 @@ class App extends React.Component {
 					<Board
 						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
 						drawLakeTileForActivePlayer={this.drawLakeTileForActivePlayer.bind(this)}
-						updatePlayerHand={this.updatePlayerHand.bind(this)}
 						firstTileColors={orientFirstTile(2)}
 					/>
 				</div>

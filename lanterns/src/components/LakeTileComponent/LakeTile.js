@@ -17,19 +17,7 @@ function LakeTile(props) {
         //    }
     // }
 
-    //    rotate() {
-    //        if (this.props.canRotate === true) {
-    //        let temp = this.state.colors
-    //        let tempColor = temp.pop()
-    //        temp.unshift(tempColor);
-    //        let newColors = temp
-    //        this.setState({
-    //            colors: newColors
-    //        })
-    //     } else {
-    //         alert("You cannot rotate a placed tile.")
-    //     }
-    // }
+    
 
     // render() {
         // const top = this.getLanternImage(this.state.colors[0])
@@ -45,22 +33,18 @@ function LakeTile(props) {
                     draggable={props.draggable}
                     onDragStart={props.dragStart}
                     onDragOver={props.dragOver}
-                    colors={props.colors}
-                    rotate={props.canRotate}
-                    getLanternImage={props.getLanternImage}
-
+                    colors={[props.topColor, props.rightColor, props.bottomColor, props.leftColor]}
+                    canRotate={props.canRotate}
                 >
                     <div className="parent"
-                        onClick={props.rotate}>
-                        <div className="topTri" style={{ backgroundImage: "url(" 
-                        + props.getLanternImage(
-                            props.topColor) + ")" }}>
+                        onClick={props.rotateLakeTile(props.canRotate, props.colors)}>
+                        <div className="topTri" style={{ backgroundImage: "url(" + props.topColor + ")" }}>
                         </div>
-                        <div className="rightTri" style={{ backgroundImage: "url(" + props.getLanternImage(props.rightColor) + ")" }}>
+                        <div className="rightTri" style={{ backgroundImage: "url(" + props.rightColor + ")" }}>
                         </div>
-                        <div className="leftTri" style={{ backgroundImage: "url(" + props.getLanternImage(props.leftColor) + ")" }}>
+                        <div className="leftTri" style={{ backgroundImage: "url(" + props.leftColor + ")" }}>
                         </div>
-                        <div className="bottomTri" style={{ backgroundImage: "url(" + props.getLanternImage(props.bottomColor) + ")" }}>
+                        <div className="bottomTri" style={{ backgroundImage: "url(" + props.bottomColor + ")" }}>
                         </div>
                     </div>
                 </div>

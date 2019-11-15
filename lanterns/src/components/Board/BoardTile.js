@@ -9,7 +9,7 @@ class BoardTile extends React.Component {
         super(props)
 
         this.setCurrentPlayer = this.props.setCurrentPlayer.bind(this);
-        this.updatePlayerHand = this.props.updatePlayerHand.bind(this);
+        // this.updatePlayerHand = this.props.updatePlayerHand.bind(this);
 
         this.state = {
             canDrop: true,
@@ -48,7 +48,7 @@ class BoardTile extends React.Component {
     }
 
     render() {
-        this.updatePlayerHand();
+        // this.updatePlayerHand();
         if (this.state.canDrop === true) {
             return (
                 <div

@@ -114,28 +114,28 @@ class App extends React.Component {
 	}
 
 	checkDedication(type) {
-
-		let tempActivePlayerLanternCards = this.state.playerLanternSupplies[activePlayerIndex[0]];
-		let tempGameLanternSupply = this.state.gameLanternSupply;
 		let canMakeDedication = false;
 
 		switch (type) {
 			case 2:
-				if (checkThreePair(tempActivePlayerLanternCards)) {
+				if (checkThreePair(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
 					canMakeDedication = true;
-					this.updateAfterDedication(moveLanternCardsThreePair(tempActivePlayerLanternCards, tempGameLanternSupply));
+					this.updateAfterDedication(moveLanternCardsThreePair(
+						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
 				}
 				break;
 			case 4:
-				if (checkFourOfAKind(tempActivePlayerLanternCards)) {
+				if (checkFourOfAKind(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
 					canMakeDedication = true;
-					this.updateAfterDedication(moveLanternCardsFourOfAKind(tempActivePlayerLanternCards, tempGameLanternSupply));
+					this.updateAfterDedication(moveLanternCardsFourOfAKind(
+						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
 				}
 				break;
 			case 7:
-				if (checkOneOfEach(tempActivePlayerLanternCards)) {
+				if (checkOneOfEach(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
 					canMakeDedication = true;
-					this.updateAfterDedication(moveLanternsCardsOneOfEach(tempActivePlayerLanternCards, tempGameLanternSupply));
+					this.updateAfterDedication(moveLanternsCardsOneOfEach(
+						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
 				}
 				break;
 		}

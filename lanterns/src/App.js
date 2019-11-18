@@ -33,6 +33,7 @@ class App extends React.Component {
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
 		this.gameSetup = this.gameSetup.bind(this);
+		this.rotate = this.rotate.bind(this);
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
@@ -95,42 +96,63 @@ class App extends React.Component {
 		}
 	}
 
-	makeLakeTiles() {
-		let lakeTileDeck = [];
-		console.log(lakeTiles.length);
-	
-		for (let i = 0; i < lakeTiles.length; i++) {
-			lakeTileDeck.push(
-				<LakeTile 
-					id={i} 
-					draggable={true} 
-					// getLanternImage={func}
-					topColor={lakeTiles[i][0]}
-					rightColor={lakeTiles[i][1]}
-					bottomColor={lakeTiles[i][2]}
-					leftColor={lakeTiles[i][3]}
-					canRotate={true}
-					
-				/>
-			);
-		}
-	
-		return lakeTileDeck;
-	}
-
-	rotate(colors, canRotate, id) {
+	rotate(canRotate, id) {
 		if (canRotate === true) {
-			console.log("Here here")
-			console.log(colors);
-			let temp = colors;
+			let tempSupply = this.state.baseLakeTileSupply;
+			let temp = this.state.baseLakeTileSupply[id];
 			let tempColor = temp.pop();
 			temp.unshift(tempColor);
-			let newColors = temp;
-			console.log(newColors);
-			return newColors;
+			tempSupply[id] = temp;
+			this.setState({
+				baseLakeTileSupply: tempSupply,
+			});
 		} else {
 			alert("You cannot rotate a placed lake tile.");
 		}
+
+		this.makeLakeTiles();
+
+		console.log(this.state.baseLakeTileSupply[id]);
+	}
+
+	makeLakeTiles() {
+		let lakeTileDeck = [];
+		let id = 0;
+
+		this.state.baseLakeTileSupply.map((tile) => {
+			lakeTileDeck.push(
+				<LakeTile
+					id={id}
+					draggable={true}
+					topColor={this.state.baseLakeTileSupply[id][0]}
+					rightColor={this.state.baseLakeTileSupply[id][1]}
+					bottomColor={this.state.baseLakeTileSupply[id][2]}
+					leftColor={this.state.baseLakeTileSupply[id][3]}
+					canRotate={true}
+					rotate={this.rotate}
+				/>
+			);
+			id++;
+		});
+
+		// for (let i = 0; i < this.state.baseLakeTileSupply.length; i++) {
+		// 	lakeTileDeck.push(
+		// 		<LakeTile
+		// 			id={i}
+		// 			draggable={true}
+		// 			topColor={this.state.baseLakeTileSupply[i][0]}
+		// 			rightColor={this.state.baseLakeTileSupply[i][1]}
+		// 			bottomColor={this.state.baseLakeTileSupply[i][2]}
+		// 			leftColor={this.state.baseLakeTileSupply[i][3]}
+		// 			canRotate={true}
+		// 			rotate={this.rotate}
+		// 		/>
+		// 	);
+		// }
+
+		console.log(lakeTileDeck);
+
+		return lakeTileDeck;
 	}
 
 	componentWillMount() {
@@ -139,7 +161,7 @@ class App extends React.Component {
 
 	gameSetup() {
 
-		let lakeTileDeck = makeLakeTiles();
+		let lakeTileDeck = this.makeLakeTiles();
 		console.log(lakeTileDeck);
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
 		let gameLakeTileDeck = getDeckForCorrectPlayerCount(shuffledLakeTiles, 2);

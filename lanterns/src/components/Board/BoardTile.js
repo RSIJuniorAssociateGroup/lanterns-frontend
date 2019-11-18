@@ -37,7 +37,7 @@ class BoardTile extends React.Component {
 
                 e.target.appendChild(lakeTile);
             } else {
-                alert("You cannot move a placed tiled.")
+                alert("You cannot move a placed tile.")
             }
         }
     }

@@ -11,15 +11,7 @@ import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { bool } from 'prop-types';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
 import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile, getDeckForCorrectPlayerCount } from './GameLogic';
-import {makeLakeTiles} from "./lakeTiles";
-//pictures
-import blackTile from "./pictures/blackTile.jpg";
-import blueTile from "./pictures/blueTile.jpg";
-import greenTile from "./pictures/greenTile.jpg";
-import orangeTile from "./pictures/orangeTile.jpg";
-import purpleTile from "./pictures/purpleTile.jpg";
-import redTile from "./pictures/redTile.jpg";
-import whiteTile from "./pictures/whiteTile.jpg";
+import { makeLakeTiles } from "./components/LakeTileComponent/lakeTiles";
 
 export let activePlayerIndex = startingPlayer(2);
 
@@ -33,7 +25,7 @@ class App extends React.Component {
 		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 
 		this.rotate = this.rotate.bind(this);
-		this.getLanternImage = this.getLanternImage.bind(this);
+		// this.getLanternImage = this.getLanternImage.bind(this);
 
 		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
 		this.updatePlayerHand = this.updatePlayerHand.bind(this);
@@ -44,7 +36,7 @@ class App extends React.Component {
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
-			canRotate: props.canRotate,
+			// canRotate: props.canRotate,
 			legalBoard: LegalBoard,
 			playerHands: [
 				[],
@@ -60,8 +52,84 @@ class App extends React.Component {
 
 			playerHonorScores: [0, 0],
 
+			baseLakeTileSupply: [
+				[5, 2, 7, 3],
+				[7, 3, 5, 2],
+				[7, 1, 4, 6],
+				[2, 1, 4, 3],
+				[7, 3, 2, 1],
+				[4, 7, 3, 6],
+				[2, 6, 7, 1],
+				[1, 6, 6, 3],
+				[5, 2, 2, 1],
+				[6, 2, 7, 4],
+				[2, 6, 1, 3],
+				[2, 3, 2, 4],
+				[4, 5, 7, 6],
+				[5, 1, 7, 6],
+				[6, 2, 5, 7],
+				[4, 4, 5, 4],
+				[4, 2, 5, 1],
+				[1, 3, 5, 6],
+				[4, 1, 5, 6],
+				[7, 7, 6, 3],
+				[7, 1, 4, 1],
+				[3, 3, 6, 3],
+				[1, 5, 5, 5],
+				[3, 2, 5, 6],
+				[4, 2, 7, 4],
+				[2, 4, 2, 4],
+				[2, 7, 2, 1],
+				[4, 6, 1, 6],
+				[4, 3, 7, 3],
+				[5, 6, 1, 1],
+				[7, 4, 5, 7],
+				[7, 1, 7, 1],
+				[6, 6, 3, 3],
+				[3, 5, 2, 5],
+				[3, 5, 5, 6]
+			],
+
 			lakeTileSupply: [],
-				
+
+		}
+	}
+
+	makeLakeTiles() {
+		let lakeTileDeck = [];
+		console.log(lakeTiles.length);
+	
+		for (let i = 0; i < lakeTiles.length; i++) {
+			lakeTileDeck.push(
+				<LakeTile 
+					id={i} 
+					draggable={true} 
+					// getLanternImage={func}
+					topColor={lakeTiles[i][0]}
+					rightColor={lakeTiles[i][1]}
+					bottomColor={lakeTiles[i][2]}
+					leftColor={lakeTiles[i][3]}
+					canRotate={true}
+					
+				/>
+			);
+		}
+	
+		return lakeTileDeck;
+	}
+
+	rotate(colors, canRotate, id) {
+		if (canRotate === true) {
+			console.log("Here here")
+			console.log(colors);
+			let temp = colors;
+			let tempColor = temp.pop();
+			temp.unshift(tempColor);
+			let newColors = temp;
+			console.log(newColors);
+			return newColors;
+		} else {
+			alert("You cannot rotate a placed lake tile.");
 		}
 	}
 
@@ -71,7 +139,8 @@ class App extends React.Component {
 
 	gameSetup() {
 
-		let lakeTileDeck = makeLakeTiles(this.getLanternImage);
+		let lakeTileDeck = makeLakeTiles();
+		console.log(lakeTileDeck);
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
 		let gameLakeTileDeck = getDeckForCorrectPlayerCount(shuffledLakeTiles, 2);
 		let result = dealLakeTiles(2, gameLakeTileDeck);
@@ -88,67 +157,8 @@ class App extends React.Component {
 		});
 	}
 
-	//Logic for lake tiles
-	rotate() {
-		if (this.state.canRotate === true) {
-			let temp = this.state.colors
-			let tempColor = temp.pop()
-			temp.unshift(tempColor);
-			let newColors = temp
-			this.setState({
-				colors: newColors
-			})
-		} else {
-			alert("You cannot rotate a placed lake tile.");
-		}
-	}
-
-	getLanternImage(num) {
-		let image = null;
-		switch (num) {
-			case 1:
-				image = blackTile
-				break
-			case 2:
-				image = blueTile
-				break
-			case 3:
-				image = greenTile
-				break
-			case 4:
-				image = orangeTile
-				break
-			case 5:
-				image = purpleTile
-				break
-			case 6:
-				image = redTile
-				break
-			case 7:
-				image = whiteTile
-				break;
-		}
-		return image
-	}
-
-	dragStart = e => {
-		const target = e.target;
-		e.dataTransfer.setData('lakeTile_id', e.target.id);
-		// e.dataTransfer.effectAllowed='move';
-	}
-
-	dragOver = e => {
-		e.stopPropagation();
-		this.setState({
-			canRotate: false
-		})
-		// e.dataTransfer.dropEffect='move';
-	}
-
-	//Logic for player hand
-
 	updatePlayerHand() {
-		console.log("Here");
+		// console.log("Here");
 	}
 
 	drawLakeTileForActivePlayer() {

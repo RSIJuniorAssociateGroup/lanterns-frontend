@@ -1,5 +1,13 @@
 import React from "react";
-import LakeTile from "./components/LakeTileComponent/LakeTile"
+import LakeTile from "./LakeTile"
+//pictures
+import blackTile from "../../pictures/blackTile.jpg";
+import blueTile from "../../pictures/blueTile.jpg";
+import greenTile from "../../pictures/greenTile.jpg";
+import orangeTile from "../../pictures/orangeTile.jpg";
+import purpleTile from "../../pictures/purpleTile.jpg";
+import redTile from "../../pictures/redTile.jpg";
+import whiteTile from "../../pictures/whiteTile.jpg";
 
 let lakeTiles= [
     [5, 2, 7, 3],
@@ -39,7 +47,7 @@ let lakeTiles= [
     [3, 5, 5, 6]
 ];
 
-export function makeLakeTiles(func) {
+export function makeLakeTiles() {
     let lakeTileDeck = [];
     console.log(lakeTiles.length);
 
@@ -48,15 +56,44 @@ export function makeLakeTiles(func) {
             <LakeTile 
                 id={i} 
                 draggable={true} 
+                // getLanternImage={func}
                 topColor={lakeTiles[i][0]}
                 rightColor={lakeTiles[i][1]}
                 bottomColor={lakeTiles[i][2]}
                 leftColor={lakeTiles[i][3]}
                 canRotate={true}
-                getLanternImage={func}
+                
             />
         );
     }
 
     return lakeTileDeck;
+}
+
+export function getLanternImage(num) {
+    let image = null;
+    switch (num) {
+        case 1:
+            image = blackTile
+            break
+        case 2:
+            image = blueTile
+            break
+        case 3:
+            image = greenTile
+            break
+        case 4:
+            image = orangeTile
+            break
+        case 5:
+            image = purpleTile
+            break
+        case 6:
+            image = redTile
+            break
+        case 7:
+            image = whiteTile
+            break;
+    }
+    return image
 }

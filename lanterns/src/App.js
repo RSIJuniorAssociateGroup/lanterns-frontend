@@ -98,57 +98,41 @@ class App extends React.Component {
 
 	rotate(canRotate, id) {
 		if (canRotate === true) {
-			let tempSupply = this.state.baseLakeTileSupply;
-			let temp = this.state.baseLakeTileSupply[id];
+			let tempSupply = JSON.parse(JSON.stringify(this.state.baseLakeTileSupply));
+			let temp = tempSupply[id];
 			let tempColor = temp.pop();
 			temp.unshift(tempColor);
 			tempSupply[id] = temp;
+			this.makeLakeTiles(tempSupply);
+
 			this.setState({
 				baseLakeTileSupply: tempSupply,
 			});
+			console.log(tempSupply[id]);
 		} else {
 			alert("You cannot rotate a placed lake tile.");
 		}
 
-		this.makeLakeTiles();
 
-		console.log(this.state.baseLakeTileSupply[id]);
+
 	}
 
-	makeLakeTiles() {
-		let lakeTileDeck = [];
-		let id = 0;
+	makeLakeTiles(deck) {
+		// let id = 0;
 
-		this.state.baseLakeTileSupply.map((tile) => {
-			lakeTileDeck.push(
-				<LakeTile
-					id={id}
-					draggable={true}
-					topColor={this.state.baseLakeTileSupply[id][0]}
-					rightColor={this.state.baseLakeTileSupply[id][1]}
-					bottomColor={this.state.baseLakeTileSupply[id][2]}
-					leftColor={this.state.baseLakeTileSupply[id][3]}
-					canRotate={true}
-					rotate={this.rotate}
-				/>
-			);
-			id++;
+		let lakeTileDeck = deck.map((tile, i) => {
+			return (<LakeTile
+				id={i}
+				draggable={true}
+				topColor={deck[i][0]}
+				rightColor={deck[i][1]}
+				bottomColor={deck[i][2]}
+				leftColor={deck[i][3]}
+				canRotate={true}
+				rotate={this.rotate}
+			/>)
+
 		});
-
-		// for (let i = 0; i < this.state.baseLakeTileSupply.length; i++) {
-		// 	lakeTileDeck.push(
-		// 		<LakeTile
-		// 			id={i}
-		// 			draggable={true}
-		// 			topColor={this.state.baseLakeTileSupply[i][0]}
-		// 			rightColor={this.state.baseLakeTileSupply[i][1]}
-		// 			bottomColor={this.state.baseLakeTileSupply[i][2]}
-		// 			leftColor={this.state.baseLakeTileSupply[i][3]}
-		// 			canRotate={true}
-		// 			rotate={this.rotate}
-		// 		/>
-		// 	);
-		// }
 
 		console.log(lakeTileDeck);
 
@@ -161,16 +145,18 @@ class App extends React.Component {
 
 	gameSetup() {
 
-		let lakeTileDeck = this.makeLakeTiles();
-		console.log(lakeTileDeck);
+		let lakeTileDeck = this.state.baseLakeTileSupply;
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
 		let gameLakeTileDeck = getDeckForCorrectPlayerCount(shuffledLakeTiles, 2);
-		let result = dealLakeTiles(2, gameLakeTileDeck);
+		let createdDeck = this.makeLakeTiles(gameLakeTileDeck);
+		let result = dealLakeTiles(2, createdDeck);
 
 		this.setState({
 			playerHands: result[0],
 			lakeTileSupply: result[1],
+			baseLakeTileSupply: gameLakeTileDeck,
 		});
+		console.log(this.state.baseLakeTileSupply);
 	}
 
 	setCurrentPlayer(array) {

@@ -45,7 +45,6 @@ const LakeTile = (props) => {
     // }
 
     // render() {
-    console.log(props.topColor);
     return (
         <div>
             {props.children}

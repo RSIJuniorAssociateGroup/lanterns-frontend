@@ -103,23 +103,102 @@ class App extends React.Component {
 			let tempColor = temp.pop();
 			temp.unshift(tempColor);
 			tempSupply[id] = temp;
-			this.makeLakeTiles(tempSupply);
+			let updatedHand = this.makeLakeTiles(tempSupply);
+			console.log("This is the updated hand ")
+			console.log(updatedHand);
+			// let updateHand = updateLakeTileHand(updatedHand);
 
 			this.setState({
 				baseLakeTileSupply: tempSupply,
 			});
+			console.log("TempSupply is ")
 			console.log(tempSupply[id]);
 		} else {
 			alert("You cannot rotate a placed lake tile.");
 		}
-
-
-
 	}
 
-	makeLakeTiles(deck) {
-		// let id = 0;
+	// makePlayerZeroHand() {
+	// 	for (let i=0; i<deck.length+1; i++) {
+	// 		console.log("This is the first for loop")
+	// 		console.log(deck[b][j][i]);
+	// 		playerOne.push(
+	// 			<LakeTile 
+	// 				id={i} 
+	// 				draggable={true} 
+	// 				// getLanternImage={func}
+	// 				topColor={deck[b][j][i][0]}
+	// 				rightColor={deck[b][j][i][1]}
+	// 				bottomColor={deck[b][j][i][2]}
+	// 				leftColor={deck[b][j][i][3]}
+	// 				canRotate={true}
+	// 			/>
+	// 		);
+	// 		return playerOne;
+	// 	}
+	// }
 
+	makeLakeTiles(deck, handId) {
+		let playerOne = [];
+
+		console.log("Here is a breakdown of the first array object ")
+		console.log(deck[0][0][0]);
+
+		if (handId === 0) {
+		let b = 0
+		let j = 0;
+
+		let lakeTileDeck = deck.map((tile, i) =>{
+			// console.log("This is the first for loop")
+			// console.log(deck[b][j][i]);
+			playerOne.push(
+				<LakeTile 
+					id={i} 
+					draggable={true} 
+					// getLanternImage={func}
+					topColor={deck[b][j][i][0]}
+					rightColor={deck[b][j][i][1]}
+					bottomColor={deck[b][j][i][2]}
+					leftColor={deck[b][j][i][3]}
+					canRotate={true}
+				/>
+			);
+		});
+			console.log(lakeTileDeck);
+			return lakeTileDeck;
+		} else if (handId === 1) {
+
+		let b = 0;
+		let j = 1;
+		for (let i=0; i<deck.length+1; i++) {
+			console.log("This is the second for loop")
+			console.log(deck[b][j][i]);
+			// for (let j=0; i<deck[i].length; j++) {
+			// 	console.log("This is the second for loop")
+			// 	console.log(deck[i][j]);
+			// }
+		}
+	} else if (handId === 3) {
+
+		// b= 1;
+		let j = 1;
+		for (let i=0; i<deck[1].length; i++) {
+			console.log("This is the third for loop")
+			console.log(deck[j][i]);
+			// for (let j=0; i<deck[i].length; j++) {
+			// 	console.log("This is the second for loop")
+			// 	console.log(deck[i][j]);
+			// }
+		}
+	} else {
+		console.log("ERROR no valid handId");
+	}
+		return deck;
+
+		/*
+
+		console.log(deck);
+		// return deck;
 		let lakeTileDeck = deck.map((tile, i) => {
 			return (<LakeTile
 				id={i}
@@ -130,13 +209,15 @@ class App extends React.Component {
 				leftColor={deck[i][3]}
 				canRotate={true}
 				rotate={this.rotate}
+			// parentHand={this.playerHands[0]}
 			/>)
 
 		});
 
-		console.log(lakeTileDeck);
+		// console.log(lakeTileDeck);
 
 		return lakeTileDeck;
+		*/
 	}
 
 	componentWillMount() {
@@ -146,16 +227,30 @@ class App extends React.Component {
 	gameSetup() {
 
 		let lakeTileDeck = this.state.baseLakeTileSupply;
+		console.log("This is the lakeTileDeck");
+		console.log(lakeTileDeck);
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
+		console.log("This is the shuffledLakeTiles");
+		console.log(shuffledLakeTiles);
 		let gameLakeTileDeck = getDeckForCorrectPlayerCount(shuffledLakeTiles, 2);
-		let createdDeck = this.makeLakeTiles(gameLakeTileDeck);
-		let result = dealLakeTiles(2, createdDeck);
+		console.log("This is the gameLakeTileDeck");
+		console.log(gameLakeTileDeck);
+		// let createdDeck = this.makeLakeTiles(gameLakeTileDeck);
+		// console.log("This is the createdDeck");
+		// console.log(createdDeck);
+		let result = dealLakeTiles(2, gameLakeTileDeck);
+		console.log("This is the result");
+		console.log(result);
+		let player0Hand = this.makeLakeTiles(result, 0);
+		console.log("This is the player0Hand");
+		console.log(player0Hand);
 
 		this.setState({
 			playerHands: result[0],
 			lakeTileSupply: result[1],
 			baseLakeTileSupply: gameLakeTileDeck,
 		});
+		console.log("This is the baseLakeTileSupply")
 		console.log(this.state.baseLakeTileSupply);
 	}
 

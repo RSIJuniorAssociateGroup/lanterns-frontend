@@ -61,7 +61,7 @@ class DedicationToken extends React.Component {
 
     buyToken(e) {
         if ((e.currentTarget.dataset.id === "1") && this.props.checkDedication(4)) {
-            console.log("success");
+            // console.log("success");
             this.setState({ fIndex: this.state.fIndex + 1 })
         } else if ((e.currentTarget.dataset.id === '2') && this.props.checkDedication(2)) {
             this.setState({ pIndex: this.state.pIndex + 1 })

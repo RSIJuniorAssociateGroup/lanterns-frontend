@@ -57,6 +57,7 @@ const LakeTile = (props) => {
                 colors={props.colors}
                 canRotate={props.canRotate}
                 rotate={props.rotate}
+                parentHand={props.parentHand}
             >
                 <div className="parent"
                     onClick={() => props.rotate(props.canRotate, props.id)}

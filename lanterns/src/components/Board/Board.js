@@ -1,7 +1,6 @@
 import React from 'react'
 import BoardTile from './BoardTile';
 import LakeTile from '../LakeTileComponent/LakeTile';
-import { createBoard, placeFirstTile } from './LegalTilePlaced';
 
 function Board(props) {
 

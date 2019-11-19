@@ -103,55 +103,79 @@ class App extends React.Component {
 			console.log(location);
 
 			switch (location) {
-				case 0: 
-				  
-				  console.log(this.findTileInHand(this.state.playerOneHand, id));
-				  break;
-      	case 1: 
-          this.findTileInHand(this.state.playerOneHand, id);
-				  break;
-        case 2: 
-          this.findTileInHand(this.state.playerOneHand, id);
-				  break;
+				case 0:
+					console.log("case 0")
+
+					this.findTileInHand(this.state.playerOneHand, id, location)
+					break;
+				case 1:
+					console.log("case 1")
+					this.findTileInHand(this.state.playerTwoHand, id, location);
+					break;
 			}
 		} else {
 			alert("You cannot rotate a placed lake tile.");
 		}
 	}
 
-	findTileInHand(arrayOne, id) {
+	findTileInHand(arrayOne, id, location) {
 		// console.log(arrayOne);
-		  for (let i=0; i < 3; i++) {
+		for (let i = 0; i < arrayOne.length; i++) {
 			console.log(arrayOne[i].props.id)
-			if(arrayOne[i].props.id === id) {
-			console.log("Here it is")
-			console.log(arrayOne[i].props.id);
-			let result = { topColor: arrayOne[i].props.topColor,rightColor: arrayOne[i].props.rightColor,bottomColor: arrayOne[i].props.bottomColor,leftColor: arrayOne[i].props.leftColor};
+			if (arrayOne[i].props.id === id) {
+				console.log("Here it is")
+				console.log(arrayOne[i].props.id);
+				let result = { topColor: arrayOne[i].props.topColor, rightColor: arrayOne[i].props.rightColor, bottomColor: arrayOne[i].props.bottomColor, leftColor: arrayOne[i].props.leftColor };
 
-			let newResult = {topColor: arrayOne[i].props.topColor,rightColor: arrayOne[i].props.rightColor,bottomColor: arrayOne[i].props.bottomColor,leftColor: arrayOne[i].props.leftColor};
-	  
-		console.log(result);
-				let newTopColor = result.topColor;
-				let newRightColor = result.rightColor;
-				let newBottomColor = result.bottomColor;
-				let newLeftColor = result.leftColor;
-		
-		//  getNestedObject(arrayOne, ['0', 'key'],);
-				this.state.playerOneHand[i].props =newResult;
-	  
-		this.setState ({
-			playerOneHand: this.state.playerOneHand
-		})
-	  
-		
-	  
+				// let newResult = {topColor: arrayOne[i].props.topColor,rightColor: arrayOne[i].props.rightColor,bottomColor: arrayOne[i].props.bottomColor,leftColor: arrayOne[i].props.leftColor};
+
+				console.log(result);
+				let newTopColor = result.leftColor;
+				let newRightColor = result.topColor;
+				let newBottomColor = result.rightColor;
+				let newLeftColor = result.bottomColor;
+
+				//  getNestedObject(arrayOne, ['0', 'key'],);
+
+				let newResult =
+					<LakeTile
+						id={arrayOne[i].props.id}
+						draggable={true}
+						// getLanternImage={func}
+						topColor={newTopColor}
+						rightColor={newRightColor}
+						bottomColor={newBottomColor}
+						leftColor={newLeftColor}
+						canRotate={true}
+						rotate={this.rotate.bind(this)}
+						location={location}
+					/>
+
+				if (activePlayerIndex[0] === 0) {
+					this.state.playerOneHand[i] = newResult;
+
+					this.setState({
+						playerOneHand: this.state.playerOneHand
+					})
+				} else if (activePlayerIndex[0] === 1) {
+					this.state.playerTwoHand[i] = newResult;
+
+					this.setState({
+						playerTwoHand: this.state.playerTwoHand
+					})
+				}
+
+
+
+
+
 				console.log("the new array is");
-		console.log(arrayOne[i]);
-		return arrayOne[i];
+				console.log(arrayOne[i]);
+				return arrayOne[i];
 			}
 		}
-	  
-	  }
+
+	}
 
 	// makePlayerZeroHand() {
 	// 	for (let i=0; i<deck.length+1; i++) {
@@ -208,7 +232,7 @@ class App extends React.Component {
 				// console.log(deck[b][j][i]);
 				hand.push(
 					<LakeTile
-						id={i+3}
+						id={i + 3}
 						draggable={true}
 						// getLanternImage={func}
 						topColor={deck[b][handId][i][0]}
@@ -231,7 +255,7 @@ class App extends React.Component {
 
 				hand.push(
 					<LakeTile
-						id={i+7}
+						id={i + 7}
 						draggable={true}
 						// getLanternImage={func}
 						topColor={deck[j][i][0]}
@@ -359,23 +383,51 @@ class App extends React.Component {
 		}
 	}
 
-	drawLakeTileForActivePlayer(playerHands) {
+	drawLakeTileForActivePlayer() {
 
 		// if (!this.state.playerHands[activePlayerIndex[0]].length < 3) {
+		if (activePlayerIndex[0] === 0) {
+			let playerHands = this.state.playerOneHand;
 
-		let lakeTile = this.getTopLakeTile()
+			let lakeTile = this.getTopLakeTile()
 
-		let tempPlayersHand = this.state.playerHands
-		let tempPlayerHand = this.state.playerHands
+			console.log("This is the lake tile");
+			console.log(lakeTile);
 
-		tempPlayerHand.push(lakeTile)
+			let tempPlayersHand = playerHands
+			let tempPlayerHand = playerHands
 
-		tempPlayersHand = tempPlayerHand;
+			tempPlayerHand.push(lakeTile);
 
-		this.setState({
-			playerHands: tempPlayersHand
-		});
-		// }
+			tempPlayersHand = tempPlayerHand;
+
+			this.state.playerOneHand = tempPlayersHand;
+
+			this.setState({
+				playerOneHand: tempPlayerHand
+			})
+
+		} else if (activePlayerIndex[0] === 1) {
+			let playerHands = this.state.playerTwoHand;
+
+			let lakeTile = this.getTopLakeTile()
+
+			console.log("This is the lake tile");
+			console.log(lakeTile);
+
+			let tempPlayersHand = playerHands
+			let tempPlayerHand = playerHands
+
+			tempPlayerHand.push(lakeTile);
+
+			tempPlayersHand = tempPlayerHand;
+
+			this.state.playerTwoHand = tempPlayersHand;
+
+			this.setState({
+				playerTwoHand: tempPlayerHand
+			})
+		}
 	}
 
 	getTopLakeTile() {
@@ -388,7 +440,28 @@ class App extends React.Component {
 			lakeTileSupply: tempSupply
 		});
 
-		return tile;
+		// console.log("This is the tile")
+		// console.log(tile);
+		// console.log(tile.props);
+		// console.log(tile.props.id);
+
+		let newHandTile =
+			<LakeTile
+				id={tile.props.id}
+				draggable={true}
+				// getLanternImage={func}
+				topColor={tile.props.topColor}
+				rightColor={tile.props.rightColor}
+				bottomColor={tile.props.bottomColor}
+				leftColor={tile.props.leftColor}
+				canRotate={true}
+				rotate={this.rotate.bind(this)}
+				location={activePlayerIndex[0]}
+			/>
+
+
+
+		return newHandTile;
 	}
 
 	render() {

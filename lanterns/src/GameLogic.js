@@ -1,9 +1,9 @@
 export function startingPlayer(num) {
 	let array = new Array(num);
 	//human player gets to go first
-	array[0] = 0;
+	array[0] = 1;
 	//computer player gets to go second
-	array[1] = 1;
+	array[1] = 0;
 	// console.log(array);
 
 	return array;
@@ -65,20 +65,20 @@ export function orientFirstTile(playerCount) {
 	let rng = Math.floor(Math.random() * playerCount);
 	let tileColors = [];
 
-	switch (rng) {
-		case 0:
-			tileColors.push(6, 7, 1, 2)
-			break;
-		case 1:
+	// switch (rng) {
+	// 	case 0:
+	// 		tileColors.push(6, 7, 1, 2)
+	// 		break;
+	// 	case 1:
 			tileColors.push(1, 2, 6, 7)
-			break;
-		case 2:
-			tileColors.push(2, 6, 7, 1)
-			break;
-		case 3:
-			tileColors.push(7, 1, 2, 6);
-			break;
-	}
+	// 		break;
+	// 	case 2:
+			// tileColors.push(2, 6, 7, 1)
+	// 		break;
+	// 	case 3:
+	// 		tileColors.push(7, 1, 2, 6);
+	// 		break;
+	// }
 
 	return tileColors;
 }

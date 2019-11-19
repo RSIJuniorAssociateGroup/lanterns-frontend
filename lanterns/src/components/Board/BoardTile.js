@@ -36,6 +36,7 @@ class BoardTile extends React.Component {
                 lakeTile.style.display = 'block';
 
                 e.target.appendChild(lakeTile);
+                console.log(document.getElementById(lakeTile_id).getAttribute("id"));
             } else {
                 alert("You cannot move a placed tile.")
             }

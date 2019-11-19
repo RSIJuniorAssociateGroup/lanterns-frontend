@@ -12,7 +12,6 @@ const LakeTile = (props) => {
 
     const dragOver = (e) => {
         e.stopPropagation();
-        // props.canRotate = false;
         // e.dataTransfer.dropEffect='move';
 
     }
@@ -57,8 +56,8 @@ const LakeTile = (props) => {
                 onDragOver={dragOver}
                 colors={props.colors}
                 canRotate={props.canRotate}
-                rotate={props.rotate}
-                parentHand={props.location}
+                // rotate={props.rotate}
+                parenthand={props.location}
 
             >
                 <div className="parent"
@@ -68,9 +67,9 @@ const LakeTile = (props) => {
                     </div>
                     <div className="rightTri" style={{ backgroundImage: "url(" + getLanternImage(props.rightColor) + ")" }}>
                     </div>
-                    <div className="leftTri" style={{ backgroundImage: "url(" + getLanternImage(props.bottomColor) + ")" }}>
-                    </div>
                     <div className="bottomTri" style={{ backgroundImage: "url(" + getLanternImage(props.leftColor) + ")" }}>
+                    </div>
+                    <div className="leftTri" style={{ backgroundImage: "url(" + getLanternImage(props.bottomColor) + ")" }}>
                     </div>
                 </div>
             </div>

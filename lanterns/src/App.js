@@ -25,6 +25,7 @@ class App extends React.Component {
 		this.setCurrentPlayer = this.setCurrentPlayer.bind(this);
 
 		this.rotate = this.rotate.bind(this);
+		this.findTileInHand = this.findTileInHand.bind(this);
 		// this.getLanternImage = this.getLanternImage.bind(this);
 
 		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
@@ -39,10 +40,8 @@ class App extends React.Component {
 			currentPlayer: activePlayerIndex,
 			// canRotate: props.canRotate,
 			legalBoard: LegalBoard,
-			playerHands: [
-				[],
-				[],
-			],
+			playerOneHand: [],
+			playerTwoHand: [],
 
 			gameLanternSupply: [2, 0, 0, 0, 0, 3, 0],
 
@@ -96,27 +95,63 @@ class App extends React.Component {
 		}
 	}
 
-	rotate(canRotate, id) {
+	rotate(canRotate, id, location) {
 		if (canRotate === true) {
-			let tempSupply = JSON.parse(JSON.stringify(this.state.baseLakeTileSupply));
-			let temp = tempSupply[id];
-			let tempColor = temp.pop();
-			temp.unshift(tempColor);
-			tempSupply[id] = temp;
-			let updatedHand = this.makeLakeTiles(tempSupply);
-			console.log("This is the updated hand ")
-			console.log(updatedHand);
-			// let updateHand = updateLakeTileHand(updatedHand);
+			console.log("This is the id ");
+			console.log(id);
+			console.log("This is the location ");
+			console.log(location);
 
-			this.setState({
-				baseLakeTileSupply: tempSupply,
-			});
-			console.log("TempSupply is ")
-			console.log(tempSupply[id]);
+			switch (location) {
+				case 0: 
+				  
+				  console.log(this.findTileInHand(this.state.playerOneHand, id));
+				  break;
+      	case 1: 
+          this.findTileInHand(this.state.playerOneHand, id);
+				  break;
+        case 2: 
+          this.findTileInHand(this.state.playerOneHand, id);
+				  break;
+			}
 		} else {
 			alert("You cannot rotate a placed lake tile.");
 		}
 	}
+
+	findTileInHand(arrayOne, id) {
+		// console.log(arrayOne);
+		  for (let i=0; i < 3; i++) {
+			console.log(arrayOne[i].props.id)
+			if(arrayOne[i].props.id === id) {
+			console.log("Here it is")
+			console.log(arrayOne[i].props.id);
+			let result = { topColor: arrayOne[i].props.topColor,rightColor: arrayOne[i].props.rightColor,bottomColor: arrayOne[i].props.bottomColor,leftColor: arrayOne[i].props.leftColor};
+
+			let newResult = {topColor: arrayOne[i].props.topColor,rightColor: arrayOne[i].props.rightColor,bottomColor: arrayOne[i].props.bottomColor,leftColor: arrayOne[i].props.leftColor};
+	  
+		console.log(result);
+				let newTopColor = result.topColor;
+				let newRightColor = result.rightColor;
+				let newBottomColor = result.bottomColor;
+				let newLeftColor = result.leftColor;
+		
+		//  getNestedObject(arrayOne, ['0', 'key'],);
+				this.state.playerOneHand[i].props =newResult;
+	  
+		this.setState ({
+			playerOneHand: this.state.playerOneHand
+		})
+	  
+		
+	  
+				console.log("the new array is");
+		console.log(arrayOne[i]);
+		return arrayOne[i];
+			}
+		}
+	  
+	  }
 
 	// makePlayerZeroHand() {
 	// 	for (let i=0; i<deck.length+1; i++) {
@@ -139,49 +174,81 @@ class App extends React.Component {
 	// }
 
 	makeLakeTiles(deck, handId) {
-		let playerOne = [];
+		let hand = [];
 
 		// console.log("Here is a breakdown of the first array object ")
 		// console.log(deck[0][0][0]);
 
-		if (handId === 0 || handId === 1) {
-		let b = 0
-		let j = handId;
+		if (handId === 0) {
+			let b = 0
 
-		for (let i=0; i<deck.length+1; i++){
-			// console.log("This is the first for loop")
-			// console.log(deck[b][j][i]);
-			playerOne.push(
-				<LakeTile 
-					id={i} 
-					draggable={true} 
-					// getLanternImage={func}
-					topColor={deck[b][j][i][0]}
-					rightColor={deck[b][j][i][1]}
-					bottomColor={deck[b][j][i][2]}
-					leftColor={deck[b][j][i][3]}
-					canRotate={true}
-				/>
-			);
-		}
-			console.log(playerOne);
-			return playerOne;
+			for (let i = 0; i < deck.length + 1; i++) {
+				// console.log("This is the first for loop")
+				// console.log(deck[b][j][i]);
+				hand.push(
+					<LakeTile
+						id={i}
+						draggable={true}
+						// getLanternImage={func}
+						topColor={deck[b][handId][i][0]}
+						rightColor={deck[b][handId][i][1]}
+						bottomColor={deck[b][handId][i][2]}
+						leftColor={deck[b][handId][i][3]}
+						canRotate={true}
+						rotate={this.rotate.bind(this)}
+						location={0}
+					/>
+				);
+			}
+		} else if (handId === 1) {
+			let b = 0
+
+			for (let i = 0; i < deck.length + 1; i++) {
+				// console.log("This is the first for loop")
+				// console.log(deck[b][j][i]);
+				hand.push(
+					<LakeTile
+						id={i+3}
+						draggable={true}
+						// getLanternImage={func}
+						topColor={deck[b][handId][i][0]}
+						rightColor={deck[b][handId][i][1]}
+						bottomColor={deck[b][handId][i][2]}
+						leftColor={deck[b][handId][i][3]}
+						canRotate={true}
+						rotate={this.rotate.bind(this)}
+						location={1}
+					/>
+				);
+			}
 		} else if (handId === 2) {
 
-		// b= 1;
-		let j = 1;
-		for (let i=0; i<deck[1].length; i++) {
-			console.log("This is the third for loop")
-			console.log(deck[j][i]);
-			// for (let j=0; i<deck[i].length; j++) {
-			// 	console.log("This is the second for loop")
-			// 	console.log(deck[i][j]);
-			// }
+			// let b= 1;
+			let j = 1;
+			for (let i = 0; i < deck[1].length; i++) {
+				// console.log("This is the third for loop")
+				// console.log(deck[j][i]);
+
+				hand.push(
+					<LakeTile
+						id={i+7}
+						draggable={true}
+						// getLanternImage={func}
+						topColor={deck[j][i][0]}
+						rightColor={deck[j][i][1]}
+						bottomColor={deck[j][i][2]}
+						leftColor={deck[j][i][3]}
+						canRotate={true}
+						rotate={this.rotate.bind(this)}
+						location={2}
+					/>
+				);
+			}
+		} else {
+			console.log("ERROR no valid handId");
 		}
-	} else {
-		console.log("ERROR no valid handId");
-	}
-		return deck;
+		// console.log(hand);
+		return hand;
 
 		/*
 
@@ -235,11 +302,17 @@ class App extends React.Component {
 		let player1Hand = this.makeLakeTiles(result, 1);
 		console.log("This is the player1Hand");
 		console.log(player1Hand);
+		let tileDeck = this.makeLakeTiles(result, 2);
+		console.log("This is the tileDeck");
+		console.log(tileDeck);
+
 		this.setState({
-			playerHands: player0Hand,
-			lakeTileSupply: result[1],
+			playerOneHand: player0Hand,
+			playerTwoHand: player1Hand,
+			lakeTileSupply: tileDeck,
 			baseLakeTileSupply: gameLakeTileDeck,
 		});
+
 		console.log("This is the baseLakeTileSupply")
 		console.log(this.state.baseLakeTileSupply);
 	}
@@ -254,23 +327,55 @@ class App extends React.Component {
 		// console.log("Here");
 	}
 
-	drawLakeTileForActivePlayer() {
-
-		if (!this.state.playerHands[activePlayerIndex[0]].length < 3) {
-
+	drawForThisPlayer() {
+		if (activePlayerIndex[0] === 0) {
 			let lakeTile = this.getTopLakeTile()
 
-			let tempPlayersHand = this.state.playerHands
-			let tempPlayerHand = this.state.playerHands[activePlayerIndex[0]]
+			let tempPlayersHand = this.state.playerOneHand
+			let tempPlayerHand = this.state.playerOneHand
 
 			tempPlayerHand.push(lakeTile)
 
-			tempPlayersHand[activePlayerIndex[0]] = tempPlayerHand;
+			tempPlayersHand = tempPlayerHand;
 
 			this.setState({
-				playerHands: tempPlayersHand
+				playerOneHand: tempPlayersHand
 			});
+		} else if (activePlayerIndex[0] === 1) {
+			let lakeTile = this.getTopLakeTile()
+
+			let tempPlayersHand = this.state.playerTwoHand
+			let tempPlayerHand = this.state.playerTwoHand
+
+			tempPlayerHand.push(lakeTile)
+
+			tempPlayersHand = tempPlayerHand;
+
+			this.setState({
+				playerTwoHand: tempPlayersHand
+			});
+		} else {
+			console.log("Error drawing for this player");
 		}
+	}
+
+	drawLakeTileForActivePlayer(playerHands) {
+
+		// if (!this.state.playerHands[activePlayerIndex[0]].length < 3) {
+
+		let lakeTile = this.getTopLakeTile()
+
+		let tempPlayersHand = this.state.playerHands
+		let tempPlayerHand = this.state.playerHands
+
+		tempPlayerHand.push(lakeTile)
+
+		tempPlayersHand = tempPlayerHand;
+
+		this.setState({
+			playerHands: tempPlayersHand
+		});
+		// }
 	}
 
 	getTopLakeTile() {
@@ -301,7 +406,7 @@ class App extends React.Component {
 								key={0}
 								playerId={0}
 								playerName="Sub Zero"
-								lakeTileHand={this.state.playerHands}
+								lakeTileHand={this.state.playerOneHand}
 								playerHonorScore={this.state.playerHonorScores[0]}
 							/>;
 							case 1: return <PlayerNotTurn
@@ -350,7 +455,7 @@ class App extends React.Component {
 								key={2}
 								playerId={2}
 								playerName="Double Duo"
-								lakeTileHand={this.state.playerHands[1]}
+								lakeTileHand={this.state.playerTwoHand}
 								playerHonorScore={this.state.playerHonorScores[1]}
 								playerActive={true}
 							/>;

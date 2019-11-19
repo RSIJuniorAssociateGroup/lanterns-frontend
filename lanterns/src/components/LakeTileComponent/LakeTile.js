@@ -12,8 +12,9 @@ const LakeTile = (props) => {
 
     const dragOver = (e) => {
         e.stopPropagation();
-        this.canRotate = false;
+        // props.canRotate = false;
         // e.dataTransfer.dropEffect='move';
+
     }
     // class LakeTile extends React.Component {
     //     constructor(props) {
@@ -57,10 +58,11 @@ const LakeTile = (props) => {
                 colors={props.colors}
                 canRotate={props.canRotate}
                 rotate={props.rotate}
-                parentHand={props.parentHand}
+                parentHand={props.location}
+
             >
                 <div className="parent"
-                    onClick={() => props.rotate(props.canRotate, props.id)}
+                    onClick={() => props.rotate(props.canRotate, props.id, props.location)}
                 >
                     <div className="topTri" style={{backgroundImage: "url(" + getLanternImage(props.topColor) + ")"}}>
                     </div>

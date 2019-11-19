@@ -4,7 +4,6 @@ import LakeTile from '../LakeTileComponent/LakeTile';
 
 function Board(props) {
 
-
   return (
     <main className="board">
       <BoardTile col="0" row="0" className="boardTile" boardTileLakeTileId="null" setCurrentPlayer={props.setCurrentPlayer}

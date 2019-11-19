@@ -22,7 +22,7 @@ const LakeTile = (props) => {
                 onDragStart={dragStart}
                 onDragOver={dragOver}
                 colors={props.colors}
-                canRotate={props.canRotate}
+                canrotate={props.canRotate}
                 // rotate={props.rotate}
                 parenthand={props.location}
 

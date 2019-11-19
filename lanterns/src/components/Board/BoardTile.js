@@ -30,13 +30,25 @@ class BoardTile extends React.Component {
             const lakeTile = document.getElementById(lakeTile_id);
 
             if (lakeTile !== null) {
-                endTurn(activePlayerIndex);
-                this.setCurrentPlayer(activePlayerIndex);
 
                 lakeTile.style.display = 'block';
 
                 e.target.appendChild(lakeTile);
-                console.log(document.getElementById(lakeTile_id).getAttribute("id"));
+
+                let tileId = (document.getElementById(lakeTile_id).getAttribute("id"));
+
+                // console.log(tileId);
+
+                let col = this.props.col;
+                let row = this.props.row;
+                console.log("this is col");
+                console.log(col)
+
+                this.updatePlayerHand(tileId, col, row);
+                endTurn(activePlayerIndex);
+
+                this.setCurrentPlayer(activePlayerIndex);
+
             } else {
                 alert("You cannot move a placed tile.")
             }

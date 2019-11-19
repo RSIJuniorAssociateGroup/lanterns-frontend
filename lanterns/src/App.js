@@ -28,7 +28,9 @@ class App extends React.Component {
 		this.findTileInHand = this.findTileInHand.bind(this);
 
 		this.drawLakeTileForActivePlayer = this.drawLakeTileForActivePlayer.bind(this);
+
 		this.updatePlayerHand = this.updatePlayerHand.bind(this);
+		this.copyTileToBoard = this.copyTileToBoard.bind(this);
 
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
@@ -89,6 +91,7 @@ class App extends React.Component {
 			],
 
 			lakeTileSupply: [],
+			droppedLakeTiles: [],
 
 		}
 	}
@@ -246,40 +249,111 @@ class App extends React.Component {
 		});
 	}
 
-	updatePlayerHand() {
-		// console.log("Here");
+	updatePlayerHand(id, col, row) {
+		if (id != undefined) {
+			console.log("Here");
+			// console.log(this.state.playerOneHand);
+			console.log(id);
+			// console.log(activePlayerIndex[0]);
+			if (activePlayerIndex[0] === 0) {
+				for (let i = 0; i < this.state.playerOneHand.length; i++) {
+					if (this.state.playerOneHand[i].props.id == id) {
+						console.log("Hello p1");
+						// console.log(this.state.playerOneHand[i].props);
+
+						let placedTile = this.state.playerOneHand[i];
+						this.copyTileToBoard(placedTile, col, row, id);
+
+						let updatedHand = this.state.playerOneHand.splice(i,1);
+
+						
+						this.setState({
+							playerOneHand: updatedHand
+						})
+
+						console.log("this is the P1 updated hand")
+						console.log(this.state.playerOneHand);
+
+					}
+				}
+			} else if (activePlayerIndex[0] === 1) {
+				for (let i = 0; i < this.state.playerTwoHand.length; i++) {
+					if (this.state.playerTwoHand[i].props.id == id) {
+						console.log("Hello p2");
+						// console.log(this.state.playerTwoHand[i].props.id);
+						let placedTile = this.state.playerTwoHand[i];
+						this.copyTileToBoard(placedTile, col, row, id)
+						
+
+						let updatedHand = this.state.playerTwoHand.splice(i, 1);
+
+						// let updatedHand = this.state.playerTwoHand.filter(tile => tile.props.id !== i);
+
+						
+						this.setState({
+							playerTwoHand: updatedHand
+						})
+						console.log("this is the P2 updated hand")
+						console.log(this.state.playerTwoHand);
+					}
+				}
+			} else {
+				alert("Error with updatePlayerHand();")
+			}
+			console.log("Testing scope");
+		} else {
+
+			console.log("updatePlayerHand() cancelled for this board tile");
+		}
 	}
 
-	drawForThisPlayer() {
-		if (activePlayerIndex[0] === 0) {
-			let lakeTile = this.getTopLakeTile()
+	copyTileToBoard (tile, col, row, id) {
+		// console.log("Here are the copied elements");
+		// console.log(tile);
+		// console.log(col);
+		// console.log(row);
 
-			let tempPlayersHand = this.state.playerOneHand
-			let tempPlayerHand = this.state.playerOneHand
+		let result = { topColor: tile.props.topColor, rightColor: tile.props.rightColor, bottomColor: tile.props.bottomColor, leftColor: tile.props.leftColor };
 
-			tempPlayerHand.push(lakeTile)
+		console.log(result);
 
-			tempPlayersHand = tempPlayerHand;
+		let newTopColor = result.leftColor;
+		let newRightColor = result.topColor;
+		let newBottomColor = result.rightColor;
+		let newLeftColor = result.bottomColor;
+
+		let newResult =
+			<LakeTile
+				id={id}
+				draggable={true}
+				topColor={newTopColor}
+				rightColor={newRightColor}
+				bottomColor={newBottomColor}
+				leftColor={newLeftColor}
+				canRotate={true}
+				rotate={this.rotate.bind(this)}
+				location={3}
+				col={col}
+				row={row}
+			/>
+
+			let droppedTiles = this.state.droppedLakeTiles;
+
+			let tempHand = droppedTiles;
+			let tempHands = droppedTiles;
+
+			tempHand.push(newResult);
+
+			tempHands = tempHand;
+
+			this.state.droppedLakeTiles = tempHands;
 
 			this.setState({
-				playerOneHand: tempPlayersHand
-			});
-		} else if (activePlayerIndex[0] === 1) {
-			let lakeTile = this.getTopLakeTile()
+				droppedLakeTiles: this.state.droppedLakeTiles
+			})
 
-			let tempPlayersHand = this.state.playerTwoHand
-			let tempPlayerHand = this.state.playerTwoHand
-
-			tempPlayerHand.push(lakeTile)
-
-			tempPlayersHand = tempPlayerHand;
-
-			this.setState({
-				playerTwoHand: tempPlayersHand
-			});
-		} else {
-			console.log("Error drawing for this player");
-		}
+			console.log("here is the droppedLakeTiles")
+			console.log(this.state.droppedLakeTiles);
 	}
 
 	drawLakeTileForActivePlayer() {
@@ -339,6 +413,7 @@ class App extends React.Component {
 			<LakeTile
 				id={tile.props.id}
 				draggable={true}
+				// getLanternImage={func}
 				topColor={tile.props.topColor}
 				rightColor={tile.props.rightColor}
 				bottomColor={tile.props.bottomColor}
@@ -393,6 +468,7 @@ class App extends React.Component {
 						drawLakeTileForActivePlayer={this.drawLakeTileForActivePlayer.bind(this)}
 						updatePlayerHand={this.updatePlayerHand.bind(this)}
 						firstTileColors={firstTileOrientation}
+
 					/>
 				</div>
 

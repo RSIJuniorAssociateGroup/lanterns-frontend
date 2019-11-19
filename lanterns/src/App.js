@@ -141,14 +141,14 @@ class App extends React.Component {
 	makeLakeTiles(deck, handId) {
 		let playerOne = [];
 
-		console.log("Here is a breakdown of the first array object ")
-		console.log(deck[0][0][0]);
+		// console.log("Here is a breakdown of the first array object ")
+		// console.log(deck[0][0][0]);
 
-		if (handId === 0) {
+		if (handId === 0 || handId === 1) {
 		let b = 0
-		let j = 0;
+		let j = handId;
 
-		let lakeTileDeck = deck.map((tile, i) =>{
+		for (let i=0; i<deck.length+1; i++){
 			// console.log("This is the first for loop")
 			// console.log(deck[b][j][i]);
 			playerOne.push(
@@ -163,22 +163,10 @@ class App extends React.Component {
 					canRotate={true}
 				/>
 			);
-		});
-			console.log(lakeTileDeck);
-			return lakeTileDeck;
-		} else if (handId === 1) {
-
-		let b = 0;
-		let j = 1;
-		for (let i=0; i<deck.length+1; i++) {
-			console.log("This is the second for loop")
-			console.log(deck[b][j][i]);
-			// for (let j=0; i<deck[i].length; j++) {
-			// 	console.log("This is the second for loop")
-			// 	console.log(deck[i][j]);
-			// }
 		}
-	} else if (handId === 3) {
+			console.log(playerOne);
+			return playerOne;
+		} else if (handId === 2) {
 
 		// b= 1;
 		let j = 1;
@@ -244,9 +232,11 @@ class App extends React.Component {
 		let player0Hand = this.makeLakeTiles(result, 0);
 		console.log("This is the player0Hand");
 		console.log(player0Hand);
-
+		let player1Hand = this.makeLakeTiles(result, 1);
+		console.log("This is the player1Hand");
+		console.log(player1Hand);
 		this.setState({
-			playerHands: result[0],
+			playerHands: player0Hand,
 			lakeTileSupply: result[1],
 			baseLakeTileSupply: gameLakeTileDeck,
 		});
@@ -311,7 +301,7 @@ class App extends React.Component {
 								key={0}
 								playerId={0}
 								playerName="Sub Zero"
-								lakeTileHand={this.state.playerHands[0]}
+								lakeTileHand={this.state.playerHands}
 								playerHonorScore={this.state.playerHonorScores[0]}
 							/>;
 							case 1: return <PlayerNotTurn

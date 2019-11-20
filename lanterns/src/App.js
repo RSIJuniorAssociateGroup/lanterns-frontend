@@ -14,9 +14,9 @@ import { checkThreePair, moveLanternCardsThreePair, checkOneOfEach, moveLanterns
 
 export let activePlayerIndex = startingPlayer(2);
 
-export let LegalBoard = placeFirstTile(createBoard(6), 1, 1);
+export let LegalBoard = placeFirstTile(createBoard(6), 2, 3);
 
-export let droppedTilesBoard = placeFirstTile(createBoard(6), 1, 1);
+export let droppedTilesBoard = placeFirstTile(createBoard(6), 2, 3);
 
 class App extends React.Component {
 
@@ -328,7 +328,7 @@ class App extends React.Component {
 		let player1Hand = this.makeLakeTiles(result, 1);
 		let tileDeck = this.makeLakeTiles(result, 2);
 
-		let placedTileBrd = this.placeInitialTileOnPlacedTileBoard(droppedTilesBoard, this.state.firstTileOrientation, 1, 1);
+		let placedTileBrd = this.placeInitialTileOnPlacedTileBoard(droppedTilesBoard, this.state.firstTileOrientation, 2, 3);
 
 		this.setState({
 			playerOneHand: player0Hand,
@@ -476,10 +476,16 @@ class App extends React.Component {
 
 		//note i & j must be reversed to get this to work because rows and columns are technically flipped.
 
+		console.log("Adjacent")
+		console.log(i)
+		console.log(j)
 		//check above current index
-		if (j != 0 && typeof array[j - 1][i] === 'object') {
-			if (array[j - 1][i][2] === array[j][i][0]) {
-				let colorMatch = array[j][i][0];
+		if (i != 0 && typeof array[i - 1][j] === 'object') {
+			if (array[i - 1][j][2] === array[i][j][0]) {
+				let colorMatch = array[i][j][0];
+				console.log("Above")
+
+				console.log(colorMatch)
 
 				if (this.checkSupply(colorMatch)) {
 					let newPlayerSupply = playerLanternSupplies;
@@ -498,6 +504,8 @@ class App extends React.Component {
 		if (i !== 5 && typeof array[j][i + 1] === 'object') {
 			if (array[j][i + 1][3] === array[j][i][1]) {
 				let colorMatch = array[j][i][1];
+				console.log("Right")
+				console.log(colorMatch)
 
 				if (this.checkSupply(colorMatch)) {
 
@@ -517,6 +525,8 @@ class App extends React.Component {
 		if (j < array.length - 1 && typeof array[j + 1][i] == 'object') {
 			if (array[j + 1][i][0] === array[j][i][2]) {
 				let colorMatch = array[j][i][2];
+				console.log("Bottom")
+				console.log(colorMatch)
 
 				if (this.checkSupply(colorMatch)) {
 
@@ -536,6 +546,8 @@ class App extends React.Component {
 		if (i !== 0 && typeof array[j][i - 1] == 'object') {
 			if (array[j][i - 1][1] === array[j][i][3]) {
 				let colorMatch = array[j][i][3];
+				console.log("Left")
+				console.log(colorMatch)
 
 				if (this.checkSupply(colorMatch)) {
 

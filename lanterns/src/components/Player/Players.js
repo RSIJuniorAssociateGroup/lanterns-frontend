@@ -18,8 +18,8 @@ class Player extends React.Component {
     }
     
     render() {
-
         playerSeats.push(this.state.playerId);
+        
         return (
             <div >
                 <p className="playerName">{this.state.playerName}</p>

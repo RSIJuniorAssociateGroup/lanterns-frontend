@@ -42,6 +42,8 @@ class BoardTile extends React.Component {
                 let bottom = (document.getElementById(lakeTile_id).getAttribute("bottomTri"));
                 let left = (document.getElementById(lakeTile_id).getAttribute("leftTri"));
 
+                console.log(lakeTile);
+
                 console.log(top);
                 console.log(right);
                 console.log(bottom);

@@ -1,105 +1,47 @@
 import React from 'react';
 import './LakeTile.css';
-import blackTile from "./blackTile.jpg";
-import blueTile from "./blueTile.jpg";
-import greenTile from "./greenTile.jpg";
-import orangeTile from "./orangeTile.jpg";
-import purpleTile from "./purpleTile.jpg";
-import redTile from "./redTile.jpg";
-import whiteTile from "./whiteTile.jpg";
+import { getLanternImage } from '../LakeTileComponent/lakeTiles';
 
-class LakeTile extends React.Component {
-   constructor(props) {
-       super(props)
+const LakeTile = (props) => {
 
-       this.rotate = this.rotate.bind(this)
-       this.state = {
-           colors: [props.topColor, props.rightColor, props.bottomColor, props.leftColor],
-            canRotate: props.CanRotate
-       }
-   }
-
-   rotate() {
-       if (this.props.canRotate === true) {
-       let temp = this.state.colors
-       let tempColor = temp.pop()
-       temp.unshift(tempColor);
-       let newColors = temp
-       this.setState({
-           colors: newColors
-       })
-    } else {
-        alert("You cannot rotate a placed tile.")
+    const dragStart = (e) => {
+        const target = e.target;
+        e.dataTransfer.setData('lakeTile_id', e.target.id);
     }
-   }
 
-   getLanternImage(num) {
-       let image = null;
-       switch (num) {
-           case 1:
-               image = blackTile
-               break
-           case 2:
-               image = blueTile
-               break
-           case 3:
-               image = greenTile
-               break
-           case 4:
-               image = orangeTile
-               break
-           case 5:
-               image = purpleTile
-               break
-           case 6:
-               image = redTile
-               break
-           case 7:
-               image = whiteTile
-               break;
-       }
-       return image
-   }
+    const dragOver = (e) => {
+        e.stopPropagation();
+    }
+    return (
+        <div>
+            {props.children}
+            <div
+                id={props.id}
+                className="parentContainer"
+                draggable={props.draggable}
+                onDragStart={dragStart}
+                onDragOver={dragOver}
+                colors={props.colors}
+                canrotate={props.canRotate}
+                // rotate={props.rotate}
+                parenthand={props.location}
 
-   dragStart = e => {
-       const target = e.target;
-       e.dataTransfer.setData('lakeTile_id', e.target.id);
-   } 
-
-   dragOver = e => {
-       e.stopPropagation();
-   }
-
-   render() {
-       const top = this.getLanternImage(this.state.colors[0])
-       const right = this.getLanternImage(this.state.colors[1])
-       const bottom = this.getLanternImage(this.state.colors[2])
-       const left = this.getLanternImage(this.state.colors[3])
-       return (
-           <div
-           > {this.props.children}
-               <div
-                   id={this.props.id}
-                   className="parentContainer"
-                   draggable={this.props.draggable}
-                   onDragStart={this.dragStart}
-                   onDragOver={this.dragOver}
-                   canRotate={this.CanRotate}
-               >
-                   <div className="parent"
-                       onClick={this.rotate}>
-                   <div className="topTri" style={{ backgroundImage: "url("+ top + ")"}}>
-                       </div>
-                       <div className="rightTri" style={{ backgroundImage: "url("+ right + ")"}}>
-                       </div>
-                       <div className="leftTri" style={{ backgroundImage: "url("+ left + ")"}}>
-                       </div>
-                       <div className="bottomTri" style={{ backgroundImage: "url("+ bottom + ")"}}>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       )
-   }
+            >
+                <div className="parent"
+                    onClick={() => props.canRotate ? props.rotate(props.canRotate, props.id, props.location) : alert("You cannot rotate this tile")}
+                >
+                    <div className="topTri" style={{backgroundImage: "url(" + getLanternImage(props.topColor) + ")"}}>
+                    </div>
+                    <div className="rightTri" style={{ backgroundImage: "url(" + getLanternImage(props.rightColor) + ")" }}>
+                    </div>
+                    <div className="bottomTri" style={{ backgroundImage: "url(" + getLanternImage(props.leftColor) + ")" }}>
+                    </div>
+                    <div className="leftTri" style={{ backgroundImage: "url(" + getLanternImage(props.bottomColor) + ")" }}>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 }
-export default LakeTile
+
+export default LakeTile;

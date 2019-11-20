@@ -1,53 +1,55 @@
 import React from 'react'
 import BoardTile from './BoardTile';
 import LakeTile from '../LakeTileComponent/LakeTile';
-import { createBoard, placeFirstTile } from './LegalTilePlaced';
 
-export let LegalBoard = placeFirstTile(createBoard(3), 1, 1);
+function Board(props) {
 
-class Board extends React.Component {
-  constructor(props) {
-    super(props)
-    this.setCurrentPlayer = this.props.setCurrentPlayer.bind(this);
-  }
+  return (
+    <main className="board">
+      <BoardTile col="0" row="0" className="boardTile" boardTileLakeTileId="null" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}
+      >
+      </BoardTile>
+      <BoardTile col="1" row="0" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}
+      >
+      </BoardTile>
+      <BoardTile col="2" row="0" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}>
+      </BoardTile>
 
-  render() {
-    console.log(typeof this.props.firstTileColors[0][0]);
-    return (
-      <main className="board">
-        <BoardTile col="0" row="0" className="boardTile" boardTileLakeTileId="null" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
-        </BoardTile>
-        <BoardTile col="1" row="0" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
-        </BoardTile>
-        <BoardTile col="2" row="0" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
-        </BoardTile>
-
-        <BoardTile col="0" row="1" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
-        </BoardTile>
-        <BoardTile col="1" row="1" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
-          <LakeTile id="lakeTile-5"  
+      <BoardTile col="0" row="1" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}>
+      </BoardTile>
+      <BoardTile col="1" row="1" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}>
+        <LakeTile id="lakeTile-5"
           draggable="false"
-          topColor={this.props.firstTileColors[0]}
-          rightColor={this.props.firstTileColors[1]}
-          bottomColor={this.props.firstTileColors[2]}
-          leftColor={this.props.firstTileColors[3]}
-            canRotate={false}>
-              
+          topColor={props.firstTileColors[0]}
+          rightColor={props.firstTileColors[1]}
+          bottomColor={props.firstTileColors[2]}
+          leftColor={props.firstTileColors[3]}
+          canRotate={false}>
+        </LakeTile>
+      </BoardTile>
+      <BoardTile col="2" row="1" className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand}
+      >
+      </BoardTile>
 
-          </LakeTile>
-        </BoardTile>
-        <BoardTile col="2" row="1" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
-        </BoardTile>
-
-        <BoardTile col="0" row="2" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
-        </BoardTile>
-        <BoardTile col="1" row="2" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
-        </BoardTile>
-        <BoardTile col="2" row="2" className="boardTile" setCurrentPlayer={this.setCurrentPlayer.bind(this)}>
-        </BoardTile>
-      </main>
-    )
-  }
+      <BoardTile col="0" row="2" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}
+      >
+      </BoardTile>
+      <BoardTile col="1" row="2" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}
+      >
+      </BoardTile>
+      <BoardTile col="2" row="2" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}
+      >
+      </BoardTile>
+    </main>
+  )
 }
 
 export default Board

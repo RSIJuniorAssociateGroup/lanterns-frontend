@@ -10,7 +10,6 @@ import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
 import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile, getDeckForCorrectPlayerCount } from './GameLogic';
-import { makeLakeTiles } from "./lakeTiles";
 import { checkThreePair, moveLanternCardsThreePair, checkOneOfEach, moveLanternsCardsOneOfEach, moveLanternCardsFourOfAKind, checkFourOfAKind } from "./MakeDedicationLogic";
 
 export let activePlayerIndex = startingPlayer(2);
@@ -45,7 +44,7 @@ class App extends React.Component {
 			playerOneHand: [],
 			playerTwoHand: [],
 
-			gameLanternSupply: [2, 0, 0, 0, 0, 3, 0],
+			gameLanternSupply: [],
 
 			playerLanternSupplies: [
 				[2, 4, 2, 3, 4, 5, 1],
@@ -222,11 +221,32 @@ class App extends React.Component {
 		return hand;
 	}
 
+	setGamelanternSupply(playerCount) {
+		let supply = null;
+
+		switch (playerCount) {
+			case 2:
+				supply = [5, 5, 5, 5, 5, 5, 5];
+				break;
+			case 3:
+				supply = [7, 7, 7, 7, 7, 7, 7];
+				break;
+			case 4:
+				supply = [8, 8, 8, 8, 8, 8, 8];
+				break;
+		}
+
+		this.setState({
+			gameLanternSupply: supply
+		});
+	}
+
 	componentWillMount() {
 		this.gameSetup();
 	}
 
 	gameSetup() {
+		this.setGamelanternSupply(4);
 
 		let lakeTileDeck = this.state.baseLakeTileSupply;
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
@@ -260,7 +280,7 @@ class App extends React.Component {
 						let placedTile = this.state.playerOneHand[i];
 						this.copyTileToBoard(placedTile, col, row, id);
 
-						this.state.playerOneHand.splice(i,1);
+						this.state.playerOneHand.splice(i, 1);
 					}
 				}
 			} else if (activePlayerIndex[0] === 1) {
@@ -269,7 +289,7 @@ class App extends React.Component {
 
 						let placedTile = this.state.playerTwoHand[i];
 						this.copyTileToBoard(placedTile, col, row, id)
-						
+
 						this.state.playerTwoHand.splice(i, 1);
 					}
 				}
@@ -281,7 +301,7 @@ class App extends React.Component {
 		}
 	}
 
-	copyTileToBoard (tile, col, row, id) {
+	copyTileToBoard(tile, col, row, id) {
 
 		let result = { topColor: tile.props.topColor, rightColor: tile.props.rightColor, bottomColor: tile.props.bottomColor, leftColor: tile.props.leftColor };
 
@@ -305,20 +325,20 @@ class App extends React.Component {
 				row={row}
 			/>
 
-			let droppedTiles = this.state.droppedLakeTiles;
+		let droppedTiles = this.state.droppedLakeTiles;
 
-			let tempHand = droppedTiles;
-			let tempHands = droppedTiles;
+		let tempHand = droppedTiles;
+		let tempHands = droppedTiles;
 
-			tempHand.push(newResult);
+		tempHand.push(newResult);
 
-			tempHands = tempHand;
+		tempHands = tempHand;
 
-			this.state.droppedLakeTiles = tempHands;
+		this.state.droppedLakeTiles = tempHands;
 
-			this.setState({
-				droppedLakeTiles: this.state.droppedLakeTiles
-			})
+		this.setState({
+			droppedLakeTiles: this.state.droppedLakeTiles
+		})
 
 	}
 

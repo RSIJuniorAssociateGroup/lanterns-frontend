@@ -1,5 +1,5 @@
 import React from 'react';
-import { LegalBoard } from './Board';
+import { LegalBoard } from '../../App';
 import { placeTile } from './LegalTilePlaced';
 import { activePlayerIndex } from "../../App";
 import { endTurn } from "../../GameLogic";
@@ -9,6 +9,7 @@ class BoardTile extends React.Component {
         super(props)
 
         this.setCurrentPlayer = this.props.setCurrentPlayer.bind(this);
+        this.updatePlayerHand = this.props.updatePlayerHand.bind(this);
 
         this.state = {
             canDrop: true,
@@ -18,23 +19,48 @@ class BoardTile extends React.Component {
         }
     }
 
-    thisState
-
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
 
-                endTurn(activePlayerIndex);
-                this.setCurrentPlayer(activePlayerIndex);
-                
-                e.preventDefault();
-                // Transfer the id between this event, get the element by id
-                // and append it to the boardTile
-                const lakeTile_id = e.dataTransfer.getData('lakeTile_id');
+            e.preventDefault();
+            // Transfer the id between this event, get the element by id
+            // and append it to the boardTile
+            const lakeTile_id = e.dataTransfer.getData('lakeTile_id');
 
-                const lakeTile = document.getElementById(lakeTile_id);
+            const lakeTile = document.getElementById(lakeTile_id);
+
+            if (lakeTile !== null) {
+
                 lakeTile.style.display = 'block';
 
                 e.target.appendChild(lakeTile);
+
+                let tileId = (document.getElementById(lakeTile_id).getAttribute("id"));
+
+                let top = (document.getElementById(lakeTile_id).getAttribute("topTri"));
+                let right = (document.getElementById(lakeTile_id).getAttribute("rightTri"));
+                let bottom = (document.getElementById(lakeTile_id).getAttribute("bottomTri"));
+                let left = (document.getElementById(lakeTile_id).getAttribute("leftTri"));
+
+                console.log(lakeTile);
+
+                console.log(top);
+                console.log(right);
+                console.log(bottom);
+                console.log(left);
+
+
+                let col = this.props.col;
+                let row = this.props.row;
+
+                this.updatePlayerHand(tileId, col, row);
+                endTurn(activePlayerIndex);
+
+                this.setCurrentPlayer(activePlayerIndex);
+
+            } else {
+                alert("You cannot move a placed tile.")
+            }
         }
     }
 
@@ -44,6 +70,7 @@ class BoardTile extends React.Component {
     }
 
     render() {
+        this.updatePlayerHand();
         if (this.state.canDrop === true) {
             return (
                 <div

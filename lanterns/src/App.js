@@ -38,6 +38,7 @@ class App extends React.Component {
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
 		this.orientFirstTile = this.orientFirstTile.bind(this);
+		this.awardInitialFacingTile = this.awardInitialFacingTile.bind(this);
 		this.gameSetup = this.gameSetup.bind(this);
 		this.rotate = this.rotate.bind(this);
 
@@ -251,14 +252,52 @@ class App extends React.Component {
 
 	placeInitialTileOnPlacedTileBoard(array, colorList, i, j) {
 		array[i][j] = colorList;
-		this.awardFacingTile(array, i, j) 
+		this.awardInitialFacingTile(array, i, j)
 		return array;
+	}
+
+	awardInitialFacingTile(array, row, col) {
+
+		let topFacingColor = array[col][row][0];
+		let bottomFacingColor = array[col][row][2];
+
+		if (activePlayerIndex[0] === 0) {
+			let newPlayerSupply = this.state.playerLanternSupplies;
+			newPlayerSupply[0][topFacingColor - 1] = this.state.playerLanternSupplies[0][topFacingColor - 1] + 1;
+
+			this.setState({
+				playerLanternSupplies: newPlayerSupply
+			})
+
+			let newPlayerSupply2 = this.state.playerLanternSupplies;
+			newPlayerSupply2[1][bottomFacingColor - 1] = this.state.playerLanternSupplies[1][bottomFacingColor - 1] + 1;
+
+			this.setState({
+				playerLanternSupplies: newPlayerSupply2
+			})
+
+		} else {
+			let newPlayerSupply = this.state.playerLanternSupplies;
+			newPlayerSupply[1][bottomFacingColor - 1] = this.state.playerLanternSupplies[1][bottomFacingColor - 1] + 1;
+
+			this.setState({
+				playerLanternSupplies: newPlayerSupply
+			})
+
+			let newPlayerSupply2 = this.state.playerLanternSupplies;
+			newPlayerSupply2[0][topFacingColor - 1] = this.state.playerLanternSupplies[0][topFacingColor - 1] + 1;
+
+			this.setState({
+				playerLanternSupplies: newPlayerSupply2
+			})
+
+		}
 	}
 
 	orientFirstTile(playerCount, activePlayerIndex) {
 		let rng = Math.floor(Math.random() * playerCount);
 		let tileColors = [];
-	
+
 		switch (rng) {
 			case 0:
 				tileColors.push(6, 7, 1, 2);
@@ -275,7 +314,7 @@ class App extends React.Component {
 				tileColors.push(7, 1, 2, 6);
 				break;
 		}
-	
+
 		return tileColors;
 	}
 
@@ -516,44 +555,44 @@ class App extends React.Component {
 	drawLakeTileForActivePlayer() {
 		if (this.state.lakeTileSupply != 0) {
 			if (activePlayerIndex[0] === 0) {
-			let playerHands = this.state.playerOneHand;
+				let playerHands = this.state.playerOneHand;
 
-			let lakeTile = this.getTopLakeTile()
+				let lakeTile = this.getTopLakeTile()
 
-			let tempPlayersHand = playerHands
-			let tempPlayerHand = playerHands
+				let tempPlayersHand = playerHands
+				let tempPlayerHand = playerHands
 
-			tempPlayerHand.push(lakeTile);
+				tempPlayerHand.push(lakeTile);
 
-			tempPlayersHand = tempPlayerHand;
+				tempPlayersHand = tempPlayerHand;
 
-			this.state.playerOneHand = tempPlayersHand;
+				this.state.playerOneHand = tempPlayersHand;
 
-			this.setState({
-				playerOneHand: tempPlayerHand
-			})
+				this.setState({
+					playerOneHand: tempPlayerHand
+				})
 
-		} else if (activePlayerIndex[0] === 1) {
-			let playerHands = this.state.playerTwoHand;
+			} else if (activePlayerIndex[0] === 1) {
+				let playerHands = this.state.playerTwoHand;
 
-			let lakeTile = this.getTopLakeTile()
+				let lakeTile = this.getTopLakeTile()
 
-			let tempPlayersHand = playerHands
-			let tempPlayerHand = playerHands
+				let tempPlayersHand = playerHands
+				let tempPlayerHand = playerHands
 
-			tempPlayerHand.push(lakeTile);
+				tempPlayerHand.push(lakeTile);
 
-			tempPlayersHand = tempPlayerHand;
+				tempPlayersHand = tempPlayerHand;
 
-			this.state.playerTwoHand = tempPlayersHand;
+				this.state.playerTwoHand = tempPlayersHand;
 
-			this.setState({
-				playerTwoHand: tempPlayerHand
-			})
+				this.setState({
+					playerTwoHand: tempPlayerHand
+				})
+			}
+		} else {
+			alert("No more lake tiles to draw");
 		}
-	} else {
-		alert("No more lake tiles to draw");
-	}
 	}
 
 	getTopLakeTile() {
@@ -592,7 +631,7 @@ class App extends React.Component {
 		} else {
 			tempHonorScores[activePlayerIndex[0]] += value;
 		}
-		
+
 
 		this.setState({
 			playerHonorScores: tempHonorScores
@@ -638,7 +677,7 @@ class App extends React.Component {
 		});
 	}
 
-	
+
 
 	render() {
 		console.log(this.state.droppedLakeTiles)

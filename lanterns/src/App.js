@@ -9,7 +9,7 @@ import LakeTile from './components/LakeTileComponent/LakeTile'
 import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
-import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile, getDeckForCorrectPlayerCount } from './GameLogic';
+import { startingPlayer, shuffleLakeTiles, dealLakeTiles, getDeckForCorrectPlayerCount, endTurn } from './GameLogic';
 import { checkThreePair, moveLanternCardsThreePair, checkOneOfEach, moveLanternsCardsOneOfEach, moveLanternCardsFourOfAKind, checkFourOfAKind } from "./MakeDedicationLogic";
 
 export let activePlayerIndex = startingPlayer(2);
@@ -17,8 +17,6 @@ export let activePlayerIndex = startingPlayer(2);
 export let LegalBoard = placeFirstTile(createBoard(3), 1, 1);
 
 export let droppedTilesBoard = placeFirstTile(createBoard(3), 1, 1);
-
-export let firstTileOrientation = orientFirstTile(2);
 
 class App extends React.Component {
 
@@ -35,20 +33,22 @@ class App extends React.Component {
 		this.updatePlayerHand = this.updatePlayerHand.bind(this);
 		this.copyTileToBoard = this.copyTileToBoard.bind(this);
 		this.checkAdjacentColors = this.checkAdjacentColors.bind(this);
-
+		this.checkSupply = this.checkSupply.bind(this);
 
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
+		this.orientFirstTile = this.orientFirstTile.bind(this);
 		this.gameSetup = this.gameSetup.bind(this);
 		this.rotate = this.rotate.bind(this);
 
 		this.state = {
 			currentPlayer: activePlayerIndex,
+			firstTileOrientation: this.orientFirstTile(2, activePlayerIndex),
 			legalBoard: LegalBoard,
 			playerOneHand: [],
 			playerTwoHand: [],
 
-			gameLanternSupply: [2, 0, 0, 0, 0, 3, 0],
+			gameLanternSupply: [1, 1, 1, 1, 1, 1, 1],
 
 			playerLanternSupplies: [
 				[0, 0, 0, 0, 0, 0, 0],
@@ -230,7 +230,33 @@ class App extends React.Component {
 	}
 
 	placeInitialTileOnPlacedTileBoard(array, colorList, i, j) {
+		array[i][j] = colorList;
+		this.awardFacingTile(array, i, j) 
+		return array;
+	}
 
+	orientFirstTile(playerCount, activePlayerIndex) {
+		let rng = Math.floor(Math.random() * playerCount);
+		let tileColors = [];
+	
+		switch (rng) {
+			case 0:
+				tileColors.push(6, 7, 1, 2);
+				let diffStartPlayer = endTurn(activePlayerIndex);
+				this.setCurrentPlayer(diffStartPlayer);
+				break;
+			case 1:
+				tileColors.push(1, 2, 6, 7)
+				break;
+			case 2:
+				tileColors.push(2, 6, 7, 1)
+				break;
+			case 3:
+				tileColors.push(7, 1, 2, 6);
+				break;
+		}
+	
+		return tileColors;
 	}
 
 	gameSetup() {
@@ -243,13 +269,14 @@ class App extends React.Component {
 		let player1Hand = this.makeLakeTiles(result, 1);
 		let tileDeck = this.makeLakeTiles(result, 2);
 
-		let placedTileBrd = this.placeInitialTileOnPlacedTileBoard(droppedTilesBoard, firstTileOrientation, 1,1);
+		let placedTileBrd = this.placeInitialTileOnPlacedTileBoard(droppedTilesBoard, this.state.firstTileOrientation, 1, 1);
 
 		this.setState({
 			playerOneHand: player0Hand,
 			playerTwoHand: player1Hand,
 			lakeTileSupply: tileDeck,
 			baseLakeTileSupply: gameLakeTileDeck,
+			droppedLakeTiles: placedTileBrd
 		});
 
 	}
@@ -261,6 +288,7 @@ class App extends React.Component {
 	}
 
 	updatePlayerHand(id, col, row) {
+
 		if (id != undefined) {
 			if (activePlayerIndex[0] === 0) {
 				for (let i = 0; i < this.state.playerOneHand.length; i++) {
@@ -269,7 +297,7 @@ class App extends React.Component {
 						let placedTile = this.state.playerOneHand[i];
 						this.copyTileToBoard(placedTile, col, row, id);
 
-						this.state.playerOneHand.splice(i,1);
+						this.state.playerOneHand.splice(i, 1);
 					}
 				}
 			} else if (activePlayerIndex[0] === 1) {
@@ -278,7 +306,7 @@ class App extends React.Component {
 
 						let placedTile = this.state.playerTwoHand[i];
 						this.copyTileToBoard(placedTile, col, row, id)
-						
+
 						this.state.playerTwoHand.splice(i, 1);
 					}
 				}
@@ -290,7 +318,7 @@ class App extends React.Component {
 		}
 	}
 
-	copyTileToBoard (tile, col, row, id) {
+	copyTileToBoard(tile, col, row, id) {
 
 		let result = { topColor: tile.props.topColor, rightColor: tile.props.rightColor, bottomColor: tile.props.bottomColor, leftColor: tile.props.leftColor };
 
@@ -300,108 +328,178 @@ class App extends React.Component {
 		let newLeftColor = result.bottomColor;
 
 		let newResult = [newTopColor, newRightColor, newBottomColor, newLeftColor]
-			// <LakeTile
-			// 	id={id}
-			// 	draggable={true}
-			// 	topColor={newTopColor}
-			// 	rightColor={newRightColor}
-			// 	bottomColor={newBottomColor}
-			// 	leftColor={newLeftColor}
-			// 	canRotate={true}
-			// 	rotate={this.rotate.bind(this)}
-			// 	location={3}
-			// 	col={col}
-			// 	row={row}
-			// />
 
-			let droppedTiles = this.state.droppedLakeTiles;
+		let droppedTiles = this.state.droppedLakeTiles;
 
-			let tempHand = droppedTiles;
-			let tempHands = droppedTiles;
+		let tempHand = droppedTiles;
+		let tempHands = droppedTiles;
 
-			tempHand[col][row] = newResult;
+		tempHand[col][row] = newResult;
 
-			tempHands = tempHand;
+		tempHands = tempHand;
 
-			this.state.droppedLakeTiles = tempHands;
+		this.state.droppedLakeTiles = tempHands;
+
+		this.setState({
+			droppedLakeTiles: this.state.droppedLakeTiles
+		})
+
+		this.checkAdjacentColors(tempHands, row, col, this.state.playerLanternSupplies, this.state.currentPlayer);
+
+		this.awardFacingTile(tempHands, row, col);
+	}
+
+	awardFacingTile(array, row, col) {
+
+		let topFacingColor = array[col][row][0];
+		let bottomFacingColor = array[col][row][2];
+		console.log("topFace")
+		console.log(topFacingColor)
+		console.log(bottomFacingColor)
+
+		if (activePlayerIndex[0] === 0) {
+			if (this.checkSupply(topFacingColor)) {
+				let newPlayerSupply = this.state.playerLanternSupplies;
+				console.log("Here")
+				console.log(newPlayerSupply);
+				newPlayerSupply[0][topFacingColor - 1] = this.state.playerLanternSupplies[0][topFacingColor - 1] + 1;
+
+				this.setState({
+					playerLanternSupplies: newPlayerSupply
+				})
+			} else {
+				alert("No supply remaining for this tile.")
+			}
+			if (this.checkSupply(bottomFacingColor)) {
+				let newPlayerSupply = this.state.playerLanternSupplies;
+				newPlayerSupply[1][bottomFacingColor - 1] = this.state.playerLanternSupplies[1][bottomFacingColor - 1] + 1;
+
+				this.setState({
+					playerLanternSupplies: newPlayerSupply
+				})
+			} else {
+				alert("No supply remaining for this tile.")
+			}
+		} else {
+			if (this.checkSupply(bottomFacingColor)) {
+				let newPlayerSupply = this.state.playerLanternSupplies;
+				newPlayerSupply[1][bottomFacingColor - 1] = this.state.playerLanternSupplies[1][bottomFacingColor - 1] + 1;
+
+				this.setState({
+					playerLanternSupplies: newPlayerSupply
+				})
+			} else {
+				alert("No supply remaining for this tile.")
+			}
+			if (this.checkSupply(topFacingColor)) {
+				let newPlayerSupply = this.state.playerLanternSupplies;
+				newPlayerSupply[0][topFacingColor - 1] = this.state.playerLanternSupplies[0][topFacingColor - 1] + 1;
+
+				this.setState({
+					playerLanternSupplies: newPlayerSupply
+				})
+			} else {
+				alert("No supply remaining for this tile.")
+			}
+		}
+
+
+
+	}
+
+	checkSupply(index) {
+		if (this.state.gameLanternSupply[index - 1] > 0) {
+			let newGameSupply = this.state.gameLanternSupply;
+
+			newGameSupply[index - 1]--;
 
 			this.setState({
-				droppedLakeTiles: this.state.droppedLakeTiles
+				gameLanternSupply: newGameSupply
 			})
-
-			console.log("This is the temp hands");
-			console.log(tempHands);
-			this.checkAdjacentColors(tempHands, row, col, this.state.playerLanternSupplies, this.state.currentPlayer);
+			return true;
+		}
+		return false
 	}
 
 	checkAdjacentColors(array, i, j, playerLanternSupplies, activePlayerIndex) {
 
-		// let matchingColors = [];
-	  
-		console.log("Checking adjacentcy")
-		console.log(array);
-		console.log(i);
-		console.log(j);
-		console.log(playerLanternSupplies);
+		//note i & j must be reversed to get this to work because rows and columns are technically flipped.
 
-		// if (i !=)
-		
 		//check above current index
-		if (i != 0 && typeof array[i - 1][j] === 'object') {
-		  if (array[i-1][j].props.bottomColor === array[i][j].props.topColor) {
+		if (j != 0 && typeof array[j - 1][i] === 'object') {
+			if (array[j - 1][i][2] === array[j][i][0]) {
+				let colorMatch = array[j][i][0];
 
-			console.log()
-			// matchingColors.push(array[i][j].topColor);
-			// let playerLanterns = this.state.playerLanternSupplies;
+				if (this.checkSupply(colorMatch)) {
+					let newPlayerSupply = playerLanternSupplies;
+					newPlayerSupply[activePlayerIndex[0]][colorMatch - 1] = playerLanternSupplies[activePlayerIndex[0]][colorMatch - 1] + 1;
 
-			// let tempSupply = playerLanterns;
-			// let tempSupplys = playerLanterns;
-
-			// tempSupply = tempSupply[activePlayerIndex[0]].push(array[i][j].topColor);
-			
-			// console.log("This is the temp supply");
-			// console.log(tempSupply);
-
-			// tempSupplys = tempSupply;
-
-			// this.state.playerLanternSupplies = tempSupplys;
-			
-			//  this.setState({
-			// 	 playerLanternSupplies: this.state.playerLanternSupplies
-			//  })
-		  }
+					this.setState({
+						playerLanternSupplies: newPlayerSupply
+					})
+				} else {
+					alert("No supply remaining for this tile.")
+				}
+			}
 		}
-	  
+
 		//check to the right of current index
-		if (j !== 2 && typeof array[i][j + 1] === 'object') {
-		  if (array[i][j+1].props.leftColor === array[i][j].props.rightColor) {
-			// matchingColors.push(array[i][j].rightColor);
-			playerLanternSupplies[activePlayerIndex[0]].push(array[i][j].rightColor);
-		  }
+		if (i !== 2 && typeof array[j][i + 1] === 'object') {
+			if (array[j][i + 1][3] === array[j][i][1]) {
+				let colorMatch = array[j][i][1];
+
+				if (this.checkSupply(colorMatch)) {
+
+					let newPlayerSupply = playerLanternSupplies;
+					newPlayerSupply[activePlayerIndex[0]][colorMatch - 1] = playerLanternSupplies[activePlayerIndex[0]][colorMatch - 1] + 1;
+
+					this.setState({
+						playerLanternSupplies: newPlayerSupply
+					})
+				} else {
+					alert("No supply remaining for this tile.")
+				}
+			}
 		}
-	  
+
 		//check to the bottom of current index
-		if (this.i < array.length && 
-			typeof array[i + 1][j] === 'object') {
-		  if (array[i+1][j].props.topColor === array[i][j].props.bottomColor) {
-			// matchingColors.push(array[i][j].bottomColor);
-			playerLanternSupplies[activePlayerIndex[0]].push(array[i][j].bottomColor);
-		  }
+		if (j < array.length - 1 && typeof array[j + 1][i] == 'object') {
+			if (array[j + 1][i][0] === array[j][i][2]) {
+				let colorMatch = array[j][i][2];
+
+				if (this.checkSupply(colorMatch)) {
+
+					let newPlayerSupply = playerLanternSupplies;
+					newPlayerSupply[activePlayerIndex[0]][colorMatch - 1] = playerLanternSupplies[activePlayerIndex[0]][colorMatch - 1] + 1;
+
+					this.setState({
+						playerLanternSupplies: newPlayerSupply
+					})
+				} else {
+					alert("No supply remaining for this tile.")
+				}
+			}
 		}
-	  
+
 		//check to the left of current index
-		if (j !== 0 && typeof array[i][j - 1] === 'object') {
-		  if (array[i][j-1].props.rightColor === array[i][j].props.leftColor) {
-			// matchingColors.push(array[i][j].leftColor);
-			playerLanternSupplies[activePlayerIndex[0]].push(array[i][j].leftColor);
-		  }
+		if (i !== 0 && typeof array[j][i - 1] == 'object') {
+			if (array[j][i - 1][1] === array[j][i][3]) {
+				let colorMatch = array[j][i][3];
+
+				if (this.checkSupply(colorMatch)) {
+
+					let newPlayerSupply = playerLanternSupplies;
+					newPlayerSupply[activePlayerIndex[0]][colorMatch - 1] = playerLanternSupplies[activePlayerIndex[0]][colorMatch - 1] + 1;
+
+					this.setState({
+						playerLanternSupplies: newPlayerSupply
+					})
+				} else {
+					alert("No supply remaining for this tile.")
+				}
+			}
 		}
-		console.log("Checking Adjacent Colors");
-		// console.log(matchingColors);
-		// playerLanternSupplies[activePlayerIndex[0]].push(matchingColors);
-		console.log(playerLanternSupplies);
-		// return matchingColors;
-	  }
+	}
 
 	drawLakeTileForActivePlayer() {
 
@@ -457,7 +555,6 @@ class App extends React.Component {
 			<LakeTile
 				id={tile.props.id}
 				draggable={true}
-				// getLanternImage={func}
 				topColor={tile.props.topColor}
 				rightColor={tile.props.rightColor}
 				bottomColor={tile.props.bottomColor}
@@ -520,8 +617,10 @@ class App extends React.Component {
 		});
 	}
 
-	render() {
+	
 
+	render() {
+		console.log(this.state.droppedLakeTiles)
 		return (
 			<div className="gameView">
 
@@ -559,7 +658,7 @@ class App extends React.Component {
 						setCurrentPlayer={this.setCurrentPlayer.bind(this)}
 						drawLakeTileForActivePlayer={this.drawLakeTileForActivePlayer.bind(this)}
 						updatePlayerHand={this.updatePlayerHand.bind(this)}
-						firstTileColors={firstTileOrientation}
+						firstTileColors={this.state.firstTileOrientation}
 
 					/>
 				</div>

@@ -30,13 +30,13 @@ const LakeTile = (props) => {
                 <div className="parent"
                     onClick={() => props.canRotate ? props.rotate(props.canRotate, props.id, props.location) : alert("You cannot rotate this tile")}
                 >
-                    <div className="topTri" style={{backgroundImage: "url(" + getLanternImage(props.topColor) + ")"}}>
+                    <div className="topTri" style={{backgroundImage: "url(" + getLanternImage(props.leftColor) + ")"}}>
                     </div>
-                    <div className="rightTri" style={{ backgroundImage: "url(" + getLanternImage(props.rightColor) + ")" }}>
+                    <div className="rightTri" style={{ backgroundImage: "url(" + getLanternImage(props.topColor) + ")" }}>
                     </div>
-                    <div className="bottomTri" style={{ backgroundImage: "url(" + getLanternImage(props.leftColor) + ")" }}>
+                    <div className="bottomTri" style={{ backgroundImage: "url(" + getLanternImage(props.bottomColor) + ")" }}>
                     </div>
-                    <div className="leftTri" style={{ backgroundImage: "url(" + getLanternImage(props.bottomColor) + ")" }}>
+                    <div className="leftTri" style={{ backgroundImage: "url(" + getLanternImage(props.rightColor) + ")" }}>
                     </div>
                 </div>
             </div>

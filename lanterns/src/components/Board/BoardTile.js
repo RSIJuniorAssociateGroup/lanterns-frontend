@@ -10,6 +10,7 @@ class BoardTile extends React.Component {
 
         this.setCurrentPlayer = this.props.setCurrentPlayer.bind(this);
         this.updatePlayerHand = this.props.updatePlayerHand.bind(this);
+        this.drawLakeTileForActivePlayer=this.props.drawLakeTileForActivePlayer.bind(this);
 
         this.state = {
             canDrop: true,
@@ -37,18 +38,7 @@ class BoardTile extends React.Component {
 
                 let tileId = (document.getElementById(lakeTile_id).getAttribute("id"));
 
-                let top = (document.getElementById(lakeTile_id).getAttribute("topTri"));
-                let right = (document.getElementById(lakeTile_id).getAttribute("rightTri"));
-                let bottom = (document.getElementById(lakeTile_id).getAttribute("bottomTri"));
-                let left = (document.getElementById(lakeTile_id).getAttribute("leftTri"));
-
-                console.log(lakeTile);
-
-                console.log(top);
-                console.log(right);
-                console.log(bottom);
-                console.log(left);
-
+                this.drawLakeTileForActivePlayer();
 
                 let col = this.props.col;
                 let row = this.props.row;

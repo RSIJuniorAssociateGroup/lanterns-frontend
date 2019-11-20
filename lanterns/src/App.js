@@ -229,7 +229,7 @@ class App extends React.Component {
 
 		switch (playerCount) {
 			case 2:
-				supply = [5, 5, 5, 5, 5, 5, 5];
+				supply = [4, 5, 5, 5, 5, 4, 5];
 				break;
 			case 3:
 				supply = [7, 7, 7, 7, 7, 7, 7];
@@ -245,6 +245,7 @@ class App extends React.Component {
 	}
 
 	componentWillMount() {
+		this.setGamelanternSupply(2)
 		this.gameSetup();
 	}
 
@@ -279,7 +280,6 @@ class App extends React.Component {
 	}
 
 	gameSetup() {
-		this.setGamelanternSupply(2);
 
 		let lakeTileDeck = this.state.baseLakeTileSupply;
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);

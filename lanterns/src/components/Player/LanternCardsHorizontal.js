@@ -19,7 +19,8 @@ class LanternCardsHorizontal extends React.Component {
         return (
             <div>
                 <div className="lanternCirclesHorizontal">
-                    <div className="whiteCircleHorizontal">
+                <div className="blackCircle">
+
                         <div className="circleText">
                             {this.props.lanternCards[0]}
                         </div>
@@ -29,27 +30,32 @@ class LanternCardsHorizontal extends React.Component {
                             {this.props.lanternCards[1]}
                         </div>
                     </div>
-                    <div className="redCircle">
+                    <div className="greenCircle">
+
                         <div className="circleText">
                             {this.props.lanternCards[2]}
                         </div>
                     </div>
-                    <div className="greenCircle">
+                    <div className="yellowCircle">
+
                         <div className="circleText">
                             {this.props.lanternCards[3]}
                         </div>
                     </div>
-                    <div className="blackCircle">
+                    <div className="purpleCircle">
+
                         <div className="circleText">
                             {this.props.lanternCards[4]}
                         </div>
                     </div>
-                    <div className="yellowCircle">
+                    <div className="redCircle">
+
                         <div className="circleText">
                             {this.props.lanternCards[5]}
                         </div>
                     </div>
-                    <div className="purpleCircle">
+                    <div className="whiteCircleHorizontal">
+
                         <div className="circleText">
                             {this.props.lanternCards[6]}
                         </div>

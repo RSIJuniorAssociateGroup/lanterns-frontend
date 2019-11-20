@@ -37,12 +37,19 @@ class BoardTile extends React.Component {
 
                 let tileId = (document.getElementById(lakeTile_id).getAttribute("id"));
 
-                // console.log(tileId);
+                let top = (document.getElementById(lakeTile_id).getAttribute("topTri"));
+                let right = (document.getElementById(lakeTile_id).getAttribute("rightTri"));
+                let bottom = (document.getElementById(lakeTile_id).getAttribute("bottomTri"));
+                let left = (document.getElementById(lakeTile_id).getAttribute("leftTri"));
+
+                console.log(top);
+                console.log(right);
+                console.log(bottom);
+                console.log(left);
+
 
                 let col = this.props.col;
                 let row = this.props.row;
-                console.log("this is col");
-                console.log(col)
 
                 this.updatePlayerHand(tileId, col, row);
                 endTurn(activePlayerIndex);

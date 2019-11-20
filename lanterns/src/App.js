@@ -246,7 +246,7 @@ class App extends React.Component {
 	}
 
 	gameSetup() {
-		this.setGamelanternSupply(4);
+		this.setGamelanternSupply(2);
 
 		let lakeTileDeck = this.state.baseLakeTileSupply;
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);

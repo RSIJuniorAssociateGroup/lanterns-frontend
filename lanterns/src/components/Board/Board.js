@@ -29,15 +29,6 @@ function Board(props) {
       <BoardTile row={0} col={1} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}>
       </BoardTile>
       <BoardTile row={1} col={1} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}>
-        <LakeTile id="lakeTile-5"
-          draggable="false"
-          topColor={props.firstTileColors[1]}
-          rightColor={props.firstTileColors[2]}
-          bottomColor={props.firstTileColors[3]}
-          leftColor={props.firstTileColors[0]}
-          canRotate={false}
-        >
-        </LakeTile>
       </BoardTile>
       <BoardTile row={2} col={1} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
       >
@@ -63,6 +54,15 @@ function Board(props) {
       </BoardTile>
       <BoardTile row={3} col={2} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
       >
+        <LakeTile id="lakeTile-5"
+          draggable="false"
+          topColor={props.firstTileColors[1]}
+          rightColor={props.firstTileColors[2]}
+          bottomColor={props.firstTileColors[3]}
+          leftColor={props.firstTileColors[0]}
+          canRotate={false}
+        >
+        </LakeTile>
       </BoardTile>
       <BoardTile row={4} col={2} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
       >

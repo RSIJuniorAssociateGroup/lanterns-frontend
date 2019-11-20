@@ -21,15 +21,45 @@ class DedicationToken extends React.Component {
         fIndex: 0,
         pIndex: 0,
         sIndex: 0,
-        fourTokensStack: [8, 7, 6, 5, 5, 4, 'generic'],
-        pairsTokenStack: [9, 8, 7, 6, 5, 5, 'generic'],
-        sevenTokensStack: [10, 9, 8, 7, 6, 5, 'generic'],
+        fourTokensStack: [],
+        pairsTokenStack: [],
+        sevenTokensStack: [],
 
     }
     constructor(props) {
         super(props);
         this.buyToken = this.buyToken.bind(this);
     };
+
+    setDedicationStacks() {
+        switch (this.props.playerCount) {
+            case 2:
+                this.setState({
+                    fourTokensStack: [8, 7, 6, 5, 5, 4, 'generic'],
+                    pairsTokenStack: [9, 8, 7, 6, 5, 5, 'generic'],
+                    sevenTokensStack: [10, 9, 8, 7, 6, 5, 'generic']
+                });
+                break;
+            case 3:
+                this.setState({
+                    fourTokensStack: [8, 7, 6, 6, 5, 5, 5, 4, 'generic'],
+                    pairsTokenStack: [9, 8, 7, 7, 6, 6, 5, 5, 'generic'],
+                    sevenTokensStack: [10, 9, 8, 8, 7, 7, 6, 5, 'generic']
+                });
+                break;
+            case 4:
+                this.setState({
+                    fourTokensStack: [8, 7, 7, 6, 6, 5, 5, 5, 4, 'generic'],
+                    pairsTokenStack: [9, 8, 8, 7, 7, 6, 6, 5, 5, 'generic'],
+                    sevenTokensStack: [10, 9, 9, 8, 8, 7, 7, 6, 5, 'generic']
+                });
+                break;
+        }
+    }
+
+    componentWillMount() {
+        this.setDedicationStacks();
+    }
 
     render() {
         // Backend arrays of tokens?
@@ -41,15 +71,15 @@ class DedicationToken extends React.Component {
         return (
             <div className="tokenHand">
                 <button data-id="1" className="tokenContainer" onClick={this.buyToken}>
-                    <img src={ded4} width="150" alt="4_of_a_Kind" />
+                    <img src={ded4} width="150" alt="Four Of A Kind" />
                     <h1>{points4}</h1>
                 </button>
                 <button data-id="2" className="tokenContainer" onClick={this.buyToken}>
-                    <img src={dedPairs} width="150" alt="3_pairs" />
+                    <img src={dedPairs} width="150" alt="Three Pairs" />
                     <h1>{pointsPairs}</h1>
                 </button>
                 <button data-id="3" className="tokenContainer" onClick={this.buyToken}>
-                    <img src={ded7} width="150" alt="3_pairs" />
+                    <img src={ded7} width="150" alt="One of Each" />
                     <h1>{points7}</h1>
                 </button>
             </div>
@@ -59,13 +89,19 @@ class DedicationToken extends React.Component {
     buyToken(e) {
         if (e.currentTarget.dataset.id === "1" && this.props.checkDedication(4)) {
             this.props.getDedication(this.state.fourTokensStack[this.state.fIndex])
-            this.setState({ fIndex: this.state.fIndex + 1 })
+            if (this.state.fIndex + 1 !== this.state.fourTokensStack.length) {
+                this.setState({ fIndex: this.state.fIndex + 1 });
+            }
         } else if (e.currentTarget.dataset.id === '2' && this.props.checkDedication(2)) {
             this.props.getDedication(this.state.pairsTokenStack[this.state.pIndex])
-            this.setState({ pIndex: this.state.pIndex + 1 })
+            if (this.state.pIndex + 1 !== this.state.pairsTokenStack.length) {
+                this.setState({ pIndex: this.state.pIndex + 1 });
+            }
         } else if (e.currentTarget.dataset.id === '3' && this.props.checkDedication(7)) {
             this.props.getDedication(this.state.sevenTokensStack[this.state.sIndex])
-            this.setState({ sIndex: this.state.sIndex + 1 })
+            if (this.state.sIndex + 1 !== this.state.sevenTokensStack.length) {
+                this.setState({ sIndex: this.state.sIndex + 1 });
+            }
         }
     }
 }

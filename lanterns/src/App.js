@@ -47,8 +47,7 @@ class App extends React.Component {
 			legalBoard: LegalBoard,
 			playerOneHand: [],
 			playerTwoHand: [],
-
-			gameLanternSupply: [10, 10, 10, 10, 10, 10, 10],
+			gameLanternSupply: [],
 
 			playerLanternSupplies: [
 				[0, 0, 0, 0, 0, 0, 0],
@@ -225,6 +224,26 @@ class App extends React.Component {
 		return hand;
 	}
 
+	setGamelanternSupply(playerCount) {
+		let supply = null;
+
+		switch (playerCount) {
+			case 2:
+				supply = [5, 5, 5, 5, 5, 5, 5];
+				break;
+			case 3:
+				supply = [7, 7, 7, 7, 7, 7, 7];
+				break;
+			case 4:
+				supply = [8, 8, 8, 8, 8, 8, 8];
+				break;
+		}
+
+		this.setState({
+			gameLanternSupply: supply
+		});
+	}
+
 	componentWillMount() {
 		this.gameSetup();
 	}
@@ -260,6 +279,7 @@ class App extends React.Component {
 	}
 
 	gameSetup() {
+		this.setGamelanternSupply(2);
 
 		let lakeTileDeck = this.state.baseLakeTileSupply;
 		let shuffledLakeTiles = shuffleLakeTiles(lakeTileDeck);
@@ -397,9 +417,6 @@ class App extends React.Component {
 				alert("No supply remaining for this tile.")
 			}
 		}
-
-
-
 	}
 
 	checkSupply(index) {
@@ -569,7 +586,13 @@ class App extends React.Component {
 
 	getDedication(value) {
 		let tempHonorScores = this.state.playerHonorScores;
-		tempHonorScores[activePlayerIndex[0]] += value;
+
+		if (value === 'generic') {
+			tempHonorScores[activePlayerIndex[0]] += 4;
+		} else {
+			tempHonorScores[activePlayerIndex[0]] += value;
+		}
+		
 
 		this.setState({
 			playerHonorScores: tempHonorScores
@@ -666,6 +689,7 @@ class App extends React.Component {
 					<DedicationToken
 						checkDedication={this.checkDedication}
 						getDedication={this.getDedication}
+						playerCount={3}
 					/>
 					<LakeTileSupply
 						supply={this.state.lakeTileSupply} />

@@ -14,9 +14,9 @@ import { checkThreePair, moveLanternCardsThreePair, checkOneOfEach, moveLanterns
 
 export let activePlayerIndex = startingPlayer(2);
 
-export let LegalBoard = placeFirstTile(createBoard(3), 1, 1);
+export let LegalBoard = placeFirstTile(createBoard(6), 1, 1);
 
-export let droppedTilesBoard = placeFirstTile(createBoard(3), 1, 1);
+export let droppedTilesBoard = placeFirstTile(createBoard(6), 1, 1);
 
 class App extends React.Component {
 
@@ -48,7 +48,7 @@ class App extends React.Component {
 			playerOneHand: [],
 			playerTwoHand: [],
 
-			gameLanternSupply: [1, 1, 1, 1, 1, 1, 1],
+			gameLanternSupply: [10, 10, 10, 10, 10, 10, 10],
 
 			playerLanternSupplies: [
 				[0, 0, 0, 0, 0, 0, 0],
@@ -353,15 +353,10 @@ class App extends React.Component {
 
 		let topFacingColor = array[col][row][0];
 		let bottomFacingColor = array[col][row][2];
-		console.log("topFace")
-		console.log(topFacingColor)
-		console.log(bottomFacingColor)
 
 		if (activePlayerIndex[0] === 0) {
 			if (this.checkSupply(topFacingColor)) {
 				let newPlayerSupply = this.state.playerLanternSupplies;
-				console.log("Here")
-				console.log(newPlayerSupply);
 				newPlayerSupply[0][topFacingColor - 1] = this.state.playerLanternSupplies[0][topFacingColor - 1] + 1;
 
 				this.setState({
@@ -444,7 +439,7 @@ class App extends React.Component {
 		}
 
 		//check to the right of current index
-		if (i !== 2 && typeof array[j][i + 1] === 'object') {
+		if (i !== 5 && typeof array[j][i + 1] === 'object') {
 			if (array[j][i + 1][3] === array[j][i][1]) {
 				let colorMatch = array[j][i][1];
 
@@ -502,8 +497,8 @@ class App extends React.Component {
 	}
 
 	drawLakeTileForActivePlayer() {
-
-		if (activePlayerIndex[0] === 0) {
+		if (this.state.lakeTileSupply != 0) {
+			if (activePlayerIndex[0] === 0) {
 			let playerHands = this.state.playerOneHand;
 
 			let lakeTile = this.getTopLakeTile()
@@ -539,6 +534,9 @@ class App extends React.Component {
 				playerTwoHand: tempPlayerHand
 			})
 		}
+	} else {
+		alert("No more lake tiles to draw");
+	}
 	}
 
 	getTopLakeTile() {
@@ -699,8 +697,6 @@ class App extends React.Component {
 							default: return "ERROR ERROR ERROR ERROR";
 						}
 					})()}
-
-					<button onClick={this.drawLakeTileForActivePlayer}>Click</button>
 
 					<LanternCardsHorizontal lanternCards={this.state.playerLanternSupplies[1]} />
 

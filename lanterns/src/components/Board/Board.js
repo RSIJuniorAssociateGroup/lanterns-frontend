@@ -12,7 +12,16 @@ function Board(props) {
       <BoardTile row={1} col={0} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
       >
       </BoardTile>
-      <BoardTile row={2} col={0} className="boardTile" boardTileLakeTileId="null" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      <BoardTile row={2} col={0} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={3} col={0} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={4} col={0} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={5} col={0} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
       >
       </BoardTile>
 
@@ -33,6 +42,15 @@ function Board(props) {
       <BoardTile row={2} col={1} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
       >
       </BoardTile>
+      <BoardTile row={3} col={1} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={4} col={1} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={5} col={1} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
 
       <BoardTile row={0} col={2} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
       >
@@ -43,6 +61,73 @@ function Board(props) {
       <BoardTile row={2} col={2} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
       >
       </BoardTile>
+      <BoardTile row={3} col={2} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={4} col={2} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={5} col={2} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+
+      <BoardTile row={0} col={3} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={1} col={3} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={2} col={3} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={3} col={3} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={4} col={3} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={5} col={3} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+
+      <BoardTile row={0} col={4} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={1} col={4} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={2} col={4} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={3} col={4} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={4} col={4} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={5} col={4} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+
+      <BoardTile row={0} col={5} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={1} col={5} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={2} col={5} className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={3} col={5} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={4} col={5} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+      <BoardTile row={5} col={5} className="boardTile"  setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand} drawLakeTileForActivePlayer={props.drawLakeTileForActivePlayer}
+      >
+      </BoardTile>
+
 
     </main>
   )

@@ -30,7 +30,7 @@ export function checkAdjacency(array, i, j) {
   }
 
   //check to the right
-  if (j < tilePlaced && array[i][j + 1] === tilePlaced) {
+  if (j < 5 && array[i][j + 1] === tilePlaced) {
     array[i][j] = 1;
   }
 

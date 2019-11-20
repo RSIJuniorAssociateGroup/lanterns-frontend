@@ -6,22 +6,24 @@ function Board(props) {
 
   return (
     <main className="board">
-      <BoardTile col="0" row="0" className="boardTile" boardTileLakeTileId="null" setCurrentPlayer={props.setCurrentPlayer}
-        updatePlayerHand={props.updatePlayerHand}
-      >
-      </BoardTile>
-      <BoardTile col="1" row="0" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
-        updatePlayerHand={props.updatePlayerHand}
-      >
-      </BoardTile>
-      <BoardTile col="2" row="0" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+            <BoardTile row="0" col="0"  className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
         updatePlayerHand={props.updatePlayerHand}>
       </BoardTile>
 
-      <BoardTile col="0" row="1" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+      <BoardTile row="1" col="0"  className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}
+      >
+      </BoardTile>
+      <BoardTile row="2" col="0"  className="boardTile" boardTileLakeTileId="null" setCurrentPlayer={props.setCurrentPlayer}
+        updatePlayerHand={props.updatePlayerHand}
+      >
+      </BoardTile>
+
+
+      <BoardTile row="0" col="1"  className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
         updatePlayerHand={props.updatePlayerHand}>
       </BoardTile>
-      <BoardTile col="1" row="1" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+      <BoardTile row="1" col="1" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
         updatePlayerHand={props.updatePlayerHand}>
         <LakeTile id="lakeTile-5"
           draggable="false"
@@ -32,22 +34,23 @@ function Board(props) {
           canRotate={false}>
         </LakeTile>
       </BoardTile>
-      <BoardTile col="2" row="1" className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand}
+      <BoardTile row="2" col="1"  className="boardTile" setCurrentPlayer={props.setCurrentPlayer} updatePlayerHand={props.updatePlayerHand}
       >
       </BoardTile>
 
-      <BoardTile col="0" row="2" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+      <BoardTile row="0" col="2"  className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
         updatePlayerHand={props.updatePlayerHand}
       >
       </BoardTile>
-      <BoardTile col="1" row="2" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+      <BoardTile row="1" col="2" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
         updatePlayerHand={props.updatePlayerHand}
       >
       </BoardTile>
-      <BoardTile col="2" row="2" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
+      <BoardTile row="2" col="2" className="boardTile" setCurrentPlayer={props.setCurrentPlayer}
         updatePlayerHand={props.updatePlayerHand}
       >
       </BoardTile>
+
     </main>
   )
 }

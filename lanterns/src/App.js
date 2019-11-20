@@ -10,12 +10,13 @@ import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
 import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile, getDeckForCorrectPlayerCount } from './GameLogic';
-import { makeLakeTiles } from "./lakeTiles";
 import { checkThreePair, moveLanternCardsThreePair, checkOneOfEach, moveLanternsCardsOneOfEach, moveLanternCardsFourOfAKind, checkFourOfAKind } from "./MakeDedicationLogic";
 
 export let activePlayerIndex = startingPlayer(2);
 
 export let LegalBoard = placeFirstTile(createBoard(3), 1, 1);
+
+export let droppedTilesBoard = placeFirstTile(createBoard(3), 1, 1);
 
 export let firstTileOrientation = orientFirstTile(2);
 
@@ -33,6 +34,8 @@ class App extends React.Component {
 
 		this.updatePlayerHand = this.updatePlayerHand.bind(this);
 		this.copyTileToBoard = this.copyTileToBoard.bind(this);
+		this.checkAdjacentColors = this.checkAdjacentColors.bind(this);
+
 
 		this.checkDedication = this.checkDedication.bind(this);
 		this.getDedication = this.getDedication.bind(this);
@@ -48,8 +51,8 @@ class App extends React.Component {
 			gameLanternSupply: [2, 0, 0, 0, 0, 3, 0],
 
 			playerLanternSupplies: [
-				[2, 4, 2, 3, 4, 5, 1],
-				[1, 1, 2, 1, 4, 2, 1],
+				[0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0],
 			],
 
 			playerHonorScores: [0, 0],
@@ -93,7 +96,7 @@ class App extends React.Component {
 			],
 
 			lakeTileSupply: [],
-			droppedLakeTiles: [],
+			droppedLakeTiles: droppedTilesBoard,
 
 		}
 	}
@@ -226,6 +229,10 @@ class App extends React.Component {
 		this.gameSetup();
 	}
 
+	placeInitialTileOnPlacedTileBoard(array, colorList, i, j) {
+
+	}
+
 	gameSetup() {
 
 		let lakeTileDeck = this.state.baseLakeTileSupply;
@@ -235,6 +242,8 @@ class App extends React.Component {
 		let player0Hand = this.makeLakeTiles(result, 0);
 		let player1Hand = this.makeLakeTiles(result, 1);
 		let tileDeck = this.makeLakeTiles(result, 2);
+
+		let placedTileBrd = this.placeInitialTileOnPlacedTileBoard(droppedTilesBoard, firstTileOrientation, 1,1);
 
 		this.setState({
 			playerOneHand: player0Hand,
@@ -290,27 +299,27 @@ class App extends React.Component {
 		let newBottomColor = result.rightColor;
 		let newLeftColor = result.bottomColor;
 
-		let newResult =
-			<LakeTile
-				id={id}
-				draggable={true}
-				topColor={newTopColor}
-				rightColor={newRightColor}
-				bottomColor={newBottomColor}
-				leftColor={newLeftColor}
-				canRotate={true}
-				rotate={this.rotate.bind(this)}
-				location={3}
-				col={col}
-				row={row}
-			/>
+		let newResult = [newTopColor, newRightColor, newBottomColor, newLeftColor]
+			// <LakeTile
+			// 	id={id}
+			// 	draggable={true}
+			// 	topColor={newTopColor}
+			// 	rightColor={newRightColor}
+			// 	bottomColor={newBottomColor}
+			// 	leftColor={newLeftColor}
+			// 	canRotate={true}
+			// 	rotate={this.rotate.bind(this)}
+			// 	location={3}
+			// 	col={col}
+			// 	row={row}
+			// />
 
 			let droppedTiles = this.state.droppedLakeTiles;
 
 			let tempHand = droppedTiles;
 			let tempHands = droppedTiles;
 
-			tempHand.push(newResult);
+			tempHand[col][row] = newResult;
 
 			tempHands = tempHand;
 
@@ -320,7 +329,79 @@ class App extends React.Component {
 				droppedLakeTiles: this.state.droppedLakeTiles
 			})
 
+			console.log("This is the temp hands");
+			console.log(tempHands);
+			this.checkAdjacentColors(tempHands, row, col, this.state.playerLanternSupplies, this.state.currentPlayer);
 	}
+
+	checkAdjacentColors(array, i, j, playerLanternSupplies, activePlayerIndex) {
+
+		// let matchingColors = [];
+	  
+		console.log("Checking adjacentcy")
+		console.log(array);
+		console.log(i);
+		console.log(j);
+		console.log(playerLanternSupplies);
+
+		// if (i !=)
+		
+		//check above current index
+		if (i != 0 && typeof array[i - 1][j] === 'object') {
+		  if (array[i-1][j].props.bottomColor === array[i][j].props.topColor) {
+
+			console.log()
+			// matchingColors.push(array[i][j].topColor);
+			// let playerLanterns = this.state.playerLanternSupplies;
+
+			// let tempSupply = playerLanterns;
+			// let tempSupplys = playerLanterns;
+
+			// tempSupply = tempSupply[activePlayerIndex[0]].push(array[i][j].topColor);
+			
+			// console.log("This is the temp supply");
+			// console.log(tempSupply);
+
+			// tempSupplys = tempSupply;
+
+			// this.state.playerLanternSupplies = tempSupplys;
+			
+			//  this.setState({
+			// 	 playerLanternSupplies: this.state.playerLanternSupplies
+			//  })
+		  }
+		}
+	  
+		//check to the right of current index
+		if (j !== 2 && typeof array[i][j + 1] === 'object') {
+		  if (array[i][j+1].props.leftColor === array[i][j].props.rightColor) {
+			// matchingColors.push(array[i][j].rightColor);
+			playerLanternSupplies[activePlayerIndex[0]].push(array[i][j].rightColor);
+		  }
+		}
+	  
+		//check to the bottom of current index
+		if (this.i < array.length && 
+			typeof array[i + 1][j] === 'object') {
+		  if (array[i+1][j].props.topColor === array[i][j].props.bottomColor) {
+			// matchingColors.push(array[i][j].bottomColor);
+			playerLanternSupplies[activePlayerIndex[0]].push(array[i][j].bottomColor);
+		  }
+		}
+	  
+		//check to the left of current index
+		if (j !== 0 && typeof array[i][j - 1] === 'object') {
+		  if (array[i][j-1].props.rightColor === array[i][j].props.leftColor) {
+			// matchingColors.push(array[i][j].leftColor);
+			playerLanternSupplies[activePlayerIndex[0]].push(array[i][j].leftColor);
+		  }
+		}
+		console.log("Checking Adjacent Colors");
+		// console.log(matchingColors);
+		// playerLanternSupplies[activePlayerIndex[0]].push(matchingColors);
+		console.log(playerLanternSupplies);
+		// return matchingColors;
+	  }
 
 	drawLakeTileForActivePlayer() {
 

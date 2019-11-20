@@ -50,6 +50,8 @@ export function checkAdjacency(array, i, j) {
 export function placeFirstTile(array, i, j) {
   array[i][j] = tilePlaced;
   checkNotZero(array);
+    console.log(array);
+
   return array;
 }
 

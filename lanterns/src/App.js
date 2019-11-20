@@ -10,6 +10,8 @@ import DedicationToken from './components/DedicationToken/dedication-tokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
 import { startingPlayer, shuffleLakeTiles, dealLakeTiles, orientFirstTile, getDeckForCorrectPlayerCount } from './GameLogic';
+import { makeLakeTiles } from "./lakeTiles";
+import { checkThreePair, moveLanternCardsThreePair, checkOneOfEach, moveLanternsCardsOneOfEach, moveLanternCardsFourOfAKind, checkFourOfAKind } from "./MakeDedicationLogic";
 
 export let activePlayerIndex = startingPlayer(2);
 
@@ -389,6 +391,54 @@ class App extends React.Component {
 		return newHandTile;
 	}
 
+	getDedication(value) {
+		let tempHonorScores = this.state.playerHonorScores;
+		tempHonorScores[activePlayerIndex[0]] += value;
+
+		this.setState({
+			playerHonorScores: tempHonorScores
+		});
+	}
+
+	checkDedication(type) {
+		let canMakeDedication = false;
+
+		switch (type) {
+			case 2:
+				if (checkThreePair(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
+					canMakeDedication = true;
+					this.updateAfterDedication(moveLanternCardsThreePair(
+						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
+				}
+				break;
+			case 4:
+				if (checkFourOfAKind(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
+					canMakeDedication = true;
+					this.updateAfterDedication(moveLanternCardsFourOfAKind(
+						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
+				}
+				break;
+			case 7:
+				if (checkOneOfEach(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
+					canMakeDedication = true;
+					this.updateAfterDedication(moveLanternsCardsOneOfEach(
+						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
+				}
+				break;
+		}
+
+		return canMakeDedication;
+	}
+
+	updateAfterDedication(newSupplies) {
+		let tempPlayerSupplies = this.state.playerLanternSupplies;
+		tempPlayerSupplies[activePlayerIndex[0]] = newSupplies[0];
+		this.setState({
+			playerLanternSupplies: tempPlayerSupplies,
+			gameLanternSupply: newSupplies[1],
+		});
+	}
+
 	render() {
 
 		return (
@@ -478,136 +528,6 @@ class App extends React.Component {
 
 			</div>
 		);
-	}
-
-	getDedication(value) {
-		let tempHonorScores = this.state.playerHonorScores;
-		tempHonorScores[activePlayerIndex[0]] += value;
-
-		this.setState({
-			playerHonorScores: tempHonorScores
-		});
-	}
-
-	checkDedication(type) {
-		let tempLanternCards = this.state.playerLanternSupplies[activePlayerIndex[0]];
-		let canMakeDedication = false;
-
-		switch (type) {
-			case 2:
-				canMakeDedication = this.checkThreePair(tempLanternCards);
-				break;
-			case 4:
-				canMakeDedication = this.checkFourOfAKind(tempLanternCards);
-				break;
-			case 7:
-				canMakeDedication = this.checkOneOfEach(tempLanternCards);
-				break;
-		}
-
-		return canMakeDedication;
-	}
-
-	checkOneOfEach(lanternCards) {
-		for (let i = 0; i < lanternCards.length; i++) {
-			if (lanternCards[i] === 0) {
-				return false;
-			}
-		}
-
-		this.moveLanternsCardsOneOfEach();
-		return true;
-	}
-
-	moveLanternsCardsOneOfEach() {
-		let tempPlayerSupplies = this.state.playerLanternSupplies;
-		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex[0]];
-		let tempGameSupply = this.state.gameLanternSupply;
-
-		for (let i = 0; i < tempPlayerSupply.length; i++) {
-			tempPlayerSupply[i]--;
-			tempGameSupply[i]++;
-		}
-
-		tempPlayerSupplies[activePlayerIndex[0]] = tempPlayerSupply;
-
-		this.setState({
-			playerLanternSupplies: tempPlayerSupplies,
-			gameLanternSupply: tempGameSupply,
-		});
-	}
-
-	checkThreePair(lanternCards) {
-		let pairs = 0;
-		for (let i = 0; i < lanternCards.length; i++) {
-			if (lanternCards[i] >= 2) {
-				pairs++;
-			}
-		}
-
-		if (pairs >= 3) {
-			this.moveLanternCardsThreePair()
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	moveLanternCardsThreePair() {
-		let tempPlayerSupplies = this.state.playerLanternSupplies;
-		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex[0]];
-		let tempGameSupply = this.state.gameLanternSupply;
-
-		let pairCount = 0;
-
-		for (let i = 0; i < tempPlayerSupply.length; i++) {
-			if (pairCount === 3) {
-				break;
-			} else {
-				if (tempPlayerSupply[i] >= 2) {
-					tempPlayerSupply[i] -= 2;
-					tempGameSupply[i] += 2;
-					pairCount++;
-				}
-			}
-		}
-
-		tempPlayerSupplies[activePlayerIndex[0]] = tempPlayerSupply;
-
-		this.setState({
-			playerLanternSupplies: tempPlayerSupplies,
-			gameLanternSupply: tempGameSupply,
-		});
-	}
-
-	checkFourOfAKind(lanternCards) {
-		for (let i = 0; i < lanternCards.length; i++) {
-			if (lanternCards[i] >= 4) {
-				this.moveLanternCardsFourOfAKind();
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	moveLanternCardsFourOfAKind() {
-		let tempPlayerSupplies = this.state.playerLanternSupplies;
-		let tempPlayerSupply = this.state.playerLanternSupplies[activePlayerIndex[0]];
-		let tempGameSupply = this.state.gameLanternSupply;
-
-		for (let i = 0; i < tempPlayerSupply.length; i++) {
-			if (tempPlayerSupply[i] >= 4) {
-				tempPlayerSupply[i] -= 4;
-				tempGameSupply[i] += 4;
-				break;
-			}
-		}
-
-		this.setState({
-			playerLanternSupplies: tempPlayerSupplies,
-			gameLanternSupply: tempGameSupply,
-		});
 	}
 }
 

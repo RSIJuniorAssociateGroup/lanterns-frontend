@@ -6,9 +6,9 @@ import { StylesProvider } from "@material-ui/styles";
 
 class StartPage extends React.Component {
 
-    // goToGame = (path) => {
-    //     this.props.history.push(path);
-    // }
+    openRulesWindow() {
+        window.open('https://static1.squarespace.com/static/54148cdae4b05a3412bfa19b/t/5b2dc4cc1ae6cf364b9271c9/1529726208175/lanterns_rulebook_v2.pdf', "_blank");
+    }
 
     render() {
         return (
@@ -19,11 +19,13 @@ class StartPage extends React.Component {
                     <Button className="menuButton startButton" component={Link} to="/game">
                         Start Game
                     </Button>
+
+                    <Button className="menuButton howToButton" onClick={this.openRulesWindow}>
+                        How To Play
+                    </Button>
                 </StylesProvider>
 
-                <Button className="menuButton howToButton" >
-                    How To Play
-                </Button>
+
 
             </div>
         );

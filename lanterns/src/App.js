@@ -48,7 +48,7 @@ class App extends React.Component {
 
 			playerLanternSupplies: [
 				[2, 4, 2, 3, 4, 5, 1],
-				[1, 1, 2, 1, 4, 2, 1],
+				[10, 10, 20, 10, 40, 20, 10],
 			],
 
 			playerHonorScores: [0, 0],
@@ -396,7 +396,6 @@ class App extends React.Component {
 			<LakeTile
 				id={tile.props.id}
 				draggable={true}
-				// getLanternImage={func}
 				topColor={tile.props.topColor}
 				rightColor={tile.props.rightColor}
 				bottomColor={tile.props.bottomColor}
@@ -413,7 +412,13 @@ class App extends React.Component {
 
 	getDedication(value) {
 		let tempHonorScores = this.state.playerHonorScores;
-		tempHonorScores[activePlayerIndex[0]] += value;
+
+		if (value === 'generic') {
+			tempHonorScores[activePlayerIndex[0]] += 4;
+		} else {
+			tempHonorScores[activePlayerIndex[0]] += value;
+		}
+		
 
 		this.setState({
 			playerHonorScores: tempHonorScores
@@ -508,6 +513,7 @@ class App extends React.Component {
 					<DedicationToken
 						checkDedication={this.checkDedication}
 						getDedication={this.getDedication}
+						playerCount={3}
 					/>
 					<LakeTileSupply
 						supply={this.state.lakeTileSupply} />

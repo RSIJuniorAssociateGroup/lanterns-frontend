@@ -215,7 +215,7 @@ class App extends React.Component {
 				);
 			}
 		} else {
-			console.log("ERROR no valid handId");
+			return false;
 		}
 		return hand;
 	}
@@ -251,71 +251,37 @@ class App extends React.Component {
 
 	updatePlayerHand(id, col, row) {
 		if (id != undefined) {
-			console.log("Here");
-			// console.log(this.state.playerOneHand);
-			console.log(id);
-			// console.log(activePlayerIndex[0]);
 			if (activePlayerIndex[0] === 0) {
 				for (let i = 0; i < this.state.playerOneHand.length; i++) {
 					if (this.state.playerOneHand[i].props.id == id) {
-						console.log("Hello p1");
-						// console.log(this.state.playerOneHand[i].props);
 
 						let placedTile = this.state.playerOneHand[i];
 						this.copyTileToBoard(placedTile, col, row, id);
 
-						let updatedHand = this.state.playerOneHand.splice(i,1);
-
-						
-						this.setState({
-							playerOneHand: updatedHand
-						})
-
-						console.log("this is the P1 updated hand")
-						console.log(this.state.playerOneHand);
-
+						this.state.playerOneHand.splice(i,1);
 					}
 				}
 			} else if (activePlayerIndex[0] === 1) {
 				for (let i = 0; i < this.state.playerTwoHand.length; i++) {
 					if (this.state.playerTwoHand[i].props.id == id) {
-						console.log("Hello p2");
-						// console.log(this.state.playerTwoHand[i].props.id);
+
 						let placedTile = this.state.playerTwoHand[i];
 						this.copyTileToBoard(placedTile, col, row, id)
 						
-
-						let updatedHand = this.state.playerTwoHand.splice(i, 1);
-
-						// let updatedHand = this.state.playerTwoHand.filter(tile => tile.props.id !== i);
-
-						
-						this.setState({
-							playerTwoHand: updatedHand
-						})
-						console.log("this is the P2 updated hand")
-						console.log(this.state.playerTwoHand);
+						this.state.playerTwoHand.splice(i, 1);
 					}
 				}
 			} else {
 				alert("Error with updatePlayerHand();")
 			}
-			console.log("Testing scope");
 		} else {
 
-			console.log("updatePlayerHand() cancelled for this board tile");
 		}
 	}
 
 	copyTileToBoard (tile, col, row, id) {
-		// console.log("Here are the copied elements");
-		// console.log(tile);
-		// console.log(col);
-		// console.log(row);
 
 		let result = { topColor: tile.props.topColor, rightColor: tile.props.rightColor, bottomColor: tile.props.bottomColor, leftColor: tile.props.leftColor };
-
-		console.log(result);
 
 		let newTopColor = result.leftColor;
 		let newRightColor = result.topColor;
@@ -352,8 +318,6 @@ class App extends React.Component {
 				droppedLakeTiles: this.state.droppedLakeTiles
 			})
 
-			console.log("here is the droppedLakeTiles")
-			console.log(this.state.droppedLakeTiles);
 	}
 
 	drawLakeTileForActivePlayer() {
@@ -362,9 +326,6 @@ class App extends React.Component {
 			let playerHands = this.state.playerOneHand;
 
 			let lakeTile = this.getTopLakeTile()
-
-			console.log("This is the lake tile");
-			console.log(lakeTile);
 
 			let tempPlayersHand = playerHands
 			let tempPlayerHand = playerHands

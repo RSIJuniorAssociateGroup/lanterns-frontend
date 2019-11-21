@@ -1,5 +1,5 @@
 import React from 'react';
-import { LegalBoard } from '../../App';
+import { LegalBoard, dedicationAlreadyMade } from '../../App';
 import { placeTile } from './LegalTilePlaced';
 import { activePlayerIndex } from "../../App";
 import { endTurn } from "../../GameLogic";

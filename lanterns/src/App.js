@@ -99,6 +99,7 @@ class App extends React.Component {
 			lakeTileSupply: [],
 			droppedLakeTiles: droppedTilesBoard,
 			gameOverValue: 0,
+			dedicationAlreadyMade: 0,
 
 		}
 	}
@@ -559,6 +560,14 @@ class App extends React.Component {
 	}
 
 	drawLakeTileForActivePlayer() {
+		let updatedDedicationStatus = this.state.dedicationAlreadyMade;
+
+		updatedDedicationStatus = 0;
+
+		this.setState({
+			dedicationAlreadyMade: updatedDedicationStatus
+		})
+
 		if (this.state.lakeTileSupply != 0) {
 			if (activePlayerIndex[0] === 0) {
 				let playerHands = this.state.playerOneHand;
@@ -600,8 +609,8 @@ class App extends React.Component {
 			alert("No more lake tiles to draw");
 		} else if (activePlayerIndex[0] === 1 && this.state.playerTwoHand.length == 3) {
 			alert("No more lake tiles to draw");
+		}
 	}
-}
 
 	getTopLakeTile() {
 
@@ -651,51 +660,63 @@ class App extends React.Component {
 			this.setCurrentPlayer(activePlayerIndex);
 			this.gameOver();
 		}
+
+		let updatedDedicationStatus = this.state.dedicationAlreadyMade;
+
+		updatedDedicationStatus = 1;
+
+		this.setState({
+			dedicationAlreadyMade: updatedDedicationStatus
+		})
 	}
 
 	checkDedication(type) {
 		let canMakeDedication = false;
 
-		switch (type) {
-			case 2:
-				if (checkThreePair(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
-					canMakeDedication = true;
-					this.updateAfterDedication(moveLanternCardsThreePair(
-						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
-				} else if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
-					alert("You were unable to make a dedication on your last turn. Switching to the other player so they can make a final dedication.");
-					endTurn(activePlayerIndex);
-					this.setCurrentPlayer(activePlayerIndex);
-					this.gameOver();
-				}
-				break;
-			case 4:
-				if (checkFourOfAKind(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
-					canMakeDedication = true;
-					this.updateAfterDedication(moveLanternCardsFourOfAKind(
-						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
-				} else if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
-					alert("You were unable to make a dedication on your last turn. Switching to the other player so they can make a final dedication.");
-					endTurn(activePlayerIndex);
-					this.setCurrentPlayer(activePlayerIndex);
-					this.gameOver();
-				}
-				break;
-			case 7:
-				if (checkOneOfEach(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
-					canMakeDedication = true;
-					this.updateAfterDedication(moveLanternsCardsOneOfEach(
-						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
-				} else if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
-					alert("You were unable to make a dedication on your last turn. Switching to the other player so they can make a final dedication.");
-					endTurn(activePlayerIndex);
-					this.setCurrentPlayer(activePlayerIndex);
-					this.gameOver();
-				}
-				break;
-		}
+		if (this.state.dedicationAlreadyMade == 0) {
+			switch (type) {
+				case 2:
+					if (checkThreePair(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
+						canMakeDedication = true;
+						this.updateAfterDedication(moveLanternCardsThreePair(
+							this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
+					} else if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
+						alert("You were unable to make a dedication on your last turn. Switching to the other player so they can make a final dedication.");
+						endTurn(activePlayerIndex);
+						this.setCurrentPlayer(activePlayerIndex);
+						this.gameOver();
+					}
+					break;
+				case 4:
+					if (checkFourOfAKind(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
+						canMakeDedication = true;
+						this.updateAfterDedication(moveLanternCardsFourOfAKind(
+							this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
+					} else if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
+						alert("You were unable to make a dedication on your last turn. Switching to the other player so they can make a final dedication.");
+						endTurn(activePlayerIndex);
+						this.setCurrentPlayer(activePlayerIndex);
+						this.gameOver();
+					}
+					break;
+				case 7:
+					if (checkOneOfEach(this.state.playerLanternSupplies[activePlayerIndex[0]])) {
+						canMakeDedication = true;
+						this.updateAfterDedication(moveLanternsCardsOneOfEach(
+							this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
+					} else if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
+						alert("You were unable to make a dedication on your last turn. Switching to the other player so they can make a final dedication.");
+						endTurn(activePlayerIndex);
+						this.setCurrentPlayer(activePlayerIndex);
+						this.gameOver();
+					}
+					break;
+			}
 
-		return canMakeDedication;
+			return canMakeDedication;
+		} else {
+			alert("You already made a dedication during your turn. Only one is allowed per turn.")
+		}
 	}
 
 	updateAfterDedication(newSupplies) {
@@ -710,21 +731,21 @@ class App extends React.Component {
 	gameOver() {
 		console.log("Game over running");
 		console.log(this.state.gameOverValue);
-		if(this.state.gameOverValue != 1) {
-		let gameOver = this.state.gameOverValue;
-		gameOver ++;
+		if (this.state.gameOverValue != 1) {
+			let gameOver = this.state.gameOverValue;
+			gameOver++;
 
-		this.setState({
-			gameOverValue: gameOver
-		})
+			this.setState({
+				gameOverValue: gameOver
+			})
 		} else {
 			if (this.state.playerHonorScores[0] > this.state.playerHonorScores[1]) {
 				alert("Game over! player Sub Zero wins with " + this.state.playerHonorScores[0] + "points!")
-			} else if (this.state.playerHonorScores[1] > this.state.playerHonorScores[0]){
+			} else if (this.state.playerHonorScores[1] > this.state.playerHonorScores[0]) {
 				alert("Game over! player Double Duo wins with " + this.state.playerHonorScores[1] + "points!")
 			} else {
 				alert("Game over! It's a tie between Sub Zero and Double Duo.")
-			}	
+			}
 		}
 	}
 

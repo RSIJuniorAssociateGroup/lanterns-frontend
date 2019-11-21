@@ -11,6 +11,7 @@ import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
 import { startingPlayer, shuffleLakeTiles, dealLakeTiles, getDeckForCorrectPlayerCount, endTurn } from './GameLogic';
 import { checkThreePair, moveLanternCardsThreePair, checkOneOfEach, moveLanternsCardsOneOfEach, moveLanternCardsFourOfAKind, checkFourOfAKind } from "./MakeDedicationLogic";
+import { tsImportEqualsDeclaration } from '@babel/types';
 
 export let activePlayerIndex = startingPlayer(2);
 
@@ -51,8 +52,8 @@ class App extends React.Component {
 			gameLanternSupply: [],
 
 			playerLanternSupplies: [
-				[0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0],
+				[4, 0, 0, 0, 0, 0, 0],
+				[5, 0, 0, 0, 0, 0, 0],
 			],
 
 			playerHonorScores: [0, 0],
@@ -97,6 +98,7 @@ class App extends React.Component {
 
 			lakeTileSupply: [],
 			droppedLakeTiles: droppedTilesBoard,
+			gameOverValue: 0,
 
 		}
 	}
@@ -257,18 +259,13 @@ class App extends React.Component {
 	}
 
 	awardInitialFacingTile(array, row, col) {
-		console.log(array);
 		let topFacingColor = array[row][col][0];
 		let bottomFacingColor = array[row][col][2];
 
-		console.log(topFacingColor);
-		console.log(bottomFacingColor)
 		if (activePlayerIndex[0] === 0) {
-			console.log("initial ");
 
 			let newPlayerSupply = this.state.playerLanternSupplies;
 			newPlayerSupply[0][topFacingColor - 1] = this.state.playerLanternSupplies[0][topFacingColor - 1] + 1;
-			console.log(newPlayerSupply);
 			this.setState({
 				playerLanternSupplies: newPlayerSupply
 			})
@@ -480,16 +477,10 @@ class App extends React.Component {
 
 		//note i & j must be reversed to get this to work because rows and columns are technically flipped.
 
-		console.log("Adjacent")
-		console.log(i)
-		console.log(j)
 		//check above current index
 		if (i != 0 && typeof array[i - 1][j] === 'object') {
 			if (array[i - 1][j][2] === array[i][j][0]) {
 				let colorMatch = array[i][j][0];
-				console.log("Above")
-
-				console.log(colorMatch)
 
 				if (this.checkSupply(colorMatch)) {
 					let newPlayerSupply = playerLanternSupplies;
@@ -508,8 +499,6 @@ class App extends React.Component {
 		if (i !== 5 && typeof array[j][i + 1] === 'object') {
 			if (array[j][i + 1][3] === array[j][i][1]) {
 				let colorMatch = array[j][i][1];
-				console.log("Right")
-				console.log(colorMatch)
 
 				if (this.checkSupply(colorMatch)) {
 
@@ -529,8 +518,6 @@ class App extends React.Component {
 		if (j < array.length - 1 && typeof array[j + 1][i] == 'object') {
 			if (array[j + 1][i][0] === array[j][i][2]) {
 				let colorMatch = array[j][i][2];
-				console.log("Bottom")
-				console.log(colorMatch)
 
 				if (this.checkSupply(colorMatch)) {
 
@@ -550,8 +537,6 @@ class App extends React.Component {
 		if (i !== 0 && typeof array[j][i - 1] == 'object') {
 			if (array[j][i - 1][1] === array[j][i][3]) {
 				let colorMatch = array[j][i][3];
-				console.log("Left")
-				console.log(colorMatch)
 
 				if (this.checkSupply(colorMatch)) {
 
@@ -606,10 +591,12 @@ class App extends React.Component {
 					playerTwoHand: tempPlayerHand
 				})
 			}
-		} else {
+		} else if (activePlayerIndex[0] === 0 && this.state.playerOneHand.length == 3) {
 			alert("No more lake tiles to draw");
-		}
+		} else if (activePlayerIndex[0] === 1 && this.state.playerTwoHand.length == 3) {
+			alert("No more lake tiles to draw");
 	}
+}
 
 	getTopLakeTile() {
 
@@ -657,6 +644,7 @@ class App extends React.Component {
 		if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
 			endTurn(activePlayerIndex);
 			this.setCurrentPlayer(activePlayerIndex);
+			this.gameOver();
 		}
 	}
 
@@ -669,6 +657,11 @@ class App extends React.Component {
 					canMakeDedication = true;
 					this.updateAfterDedication(moveLanternCardsThreePair(
 						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
+				} else if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
+					alert("You were unable to make a dedication on your last turn. Switching to the other player so they can make a final dedication.");
+					endTurn(activePlayerIndex);
+					this.setCurrentPlayer(activePlayerIndex);
+					this.gameOver();
 				}
 				break;
 			case 4:
@@ -676,6 +669,11 @@ class App extends React.Component {
 					canMakeDedication = true;
 					this.updateAfterDedication(moveLanternCardsFourOfAKind(
 						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
+				} else if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
+					alert("You were unable to make a dedication on your last turn. Switching to the other player so they can make a final dedication.");
+					endTurn(activePlayerIndex);
+					this.setCurrentPlayer(activePlayerIndex);
+					this.gameOver();
 				}
 				break;
 			case 7:
@@ -683,6 +681,11 @@ class App extends React.Component {
 					canMakeDedication = true;
 					this.updateAfterDedication(moveLanternsCardsOneOfEach(
 						this.state.playerLanternSupplies[activePlayerIndex[0]], this.state.gameLanternSupply));
+				} else if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
+					alert("You were unable to make a dedication on your last turn. Switching to the other player so they can make a final dedication.");
+					endTurn(activePlayerIndex);
+					this.setCurrentPlayer(activePlayerIndex);
+					this.gameOver();
 				}
 				break;
 		}
@@ -699,10 +702,29 @@ class App extends React.Component {
 		});
 	}
 
+	gameOver() {
+		console.log("Game over running");
+		console.log(this.state.gameOverValue);
+		if(this.state.gameOverValue != 1) {
+		let gameOver = this.state.gameOverValue;
+		gameOver ++;
+
+		this.setState({
+			gameOverValue: gameOver
+		})
+		} else {
+			if (this.state.playerHonorScores[0] > this.state.playerHonorScores[1]) {
+				alert("Game over! player Sub Zero wins with " + this.state.playerHonorScores[0] + "points!")
+			} else if (this.state.playerHonorScores[1] > this.state.playerHonorScores[0]){
+				alert("Game over! player Double Duo wins with " + this.state.playerHonorScores[1] + "points!")
+			} else {
+				alert("Game over! It's a tie between Sub Zero and Double Duo.")
+			}	
+		}
+	}
 
 
 	render() {
-		console.log(this.state.droppedLakeTiles)
 		return (
 			<div className="gameView">
 

@@ -23,7 +23,6 @@ class BoardTile extends React.Component {
     drop = e => {
         if (placeTile(LegalBoard, this.props.col, this.props.row) !== false) {
 
-            console.log(LegalBoard);
             e.preventDefault();
             // Transfer the id between this event, get the element by id
             // and append it to the boardTile
@@ -43,9 +42,6 @@ class BoardTile extends React.Component {
 
                 let col = this.props.col;
                 let row = this.props.row;
-
-                console.log(col);
-                console.log(row)
 
                 this.updatePlayerHand(tileId, col, row);
                 endTurn(activePlayerIndex);

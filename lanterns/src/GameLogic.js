@@ -75,7 +75,7 @@ export function getDeckForCorrectPlayerCount(lakeTileDeck, playerCount) {
 			totalDeckSize = 18;
 			break;
 		case 2:
-			totalDeckSize = 16;
+			totalDeckSize = 6;
 			break;
 	}
 

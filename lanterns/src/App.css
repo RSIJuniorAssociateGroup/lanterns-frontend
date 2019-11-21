@@ -40,7 +40,7 @@ Grid Styles
 /* Game View Grid Styles */
 .gameView {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.75fr;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr 0.75fr;
   grid-template-rows: repeat(5, 0.5fr);
 }
 
@@ -108,7 +108,7 @@ Grid Styles
   border: 1px solid black;
   border-radius: 25px;
   text-align: center;
-  margin-top: 30px;
+  /* margin-top: 10px; */
 }
 /******************************************************************
 Game Board, Board Tiles & Lake Tiles
@@ -125,7 +125,6 @@ Game Board, Board Tiles & Lake Tiles
   flex-wrap: wrap;
 
   margin: 0 auto;
-  padding: 15px;
 }
 
 /* Board Tiles */

@@ -257,14 +257,18 @@ class App extends React.Component {
 	}
 
 	awardInitialFacingTile(array, row, col) {
+		console.log(array);
+		let topFacingColor = array[row][col][0];
+		let bottomFacingColor = array[row][col][2];
 
-		let topFacingColor = array[col][row][0];
-		let bottomFacingColor = array[col][row][2];
-
+		console.log(topFacingColor);
+		console.log(bottomFacingColor)
 		if (activePlayerIndex[0] === 0) {
+			console.log("initial ");
+
 			let newPlayerSupply = this.state.playerLanternSupplies;
 			newPlayerSupply[0][topFacingColor - 1] = this.state.playerLanternSupplies[0][topFacingColor - 1] + 1;
-
+			console.log(newPlayerSupply);
 			this.setState({
 				playerLanternSupplies: newPlayerSupply
 			})
@@ -636,6 +640,7 @@ class App extends React.Component {
 	}
 
 	getDedication(value) {
+
 		let tempHonorScores = this.state.playerHonorScores;
 
 		if (value === 'generic') {
@@ -648,6 +653,11 @@ class App extends React.Component {
 		this.setState({
 			playerHonorScores: tempHonorScores
 		});
+
+		if (this.state.playerOneHand.length == 0 && this.state.playerTwoHand.length == 0) {
+			endTurn(activePlayerIndex);
+			this.setCurrentPlayer(activePlayerIndex);
+		}
 	}
 
 	checkDedication(type) {

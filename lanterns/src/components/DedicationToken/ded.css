@@ -19,7 +19,8 @@
 
 h1 {
     position: absolute;
-    top: 40px;
+    top: 20px;
     width: 100%;
     text-align: center;
+    font-size: 1rem;
 }

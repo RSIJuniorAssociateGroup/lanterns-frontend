@@ -1,7 +1,8 @@
 /******************************************************************
 Global Styles 
 ******************************************************************/
-body, html {
+body,
+html {
   height: 100%;
   width: 100%;
   font-weight: bold;
@@ -17,6 +18,7 @@ button {
   width: 4rem;
 }
 
+
 /******************************************************************
 Player Styles
 ******************************************************************/
@@ -28,7 +30,7 @@ Player Styles
 
 .honorScore {
   font-size: 1rem;
-  margin: 0;
+  margin: 0 !important;
 }
 
 /******************************************************************
@@ -38,21 +40,22 @@ Grid Styles
 /* Game View Grid Styles */
 .gameView {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
-}  
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.75fr;
+  grid-template-rows: repeat(5, 0.5fr);
+}
 
 /* Player 0 Grid Styles*/
 .playerZero {
-  grid-column: 1/6;
+  grid-column: 2/5;
   grid-row: 1/1;
   color: darkred;
   background-color: #00abfa;
   background-image: url("https://www.transparenttextures.com/patterns/arches.png");
-  border: 1px solid black; 
+  border: 1px solid black;
   border-radius: 25px;
   text-align: center;
-}  
+  margin: 0;
+}
 
 /* Player 1 Grid Styles*/
 .playerOne {
@@ -61,17 +64,17 @@ Grid Styles
   color: green;
   background-color: #00abfa;
   background-image: url("https://www.transparenttextures.com/patterns/arches.png");
-  border: 1px solid black; 
+  border: 1px solid black;
   border-radius: 25px;
   text-align: center;
-}   
+}
 
 /* Board Grid Styles*/
-.boardGridStyle { 
+.boardGridStyle {
   grid-column: 2/5;
   grid-row: 2/5;
   align-self: center;
- }
+}
 
 /* Player 3 Grid Styles*/
 .playerThree {
@@ -80,16 +83,16 @@ Grid Styles
   color: purple;
   background-color: #00abfa;
   background-image: url("https://www.transparenttextures.com/patterns/arches.png");
-  border: 1px solid black; 
+  border: 1px solid black;
   border-radius: 25px;
   text-align: center;
-}  
+}
 
 /* Supply Grid Styles */
 .supplyGrid {
-  background-color: rgba(63, 191, 191); 
+  background-color: rgba(63, 191, 191);
   background-image: url("https://www.transparenttextures.com/patterns/arches.png");
-  border: 4px solid black; 
+  border: 4px solid black;
   grid-column: 6/6;
   grid-row: 1/7;
 }
@@ -97,33 +100,32 @@ Grid Styles
 /* Player 2 Grid Styles*/
 .playerTwo {
   display: grid;
-  grid-column: 1/6;
+  grid-column: 2/5;
   grid-row: 5/6;
   color: blue;
   background-color: #00abfa;
   background-image: url("https://www.transparenttextures.com/patterns/arches.png");
-  border: 1px solid black; 
+  border: 1px solid black;
   border-radius: 25px;
   text-align: center;
   margin-top: 30px;
-} 
+}
 /******************************************************************
 Game Board, Board Tiles & Lake Tiles
 ******************************************************************/
 .board {
- 
-display: flex;
+  display: flex;
   justify-content: flex-start;
 
-  width: 900px;
-  height: 900px;
+  width: 450px;
+  height: 450px;
 
   overflow: hidden;
 
   flex-wrap: wrap;
 
-  margin: 0 auto; 
-  padding: 15px; 
+  margin: 0 auto;
+  padding: 15px;
 }
 
 /* Board Tiles */
@@ -133,8 +135,8 @@ display: flex;
   flex-direction: column;
 
   width: 100%;
-  max-width: 150px;
-  height: 150px;
+  max-width: 75px;
+  height: 75px;
 
   background-color: #313131;
 }
@@ -142,8 +144,8 @@ display: flex;
 /* Lake Tiles */
 
 .board .boardTile .lakeTile {
-  width: 150px;
-  height: 150px;
+  width: 75px;
+  height: 75px;
   background-color: beige;
 
   cursor: pointer;
@@ -154,7 +156,7 @@ display: flex;
  Lantern Supply/Hand
  ******************************************************************/
 .lanternCircles {
-  height: 100%;
+  height: 50%;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -163,94 +165,100 @@ display: flex;
 }
 
 .lanternCirclesHorizontal {
-  height: 100%;
+  height: 50%;
   text-align: center;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around !important;
+  margin-top: 30px;
 }
 
 .circleText {
-  margin-left: 1rem;
+  margin-left: 3rem;
+  margin-top: -1.25rem;
   color: black;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 
 .whiteCircle {
-  height: 90px;
-  width: 90px;
+  height: 45px;
+  width: 45px;
+  background-size: 45px;
   background-image: url(./pictures/white.png);
   line-height: 5rem;
-  margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .whiteCircleHorizontal {
-  height: 90px;
-  width: 90px;
-  /* background-color: #bbb; */
+  height: 45px;
+  width: 45px;
+  background-size: 45px;
   background-image: url(./pictures/white.png);
-  /* border-radius: 50%; */
-  /* border: 5px solid gray; */
   line-height: 5rem;
   margin-bottom: 1rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .blueCircle {
-  height: 90px;
-  width: 90px;
+  height: 45px;
+  width: 45px;
+  background-size: 45px;
   background-image: url(./pictures/blue.png);
   line-height: 5rem;
   margin-bottom: 1rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .redCircle {
-  height: 90px;
-  width: 90px;
+  height: 45px;
+  width: 45px;
+  background-size: 45px;
   background-image: url(./pictures/red.png);
   line-height: 5rem;
   margin-bottom: 1rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .greenCircle {
-  height: 90px;
-  width: 90px;
+  height: 45px;
+  width: 45px;
+  background-size: 45px;
   background-image: url(./pictures/green.png);
   line-height: 5rem;
   margin-bottom: 1rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .blackCircle {
-  height: 90px;
-  width: 90px;
+  height: 45px;
+  width: 45px;
+  background-size: 45px;
   background-image: url(./pictures/black.png);
   line-height: 5rem;
   margin-bottom: 1rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .yellowCircle {
-  height: 90px;
-  width: 90px;
+  height: 45px;
+  background-size: 45px;
+  width: 45px;
   background-image: url(./pictures/orange.png);
   line-height: 5rem;
   margin-bottom: 1rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .purpleCircle {
-  height: 90px;
-  width: 90px;
+  height: 45px;
+  width: 45px;
+  background-size: 45px;
   background-image: url(./pictures/purple.png);
   line-height: 5rem;
   margin-bottom: 1rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 .game-info {
   margin-left: 20px;

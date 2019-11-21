@@ -39,7 +39,7 @@ class LakeTileSupply extends React.Component {
             <div  >
                 <div className="supplyContainer">
                     <div className="supplyDetails">
-                        <img src={LakeTileSupplyPile} />
+                        <img width={75} src={LakeTileSupplyPile} />
 
                         <h2 className="pileCounterStyle">
                             {this.state.tiles.length}

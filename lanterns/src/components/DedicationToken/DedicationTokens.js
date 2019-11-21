@@ -71,15 +71,15 @@ class DedicationToken extends React.Component {
         return (
             <div className="tokenHand">
                 <button data-id="1" className="tokenContainer" onClick={this.buyToken}>
-                    <img src={ded4} width="150" alt="Four Of A Kind" />
+                    <img src={ded4} width="75" alt="Four Of A Kind" />
                     <h1>{points4}</h1>
                 </button>
                 <button data-id="2" className="tokenContainer" onClick={this.buyToken}>
-                    <img src={dedPairs} width="150" alt="Three Pairs" />
+                    <img src={dedPairs} width="75" alt="Three Pairs" />
                     <h1>{pointsPairs}</h1>
                 </button>
                 <button data-id="3" className="tokenContainer" onClick={this.buyToken}>
-                    <img src={ded7} width="150" alt="One of Each" />
+                    <img src={ded7} width="75" alt="One of Each" />
                     <h1>{points7}</h1>
                 </button>
             </div>

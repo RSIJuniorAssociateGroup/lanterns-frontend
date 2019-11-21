@@ -6,7 +6,7 @@ import LanternSupply from './components/Supply/LanternSupply';
 import LanternCardsHorizontal from './components/Player/LanternCardsHorizontal';
 import Board from './components/Board/Board';
 import LakeTile from './components/LakeTileComponent/LakeTile'
-import DedicationToken from './components/DedicationToken/dedication-tokens'
+import DedicationToken from './components/DedicationToken/DedicationTokens'
 import LakeTileSupply from './components/LakeTileSupply/LakeTileSupply';
 import { createBoard, placeFirstTile } from './components/Board/LegalTilePlaced';
 import { startingPlayer, shuffleLakeTiles, dealLakeTiles, getDeckForCorrectPlayerCount, endTurn } from './GameLogic';

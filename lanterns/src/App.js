@@ -476,12 +476,17 @@ class App extends React.Component {
 	checkAdjacentColors(array, i, j, playerLanternSupplies, activePlayerIndex) {
 
 		//note i & j must be reversed to get this to work because rows and columns are technically flipped.
-
+		console.log(array)
+		console.log(i)
+		console.log(j)
 		//check above current index
-		if (i != 0 && typeof array[i - 1][j] === 'object') {
-			if (array[i - 1][j][2] === array[i][j][0]) {
-				let colorMatch = array[i][j][0];
+		if (j != 0 && typeof array[j - 1][i] == 'object') {
+			console.log("First Above")
 
+			if (array[j - 1][i][2] === array[j][i][0]) {
+				let colorMatch = array[j][i][0];
+				console.log("Above")
+				console.log(colorMatch)
 				if (this.checkSupply(colorMatch)) {
 					let newPlayerSupply = playerLanternSupplies;
 					newPlayerSupply[activePlayerIndex[0]][colorMatch - 1] = playerLanternSupplies[activePlayerIndex[0]][colorMatch - 1] + 1;
@@ -496,7 +501,7 @@ class App extends React.Component {
 		}
 
 		//check to the right of current index
-		if (i !== 5 && typeof array[j][i + 1] === 'object') {
+		if (i !== 5 && typeof array[j][i + 1] == 'object') {
 			if (array[j][i + 1][3] === array[j][i][1]) {
 				let colorMatch = array[j][i][1];
 

@@ -52,8 +52,8 @@ class App extends React.Component {
 			gameLanternSupply: [],
 
 			playerLanternSupplies: [
-				[4, 0, 0, 0, 0, 0, 0],
-				[5, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0],
 			],
 
 			playerHonorScores: [0, 0],

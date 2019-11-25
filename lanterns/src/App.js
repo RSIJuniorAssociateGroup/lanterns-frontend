@@ -659,8 +659,14 @@ class App extends React.Component {
 			endTurn(activePlayerIndex);
 			this.setCurrentPlayer(activePlayerIndex);
 			this.gameOver();
-		}
+			let updatedDedicationStatus = this.state.dedicationAlreadyMade;
 
+			updatedDedicationStatus = 0;
+	
+			this.setState({
+				dedicationAlreadyMade: updatedDedicationStatus
+			})
+		} else {
 		let updatedDedicationStatus = this.state.dedicationAlreadyMade;
 
 		updatedDedicationStatus = 1;
@@ -668,6 +674,7 @@ class App extends React.Component {
 		this.setState({
 			dedicationAlreadyMade: updatedDedicationStatus
 		})
+		}
 	}
 
 	checkDedication(type) {

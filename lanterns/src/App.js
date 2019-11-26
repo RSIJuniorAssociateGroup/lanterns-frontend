@@ -424,7 +424,7 @@ class App extends React.Component {
 					playerLanternSupplies: newPlayerSupply
 				})
 			} else {
-				alert("No supply remaining for this tile.")
+				alert("No supply remaining for this lantern color.")
 			}
 			if (this.checkSupply(bottomFacingColor)) {
 				let newPlayerSupply = this.state.playerLanternSupplies;
@@ -434,7 +434,7 @@ class App extends React.Component {
 					playerLanternSupplies: newPlayerSupply
 				})
 			} else {
-				alert("No supply remaining for this tile.")
+				alert("No supply remaining for this lantern color.")
 			}
 		} else {
 			if (this.checkSupply(bottomFacingColor)) {
@@ -445,7 +445,7 @@ class App extends React.Component {
 					playerLanternSupplies: newPlayerSupply
 				})
 			} else {
-				alert("No supply remaining for this tile.")
+				alert("No supply remaining for this lantern color.")
 			}
 			if (this.checkSupply(topFacingColor)) {
 				let newPlayerSupply = this.state.playerLanternSupplies;
@@ -455,7 +455,7 @@ class App extends React.Component {
 					playerLanternSupplies: newPlayerSupply
 				})
 			} else {
-				alert("No supply remaining for this tile.")
+				alert("No supply remaining for this lantern color.")
 			}
 		}
 	}
@@ -496,7 +496,7 @@ class App extends React.Component {
 						playerLanternSupplies: newPlayerSupply
 					})
 				} else {
-					alert("No supply remaining for this tile.")
+					alert("No supply remaining for this lantern color.")
 				}
 			}
 		}
@@ -515,7 +515,7 @@ class App extends React.Component {
 						playerLanternSupplies: newPlayerSupply
 					})
 				} else {
-					alert("No supply remaining for this tile.")
+					alert("No supply remaining for this lantern color.")
 				}
 			}
 		}
@@ -534,7 +534,7 @@ class App extends React.Component {
 						playerLanternSupplies: newPlayerSupply
 					})
 				} else {
-					alert("No supply remaining for this tile.")
+					alert("No supply remaining for this lantern color.")
 				}
 			}
 		}
@@ -553,7 +553,7 @@ class App extends React.Component {
 						playerLanternSupplies: newPlayerSupply
 					})
 				} else {
-					alert("No supply remaining for this tile.")
+					alert("No supply remaining for this lantern color.")
 				}
 			}
 		}

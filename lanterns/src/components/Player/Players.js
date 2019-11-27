@@ -23,7 +23,7 @@ class Player extends React.Component {
         return (
             <div >
                 <p className="playerName">{this.state.playerName}</p>
-                <p>Honor Score: {this.props.playerHonorScore}</p>
+                <p className="honorScore">Honor Score: {this.props.playerHonorScore}</p>
                 <div className="player-hand">
                     {this.props.lakeTileHand}
                 </div>

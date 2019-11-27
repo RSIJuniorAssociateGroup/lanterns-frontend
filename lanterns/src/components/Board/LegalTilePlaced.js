@@ -30,7 +30,7 @@ export function checkAdjacency(array, i, j) {
   }
 
   //check to the right
-  if (j < tilePlaced && array[i][j + 1] === tilePlaced) {
+  if (j < 5 && array[i][j + 1] === tilePlaced) {
     array[i][j] = 1;
   }
 
@@ -50,6 +50,7 @@ export function checkAdjacency(array, i, j) {
 export function placeFirstTile(array, i, j) {
   array[i][j] = tilePlaced;
   checkNotZero(array);
+
   return array;
 }
 
@@ -57,7 +58,6 @@ export function placeTile(array, i, j) {
   if (array[i][j] !== 0) {
     array[i][j] = tilePlaced;
     checkNotZero(array);
-    // console.log(array);
     return array;
   } else {
     alert("You cannot legally place a tile here.");

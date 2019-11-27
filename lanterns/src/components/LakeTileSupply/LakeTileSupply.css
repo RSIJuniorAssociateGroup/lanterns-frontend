@@ -3,8 +3,8 @@
     margin-bottom: 5px;
     margin-left: auto;
     margin-right: auto;
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
     padding-bottom: 18px;
     display: flex;
     align-items: center;
@@ -12,12 +12,16 @@
 
 .supplyContainer img {
     align-self: center;
+    width: 125px;
 }
 
 .pileCounterStyle {
     display: block;
     text-align: center;
     margin: auto;
-    margin-top: -28%;
+    margin-top: -32%;
     margin-right: 10%;
+    font-size: 1.5rem;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+
 }
